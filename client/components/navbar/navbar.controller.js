@@ -3,8 +3,8 @@
 angular.module('amonalieApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
+      link: '/',
+      icon: 'fa-home'
     }];
 
     $scope.isCollapsed = true;

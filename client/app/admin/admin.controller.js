@@ -14,4 +14,8 @@ angular.module('amonalieApp')
         }
       });
     };
+
+    $scope.isme = function(user) {
+      return user._id == Auth.getCurrentUser()._id;
+    };
   });

@@ -2,7 +2,7 @@
 
 angular.module('amonalieApp')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
+    $scope.user = { email:'test@test.com', password:'test'};
     $scope.errors = {};
 
     $scope.login = function(form) {

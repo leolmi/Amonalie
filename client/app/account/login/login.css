@@ -1,1 +1,29 @@
+.login-container {
+  /*margin: 0 0 0 5px;*/
+  overflow: hidden;
+}
+.login-title {
+  margin-top: 20px;
+  color: darkorange;
+  padding: 12px 24px;
+  font-size: 55px;
+  text-transform: uppercase;
+}
+.login-title > img {
+  margin-top: -10px;
+}
+
+.login-band {
+  background-color: darkorange;
+  padding: 14px;
+  border: #333 1px solid;
+  border-radius: 6px;
+}
+.login-footer {
+  padding-top: 20px;
+  color: #ddd;
+}
+.login-form {
+  padding: 0 12px;
+}
 

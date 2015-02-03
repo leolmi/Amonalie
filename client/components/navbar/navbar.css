@@ -1,0 +1,13 @@
+.navbar-default {
+  background-color: darkorange;
+  border-color: #BB6622;
+}
+.navbar-default .navbar-text {
+  color: #222;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #222;
+}
+.navbar-brand > img {
+  margin-top: -6px;
+}
