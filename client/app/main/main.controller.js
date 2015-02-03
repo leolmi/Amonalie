@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('MainCtrl', ['$scope', '$http', 'socket', '$interval', 'uiGridConstants', function ($scope, $http, socket, $interval, uiGridConstants) {
+  .controller('MainCtrl', ['$scope', '$http', 'socket', function ($scope, $http, socket) {
 
     $scope.columns = [
       {title:'#', name:'n'},
