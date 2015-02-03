@@ -28,17 +28,24 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+
+  var clpath = path.join(config.root, 'client');
+
   if ('production' === env) {
-    app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
-    app.use(express.static(path.join(config.root, 'public')));
-    app.set('appPath', config.root + '/public');
+    //app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
+    //app.use(express.static(path.join(config.root, 'public')));
+    //app.set('appPath', config.root + '/public');
+
+    app.use(favicon(path.join(clpath, 'favicon.ico')));
+    app.use(express.static(clpath));
+    app.set('appPath', clpath);
     app.use(morgan('dev'));
   }
 
   if ('development' === env || 'test' === env) {
     app.use(require('connect-livereload')());
     app.use(express.static(path.join(config.root, '.tmp')));
-    app.use(express.static(path.join(config.root, 'client')));
+    app.use(express.static(clpath));
     app.set('appPath', 'client');
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
