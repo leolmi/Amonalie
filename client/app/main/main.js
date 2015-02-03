@@ -5,6 +5,7 @@ angular.module('amonalieApp')
     $routeProvider
       .when('/', {
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        authenticate: true
       });
   });
