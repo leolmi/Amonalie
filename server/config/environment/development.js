@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/amonalie-dev'
   },
 
-  seedDB: true
+  actionDB: 'test'
 };

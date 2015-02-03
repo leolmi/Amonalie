@@ -7,6 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <span class="version">v.{{version}}</span>
       <a href="/" class="navbar-brand"><img src="assets/images/logo-32.png"></a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
@@ -14,9 +15,7 @@
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
             <a ng-href="{{item.link}}"><i class="fa fa-lg" ng-class="item.icon"></i> {{item.title}}</a>
         </li>
-
       </ul>
-
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -26,10 +25,10 @@
             <li><p class="navbar-text"><strong>{{ getCurrentUser().name }}</strong></p></li>
             <li ng-class="{active: isActive('/settings')}"><a href="/settings"><i class="fa fa-gear fa-fw"></i> Impostazioni</a></li>
             <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin"><i class="fa fa-users fa-fw"></i> Utenti</a></li>
+            <li><a href="https://github.com/leolmi/amonalie/issues?state=open"><i class="fa fa-github fa-fw"></i> Segnala problemi</a></li>
             <li class="divider"></li>
             <li><a class="aslink" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Esci</a></li>
           </ul>
-
         </li>
       </ul>
     </div>

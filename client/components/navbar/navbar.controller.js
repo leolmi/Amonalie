@@ -6,7 +6,7 @@ angular.module('amonalieApp')
       link: '/',
       icon: 'fa-home'
     }];
-
+    $scope.version = '1.0.0';
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
@@ -20,4 +20,6 @@ angular.module('amonalieApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+
   });

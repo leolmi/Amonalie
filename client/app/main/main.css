@@ -28,3 +28,33 @@
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
 }
+
+/*.grid {*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+/*}*/
+
+.table {
+  background-color: #333;
+  border-radius: 12px;
+  border: #333 3px solid;
+}
+
+.table > tbody > tr:hover {
+  background-color: darkorange;
+  color: #222;
+  cursor: pointer;
+}
+.table > thead > tr {
+  background-color: yellowgreen;
+  color: #222;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-color: #444;
+}
