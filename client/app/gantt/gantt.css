@@ -1,0 +1,26 @@
+.gantt-title {
+  text-align: center;
+  position: relative;
+  margin-top: -20px;
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+}
+.gantt-title-content {
+  display: inline-block;
+  text-transform: capitalize;
+  width: 140px;
+}
+.gantt-navigator {
+  display: inline-block;
+  top: -20px;
+  font-size: 28px;
+  margin: 0 15px;
+  cursor: pointer;
+  opacity: .4;
+}
+
+.gantt-navigator:hover {
+  opacity: 1;
+}

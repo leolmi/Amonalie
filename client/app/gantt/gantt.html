@@ -1,0 +1,26 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="gantt-title">
+  <span class="gantt-navigator glyphicon glyphicon-chevron-left" ng-click="moveDate(false)"></span>
+  <div class="gantt-title-content">
+    <h2>{{getMonth()}}</h2>
+    <p>{{getYear()}}</p>
+  </div>
+  <span class="gantt-navigator glyphicon glyphicon-chevron-right" ng-click="moveDate(true)"></span>
+</div>
+<div class="gantt-container">
+  <table class="table table-condensed table-users">
+    <thead>
+      <tr>
+        <th>Chi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="u in context.users" ng-class-odd="'row-odd'" ng-class-even="'row-even'">
+        <th>{{u}}</th>
+      </tr>
+    </tbody>
+  </table>
+  <gantt></gantt>
+</div>
+<br>
+<pre>{{context}}</pre>

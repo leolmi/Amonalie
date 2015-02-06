@@ -1,28 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-
-<!--<header class="hero-unit" id="banner">-->
-  <!--<div class="container">-->
-    <!--<h1>Amonalie</h1>-->
-    <!--<p class="lead">Sticazzi ciccio a bbestia</p>-->
-    <!--<img src="assets/images/logo.png" alt="I'm Yeoman">-->
-  <!--</div>-->
-<!--</header>-->
-
-<div class="container">
-  <table class="table table-condensed">
-    <caption>Segnalazioni <strong>@assistant</strong> - ultimo aggiornamento: 20/01/2015.</caption>
-    <thead>
-      <tr>
-        <th ng-repeat="c in columns">{{c.title}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="r in rows">
-        <th ng-repeat="c in columns">{{r[c.name]}}</th>
-      </tr>
-    </tbody>
-  </table>
-
-  <!--<div ui-grid="gridOptions" class="grid"></div>-->
+<div class="row">
+  <div class="col-sm-3 tasks-container">
+    <tasks-container ng-model="undefinedTasks" amonalies="amonalies"></tasks-container>
+  </div>
+  <div class="col-sm-3 tasks-container">
+    <tasks-container ng-model="todoTasks" amonalies="amonalies"></tasks-container>
+  </div>
+  <div class="col-sm-3 tasks-container">
+    <tasks-container ng-model="doingTasks" amonalies="amonalies"></tasks-container>
+  </div>
+  <div class="col-sm-3 tasks-container">
+    <tasks-container ng-model="closedTasks" amonalies="amonalies"></tasks-container>
+  </div>
 </div>
-

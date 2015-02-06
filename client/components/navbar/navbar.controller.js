@@ -5,6 +5,9 @@ angular.module('amonalieApp')
     $scope.menu = [{
       link: '/',
       icon: 'fa-home'
+    },{
+      link: '/gantt',
+      icon: 'fa-calendar'
     }];
     $scope.version = '1.0.0';
     $scope.isCollapsed = true;

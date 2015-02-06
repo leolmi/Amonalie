@@ -1,0 +1,19 @@
+task {
+  border: #888 1px solid;
+  border-radius: 6px;
+  padding: 12px;
+  background-color: #ddd;
+  color:#222;
+  margin: 4px 0;
+  position: relative;
+  display: block;
+}
+
+task:hover {
+  background-color: wheat;
+}
+
+.task-users {
+  right: 8px;
+  position: absolute;
+}

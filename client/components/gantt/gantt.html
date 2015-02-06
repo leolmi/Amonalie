@@ -1,0 +1,6 @@
+<div class="gantt-scrollable-container">
+  <canvas id="gantt-canvas" width="600" height="200"></canvas>
+  <div class="task-element" ng-repeat="t in tasks" ng-class="'btn-'+t.style" ng-style="getTaskStyle(t)" title="{{t.a.app}}" ng-click="openTask(t)">{{t.a.code}}</div>
+</div>
+
+

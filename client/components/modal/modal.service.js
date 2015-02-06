@@ -49,17 +49,17 @@ angular.module('amonalieApp')
             deleteModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                title: 'Conferma Eliminazione',
+                html: '<p>Sei SICURISSIMO di eliminare <strong>' + name + '</strong> ?</p>',
                 buttons: [{
                   classes: 'btn-danger',
-                  text: 'Delete',
+                  text: 'Elimina',
                   click: function(e) {
                     deleteModal.close(e);
                   }
                 }, {
                   classes: 'btn-default',
-                  text: 'Cancel',
+                  text: 'Annulla',
                   click: function(e) {
                     deleteModal.dismiss(e);
                   }
@@ -71,6 +71,34 @@ angular.module('amonalieApp')
               del.apply(event, args);
             });
           };
+        },
+
+        show: function() {
+          return function () {
+            var args = Array.prototype.slice.call(arguments),
+              showModal;
+
+            showModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Amonalia n°' + args[0].a.code,
+                desc: args[0].a.app + ': ' + args[0].a.desc,
+                a: args[0].a,
+                template: 'components/gantt/gantt-detail.html',
+                buttons: [{
+                  classes: 'btn-primary',
+                  text: 'OK',
+                  click: function (e) {
+                    showModal.dismiss(e);
+                  }
+                }],
+                getDate: function(n) {
+                  var d = new Date(n);
+                  return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
+                }
+              }
+            }, 'modal-standard');
+          }
         }
       }
     };

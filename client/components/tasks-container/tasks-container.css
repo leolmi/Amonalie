@@ -1,0 +1,12 @@
+.tasks-container {
+
+}
+.tasks-title {
+  border-width: 1px;
+  border-style: solid;
+  padding: 4px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  text-align: center;
+  text-transform: uppercase;
+}

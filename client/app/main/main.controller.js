@@ -1,61 +1,15 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('MainCtrl', ['$scope', '$http', 'socket', function ($scope, $http, socket) {
+  .controller('MainCtrl', ['$scope', '$http', 'socket', 'Amonalies', function ($scope, $http, socket, Amonalies) {
+    $scope.undefinedTasks = { title:'Anomalie', filter:undefined, style:'primary' };
+    $scope.todoTasks = { title:'Da fare', filter:'dafare', style:'danger' };
+    $scope.doingTasks = { title:'Fando', filter:'fando', style:'warning' };
+    $scope.closedTasks = { title:'Fatte', filter:'fatto', style:'success' };
 
-    $scope.columns = [
-      {title:'#', name:'n'},
-      {title:'Name', name:'name'},
-      {title:'Value', name:'value'},
-      {title:'Code', name:'code'}
-    ];
-    $scope.rows = [
-      {n:'1', name:'uno',value:'due',code:'tre' },
-      {n:'2', name:'asdf',value:'12',code:'rt' },
-      {n:'3', name:'sfg',value:'346',code:'dhfgd' },
-      {n:'4', name:'fg',value:'15',code:'tradge' },
-      {n:'5', name:'fgjfghj',value:'125',code:'agdgafdgafdg' }
-    ];
-
-
-
-    //$scope.gridOptions = {
-    //  enableFiltering: true,
-    //  useExternalFiltering: true,
-    //  columnDefs: [
-    //    { name: 'name', enableFiltering: false },
-    //    { name: 'gender' },
-    //    { name: 'company', enableFiltering: false}
-    //  ],
-    //  onRegisterApi: function( gridApi ) {
-    //    $scope.gridApi = gridApi;
-    //    $scope.gridApi.core.on.filterChanged( $scope, function() {
-    //      var grid = this.grid;
-    //      if( grid.columns[1].filters[0].term === 'male' ) {
-    //        $http.get('/data/100_male.json')
-    //          .success(function(data) {
-    //            $scope.gridOptions.data = data;
-    //          });
-    //      } else if ( grid.columns[1].filters[0].term === 'female' ) {
-    //        $http.get('/data/100_female.json')
-    //          .success(function(data) {
-    //            $scope.gridOptions.data = data;
-    //          });
-    //      } else {
-    //        $http.get('/data/100.json')
-    //          .success(function(data) {
-    //            $scope.gridOptions.data = data;
-    //          });
-    //      }
-    //    });
-    //  }
-    //};
-
-    //$http.get('/data/100.json')
-    //  .success(function(data) {
-    //    $scope.gridOptions.data = data;
-    //  });
-
+    Amonalies.get(function(amonalies) {
+      $scope.amonalies = amonalies;
+    });
 
     //$scope.awesomeThings = [];
     //

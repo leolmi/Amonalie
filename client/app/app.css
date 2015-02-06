@@ -28,6 +28,10 @@ body {
   color: #ddd;
 }
 
+.modal {
+  color: #111;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;

@@ -6,7 +6,8 @@ angular.module('amonalieApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'toastr'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

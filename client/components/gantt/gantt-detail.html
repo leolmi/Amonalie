@@ -1,0 +1,17 @@
+<div>
+  <p>Codice: <strong>{{modal.a.code}}</strong></p>
+  <p>App: <strong>{{modal.a.app}}</strong></p>
+  <hr>
+  <p>{{modal.a.desc}}</p>
+  <p ng-show=" modal.a.state">Stato: <strong>{{modal.a.state}}</strong></p>
+  <p ng-hide=" modal.a.state">Stato: <small>non definito</small></p>
+  <hr>
+  <p ng-repeat="p in modal.a.params"><strong>{{p.name}}</strong>: {{p.value}}</p>
+  <div ng-repeat="task in modal.a.tasks" class="detal-task btn-warning">
+    <p><strong>{{task.owner}}</strong></p>
+    <p><strong>Inizio</strong>: {{task.start ? modal.getDate(task.start) : 'non definita'}}</p>
+    <p><strong>Fine</strong>: {{task.end ? modal.getDate(task.end) : 'non definita'}}</p>
+    <p ng-show="task.work">Fatta su: <strong>{{task.work}}</strong></p>
+    <pre ng-show="task.notes">{{task.notes}}</pre>
+  </div>
+</div>
