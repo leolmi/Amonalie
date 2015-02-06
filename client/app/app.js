@@ -46,6 +46,7 @@ angular.module('amonalieApp', [
   })
 
   .run(function ($rootScope, $location, Auth) {
+    $rootScope.gantt_date = new Date();
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {

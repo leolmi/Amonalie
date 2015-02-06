@@ -4,10 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('GanttCtrl', ['$scope', '$http', '$timeout', 'drawing', 'Gantt', 'Amonalies', function ($scope, $http, $timeout, drawing, Gantt, Amonalies) {
-
-    $scope.date = new Date();
-
+  .controller('GanttCtrl', ['$scope', '$rootScope', '$http', '$timeout', 'drawing', 'Gantt', 'Amonalies', function ($scope, $rootScope, $http, $timeout, drawing, Gantt, Amonalies) {
     Amonalies.get(function(amonalies) {
       $scope.amonalies = amonalies;
     });
@@ -33,7 +30,7 @@ angular.module('amonalieApp')
     var calcTasks = function(amonalies, ctx) {
       var ts = [];
       var us = [];
-      var start_d = new Date(ctx.date.getFullYear()+'-'+(ctx.date.getMonth()+1)+'-1');
+      var start_d = new Date($rootScope.gantt_date.getFullYear()+'-'+($rootScope.gantt_date.getMonth()+1)+'-1');
       var start = start_d.getTime();
       start_d.setMonth(start_d.getMonth()+1);
       var end = start_d.getTime();
@@ -81,7 +78,6 @@ angular.module('amonalieApp')
     var refresh = function() {
       var ctx = {};
       Amonalies.get(function(amonalies){
-        ctx.date = $scope.date;
         calcTasks(amonalies, ctx);
         calcHeight(ctx);
         $scope.moving = undefined;
@@ -94,17 +90,17 @@ angular.module('amonalieApp')
     };
 
     $scope.getMonth = function() {
-      return drawing.getMonth($scope.date.getMonth());
+      return drawing.getMonth($rootScope.gantt_date.getMonth());
     };
     $scope.getYear = function() {
-      return $scope.date.getFullYear();
+      return $rootScope.gantt_date.getFullYear();
     };
     $scope.moveDate = function(up) {
       if ($scope.moving)
         $scope.moving.cancel();
       $scope.loading = true;
       var delta = up ? 1 : -1;
-      $scope.date.setMonth($scope.date.getMonth() + delta);
+      $rootScope.gantt_date.setMonth($rootScope.gantt_date.getMonth() + delta);
       refresh();
     };
 

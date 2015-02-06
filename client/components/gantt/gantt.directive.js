@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('gantt', ['$location','$timeout','$window','drawing','Gantt','Logger', function ($location, $timeout, $window, drawing, Gantt, Logger) {
+  .directive('gantt', ['$rootScope','$location','$timeout','$window','drawing','Gantt','Logger', function ($rootScope, $location, $timeout, $window, drawing, Gantt, Logger) {
 
     function drawHeader(ctx, info) {
       drawing.fillRect(ctx, {x:0,y:0}, {w:info.w, h:Gantt.constants.header_height}, Gantt.constants.header_color);
@@ -47,8 +47,8 @@ angular.module('amonalieApp')
 
         var resizeRedraw = function() {
           if (!scope.context) return;
-          var date_month = scope.context.date.getMonth();
-          var date_year = scope.context.date.getYear();
+          var date_month = $rootScope.gantt_date.getMonth();
+          var date_year = $rootScope.gantt_date.getYear();
           var eff_H = scope.context.height-2;
           var days = drawing.getDaysInMonth(date_month+1, date_year);
           var min_W = Gantt.constants.item_min_width * days;
