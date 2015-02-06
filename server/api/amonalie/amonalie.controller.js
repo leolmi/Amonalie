@@ -17,9 +17,18 @@ exports.update = function(req, res) {
   return u.update(Amonalie, req, res);
 };
 
-// gerstisce le amonalie.
+// gestisce le amonalie.
 exports.manage = function(req, res) {
   //TODO: sposta nello storico
   //TODO: elimina
   return u.notfound(res);
+};
+
+// scarica le anomalie da assistant
+exports.milk = function(req, res) {
+
+
+
+
+
 };

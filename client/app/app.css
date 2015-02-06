@@ -31,7 +31,11 @@ body {
 .modal {
   color: #111;
 }
-
+.modal-header {
+  background-color: darkorange;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
