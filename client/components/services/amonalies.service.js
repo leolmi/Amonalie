@@ -51,11 +51,28 @@ angular.module('amonalieApp')
           cb(amonalies);
         })
         .error(function(err){
-          Logger.error('Errori nel caricamento delle amonalie', JSON.stringify(err));
+          Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
         });
     }
 
+    var milk = function() {
+      var options = {
+        user: 'testuser',
+        password: 'testpsw'
+      };
+      $http.post('/api/amonalie/assistant', options)
+        .success(function(result){
+          Logger.ok(JSON.stringify(result), 'Ricevuto');
+        })
+        .error(function(err){
+          Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
+        });
+
+
+    };
+
     return {
-      get: getAmonalies
+      get: getAmonalies,
+      milk:milk
     }
   }]);

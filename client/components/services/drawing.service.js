@@ -5,6 +5,19 @@
 
 angular.module('amonalieApp')
   .factory('drawing', [function() {
+    var colors = function(name) {
+      var line_c = '#285e8e';
+      var background_c = '#3276b1';
+      var text_c = '#fff';
+
+      switch(name) {
+        case('primary'): line_c='#285e8e'; background_c='#3276b1'; text_c='#fff'; break;
+        case('success'): line_c='#398439'; background_c='#47a447'; text_c='#fff'; break;
+        case('warning'): line_c='#d58512'; background_c='#ed9c28'; text_c='#fff'; break;
+        case('danger'): line_c='#ac2925'; background_c='#d2322d'; text_c='#fff'; break;
+      }
+      return { line:line_c, background:background_c,text:text_c };
+    };
 
     var drawLine = function(ctx, p1, p2, color, width) {
       color = color ? color : 'black';
@@ -31,7 +44,19 @@ angular.module('amonalieApp')
       }
       ctx.stroke();
     };
-
+    var drawLineRect = function(ctx, p, size, color, width){
+      color = color ? color : 'black';
+      width = width ? width : 1;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x+size.w, p.y);
+      ctx.lineTo(p.x+size.w, p.y+size.h);
+      ctx.lineTo(p.x, p.y+size.h);
+      ctx.lineTo(p.x, p.y);
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    }
     var fillRect = function(ctx, p, size, color) {
       ctx.beginPath();
       ctx.fillStyle = color;
@@ -63,10 +88,12 @@ angular.module('amonalieApp')
     };
 
     return {
+      colors: colors,
       getMonth: getMonth,
       getDaysInMonth: getDaysInMonth,
       drawLine: drawLine,
       drawRect: drawRect,
+      drawLineRect:drawLineRect,
       drawText: drawText,
       fillRect: fillRect
     }

@@ -4,6 +4,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
+var UserAssistantSchema = new Schema({
+  user: String,
+  password: String
+})
+
 var UserSchema = new Schema({
   name: String,
   email: { type: String, lowercase: true },
@@ -13,7 +18,8 @@ var UserSchema = new Schema({
   },
   hashedPassword: String,
   provider: String,
-  salt: String
+  salt: String,
+  assistant: [UserAssistantSchema]
 });
 
 /**

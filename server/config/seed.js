@@ -92,19 +92,31 @@ User.find({}).remove(function() {
       role: 'admin',
       name: 'leo',
       email: 'leo.olmi@gmail.com',
-      password: 'amonalie'
+      password: 'amonalie',
+      assistant: {
+        user: 'olmi',
+        password: 'olmi'
+      }
     },{
       provider: 'local',
       role: 'admin',
       name: 'yuri',
       email: 'yuboski@gmail.com',
-      password: 'amonalie'
+      password: 'amonalie',
+      assistant: {
+        user: 'boschi',
+        password: 'boschi'
+      }
     },{
       provider: 'local',
       role: 'admin',
       name: 'oga',
       email: 'carlo.indolfi@gmail.com',
-      password: 'amonalie'
+      password: 'amonalie',
+      assistant: {
+        user: 'indolfi',
+        password: 'indolfi'
+      }
     }, function() {
       console.log('finished populating users');
     }
