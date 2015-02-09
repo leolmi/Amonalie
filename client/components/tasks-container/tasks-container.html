@@ -1,5 +1,5 @@
-<div class="tasks-title" ng-class="'btn-'+tasks.style">
-  {{tasks.title}}
+<div class="tasks-title" ng-class="{'notab':showtitle, 'btn-danger':tasks.style=='danger', 'btn-warning':tasks.style=='warning', 'btn-primary':tasks.style=='primary', 'btn-success':tasks.style=='success'}">
+  {{showtitle ? tasks.title : ''}}
   <div class="input-group input-group-sm">
     <input type="text" class="form-control" placeholder="cerca..." aria-describedby="..." ng-model="searchtext">
     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>

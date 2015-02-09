@@ -4,13 +4,12 @@
 'use strict';
 
 angular.module('amonalieApp')
-    .directive('tasksContainer', ['$location', function ($location) {
+    .directive('tasksContainer', [function () {
         return {
             restrict: 'E',
-            scope: {tasks: '=ngModel', amonalies:'='},
+            scope: {tasks: '=ngModel', amonalies:'=', showtitle:'='},
             templateUrl: 'components/tasks-container/tasks-container.html',
             link: function (scope, elm, atr) {
-                //directive code
             }
         }
     }]);

@@ -59,3 +59,45 @@
   border-color: #444;
 }
 
+
+/*case('primary'): line_c='#285e8e'; background_c='#3276b1'; text_c='#fff'; break;*/
+/*case('success'): line_c='#398439'; background_c='#47a447'; text_c='#fff'; break;*/
+/*case('warning'): line_c='#d58512'; background_c='#ed9c28'; text_c='#fff'; break;*/
+/*case('danger'): line_c='#ac2925'; background_c='#d2322d'; text_c='#fff'; break;*/
+.nav-tasks {
+  text-transform: uppercase;
+  font-size: smaller;
+}
+
+.nav-tasks > li.active > a.primary {
+  color:#fff;
+  background-color: #3276b1;
+  /*border-color: #285e8e;*/
+}
+.nav-tasks > li.active > a.success {
+  color:#fff;
+  background-color: #47a447;
+  /*border-color: #398439;*/
+}
+.nav-tasks > li.active > a.warning {
+  color:#fff;
+  background-color: #ed9c28;
+  /*border-color: #d58512;*/
+}
+.nav-tasks > li.active > a.danger {
+  color:#fff;
+  background-color: #d2322d;
+  /*border-color: #ac2925;*/
+}
+
+.row-tasks {
+  margin: 0;
+}
+
+.row-tasks > .col-sm-3 {
+  padding: 0;
+}
+
+.row-tasks > .col-sm-3.notab {
+  padding: 0 10px;
+}

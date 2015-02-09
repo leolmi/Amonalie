@@ -1,15 +1,12 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<div class="row">
-  <div class="col-sm-3 tasks-container">
-    <tasks-container ng-model="undefinedTasks" amonalies="amonalies"></tasks-container>
-  </div>
-  <div class="col-sm-3 tasks-container">
-    <tasks-container ng-model="todoTasks" amonalies="amonalies"></tasks-container>
-  </div>
-  <div class="col-sm-3 tasks-container">
-    <tasks-container ng-model="doingTasks" amonalies="amonalies"></tasks-container>
-  </div>
-  <div class="col-sm-3 tasks-container">
-    <tasks-container ng-model="closedTasks" amonalies="amonalies"></tasks-container>
+
+<div class="row row-tasks">
+  <ul class="nav nav-tabs nav-tasks" ng-hide="large">
+    <li ng-repeat="tasks in taskGroups" role="presentation" ng-class="{active:activetab==tasks.title}">
+      <a href class="aslink" ng-class="tasks.style" ng-click="selectTab(tasks.title)">{{tasks.title}}</a>
+    </li>
+  </ul>
+  <div ng-repeat="tasks in taskGroups" class="col-sm-3 tasks-container" ng-class="{notab:large}" ng-show="large || activetab==tasks.title">
+    <tasks-container ng-model="tasks" amonalies="amonalies" showtitle="large"></tasks-container>
   </div>
 </div>
