@@ -5,9 +5,12 @@ angular.module('amonalieApp')
     $scope.menu = [{
       link: '/',
       icon: 'fa-home'
-    }, {
+    },{
       link: '/gantt',
       icon: 'fa-calendar'
+    },{
+      link: '/targets',
+      icon: 'fa-tachometer'
     },{
       action: Amonalies.milk,
       icon: 'fa-cloud-download'

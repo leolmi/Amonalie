@@ -81,6 +81,11 @@ angular.module('amonalieApp')
         });
     };
 
+    var deleteTarget = function(target) {
+      alert('Elimina il target!!');
+      //TODO: eliminazione del target
+    };
+
     var milk = function() {
       var options = {
         user: 'testuser',
@@ -99,6 +104,7 @@ angular.module('amonalieApp')
 
     return {
       useTargets:getTargets,
+      deleteTarget:deleteTarget,
       get: getAmonalies,
       milk:milk
     }

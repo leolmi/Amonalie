@@ -1,0 +1,32 @@
+target {
+  color: #fff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  margin: 4px 0;
+  position: relative;
+  display: block;
+  opacity: .9;
+}
+target:hover {
+  opacity: 1;
+}
+
+.target > h1 {
+  margin: 4px 0;
+}
+
+.target .close {
+  margin-top: -6px;
+}
+
+.target .progress {
+  margin-bottom: 0;
+}
+
+.target-detail {
+  margin-top: 10px;
+}

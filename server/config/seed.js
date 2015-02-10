@@ -16,7 +16,7 @@ Target.find({}).remove(function() {
     name: 'Obiettivo di test',
     info: 'Test per vedere se funziona',
     active: true,
-    end_date: d.getTime()
+    date: d.getTime()
   },function() {
     console.log('finished populating things');
   });
