@@ -4,7 +4,7 @@ angular.module('amonalieApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth, Amonalies) {
     $scope.menu = [{
       link: '/',
-      icon: 'fa-home'
+      icon: 'fa-trello'
     },{
       link: '/gantt',
       icon: 'fa-calendar'

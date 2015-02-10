@@ -33,7 +33,7 @@ angular.module('amonalieApp')
 
     $scope.selectTab = function(name) {
       $scope.activetab = name;
-      $scope.$apply();
+      //$scope.$apply();
     };
 
     //$scope.awesomeThings = [];

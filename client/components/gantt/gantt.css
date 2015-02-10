@@ -137,3 +137,11 @@ gantt {
 .detal-task:hover {
   color: #222;
 }
+
+.modal-detail p {
+  margin: 0;
+}
+.modal-footer {
+  padding: 10px 20px;
+  margin-top: 0;
+}

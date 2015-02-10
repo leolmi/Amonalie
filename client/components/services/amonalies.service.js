@@ -5,45 +5,6 @@
 
 angular.module('amonalieApp')
   .factory('Amonalies', ['$http','Logger', function($http,Logger) {
-    //var getAmonalies = function() {
-    //  return [
-    //    {
-    //      code:'263514',
-    //      app:'DataPainter',
-    //      desc:'asdfaf sdf asdfasdfasdfs',
-    //      state: 'fando',
-    //      tasks: [
-    //        {owner:'leo', start:3231546, end:0, work:''}],
-    //      params: [
-    //        {name:'priority',value:'3'},
-    //        {name:'stima',value:'6'},
-    //        {name:'ref. tech',value:'zanella'}]
-    //    },{
-    //      code:'263115',
-    //      app:'WikiReports',
-    //      desc:'asdfaf sdf asdfasdfasdfs',
-    //      state: 'dafare',
-    //      tasks: [
-    //        {owner:'yuri', start:0, end:0, work:''}
-    //      ],
-    //      params: [
-    //        {name:'priority',value:'3'},
-    //        {name:'stima',value:'6'},
-    //        {name:'ref. tech',value:'zanella'}]
-    //    },{
-    //      code:'262555',
-    //      app:'QueryBuilder',
-    //      desc:'asdfaf sdf asdfasdfasdfs',
-    //      state: undefined,
-    //      tasks: [],
-    //      params: [
-    //        {name:'priority',value:'3'},
-    //        {name:'stima',value:'6'},
-    //        {name:'ref. tech',value:'zanella'}]
-    //    }
-    //  ];
-    //};
-
     var getAmonalies = function(cb) {
       cb = cb || angular.noop;
       $http.get('/api/amonalie')
@@ -62,8 +23,8 @@ angular.module('amonalieApp')
                   }
                 });
             });
+            cb(amonalies, targets);
           });
-          cb(amonalies);
         })
         .error(function(err){
           Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
@@ -81,9 +42,16 @@ angular.module('amonalieApp')
         });
     };
 
-    var deleteTarget = function(target) {
-      alert('Elimina il target!!');
-      //TODO: eliminazione del target
+    var deleteTarget = function(target, cb) {
+      cb = cb || angular.noop;
+      $http.delete('/api/targets/' + target._id)
+        .success(function(){
+          Logger.ok(target.name+' eliminato correttamente.');
+          cb();
+        })
+        .error(function(err){
+          Logger.error(JSON.stringify(err), 'Errori durante l\'eliminazione del target');
+        });
     };
 
     var milk = function() {
@@ -98,8 +66,6 @@ angular.module('amonalieApp')
         .error(function(err){
           Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
         });
-
-
     };
 
     return {

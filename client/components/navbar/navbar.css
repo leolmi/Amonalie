@@ -1,20 +1,32 @@
 .navbar-default {
-  background-color: darkorange;
-  border-color: #BB6622;
+  background-color: #333; /*darkorange;*/
+  border-color: #111; /* #BB6622;*/
 }
 .navbar-default .navbar-text {
-  color: #222;
+  color: darkorange; /*#222;*/
 }
 .navbar-default .navbar-nav > li > a {
-  color: #222;
+  color: #aaa; /*#222;*/
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: darkorange; /*#222;*/
+}
+.navbar-default .navbar-brand:hover {
+  color: darkorange;
 }
 .navbar-brand > img {
   margin-top: -6px;
 }
-.navbar-header .version {
-  color: #222;
-  font-size: 10px;
-  top: 30px;
-  left: -15px;
-  position: relative;
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: 15px;
+  }
+}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: darkorange;
+  }
 }
