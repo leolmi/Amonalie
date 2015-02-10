@@ -29,6 +29,8 @@ var all = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
+  assistant_url: process.env.ASSISTANT_BASE_URL,
+
   // MongoDB connection options
   mongo: {
     options: {

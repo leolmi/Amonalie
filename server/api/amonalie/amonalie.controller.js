@@ -26,7 +26,9 @@ exports.manage = function(req, res) {
 };
 
 
+
 var https = require('https');
+var config = require('../../config/environment');
 
 // scarica le anomalie da assistant
 exports.milk = function(req, res) {
@@ -43,17 +45,20 @@ exports.milk = function(req, res) {
   //https://www.onlineassistant-webtool.com/login/index.cfm
 
   var options = {
-    hostname: 'www.onlineassistant-webtool.com',
+    hostname: config.assistant_url,
     port: 443,
     path: '/login/index.cfm',
     method: 'GET'
   };
 
+  //1.4 - accede al sito
   var req = https.request(options, function(res) {
     console.log("statusCode: ", res.statusCode);
     console.log("headers: ", res.headers);
 
-
+    //2.4 - effettua l'accesso
+    //3.4 - accede all'area SID
+    //4.4 - scarica il file html
 
   });
 
