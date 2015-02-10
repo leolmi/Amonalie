@@ -11,7 +11,8 @@ var TaskSchema = new Schema({
   start:Number,
   end:Number,
   work:String,
-  notes:String
+  notes:String,
+  target:String
 });
 
 var ParamSchema = new Schema({

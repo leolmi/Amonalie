@@ -4,21 +4,21 @@
 
 'use strict';
 
-var thing = require('./thing.model');
+var target = require('./target.model');
 
 exports.register = function(socket) {
-  thing.schema.post('save', function (doc) {
+  target.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  thing.schema.post('remove', function (doc) {
+  target.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }
 
 function onSave(socket, doc, cb) {
-  socket.emit('thing:save', doc);
+  socket.emit('target:save', doc);
 }
 
 function onRemove(socket, doc, cb) {
-  socket.emit('thing:remove', doc);
+  socket.emit('target:remove', doc);
 }

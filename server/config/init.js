@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
+var Target = require('../api/target/target.model');
 var User = require('../api/user/user.model');
 
 User.find({}).remove(function() {
@@ -30,6 +30,6 @@ User.find({}).remove(function() {
   });
 });
 
-Thing.find({}).remove(function() {
-  console.log('Terminato di brasare le cose.');
+Target.find({}).remove(function() {
+  console.log('Terminato di brasare i terget.');
 });

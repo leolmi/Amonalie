@@ -48,12 +48,38 @@ angular.module('amonalieApp')
       cb = cb || angular.noop;
       $http.get('/api/amonalie')
         .success(function(amonalies){
+          //inserisce le info sui targets
+          getTargets(function(targets) {
+            amonalies.forEach(function (a) {
+              if (a.tasks.length)
+                a.tasks.forEach(function (t) {
+                  if (t.target) {
+                    var result = $.grep(targets, function (target) {
+                      return (target._id == t.target);
+                    });
+                    if (result.length)
+                      t.target_info = result[0];
+                  }
+                });
+            });
+          });
           cb(amonalies);
         })
         .error(function(err){
           Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
         });
-    }
+    };
+
+    var getTargets = function(cb) {
+      cb = cb || angular.noop;
+      $http.get('/api/targets')
+        .success(function(targets){
+          cb(targets);
+        })
+        .error(function(err){
+          Logger.error(JSON.stringify(err), 'Errori nel caricamento dei targets');
+        });
+    };
 
     var milk = function() {
       var options = {
@@ -72,6 +98,7 @@ angular.module('amonalieApp')
     };
 
     return {
+      useTargets:getTargets,
       get: getAmonalies,
       milk:milk
     }
