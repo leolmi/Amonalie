@@ -44,6 +44,8 @@ angular.module('amonalieApp')
 
         $timeout(function() {
           scope.$broadcast("TARGET_REFRESH", scope.info);
+          elm.css('background-color', scope.info.i_color.background);
+          elm.css('border-color', scope.info.i_color.line);
         });
 
         var modalDelete = Modal.confirm.delete(function(target) {

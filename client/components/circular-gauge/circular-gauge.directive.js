@@ -8,7 +8,7 @@ angular.module('amonalieApp')
     var redraw = function(ctx, info) {
       var c = { x:info.w/2-5, y:info.h/2-5 };
       var r = Math.min(info.w/2-20, info.h/2-20);
-      drawing.drawCircle(ctx, c, r+info.i_size/1, info.i_color.background, 1, info.i_color.line);
+      drawing.drawCircle(ctx, c, r+info.i_size/1, info.i_color.line, 1, info.i_color.line);
       drawing.drawCircle(ctx, c, r, info.i_color.background,1,info.i_color.line);
       var value = info.value || 43;
       var vA = ((value/100.0)*2.0)-0.5;
