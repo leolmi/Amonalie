@@ -1,0 +1,9 @@
+.gauge-value {
+  position: absolute;
+  top: 25px;
+  font-size: 26px;
+  font-family: 'calibri';
+  color: #222;
+  text-align: center;
+  width: 92%;
+}

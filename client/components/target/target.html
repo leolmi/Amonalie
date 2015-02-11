@@ -3,8 +3,9 @@
   <h1>{{target.name}}</h1>
   <p>({{target.info}})</p>
   <p>scadenza:{{getDate()}}</p>
-  <progressbar class="progress-striped active aslink" value="dynamic" type="{{type}}" ng-click="toggle()">{{dynamic}}%</progressbar>
+  <!--<progressbar class="progress-striped active aslink" value="dynamic" type="{{type}}" ng-click="toggle()">{{dynamic}}%</progressbar>-->
   <div class="target-detail" collapse="isCollapsed">
     <p>Dettagli del target: anomalie da fare, fando e fatte</p>
   </div>
+  <circular-gauge ng-model="info"></circular-gauge>
 </div>

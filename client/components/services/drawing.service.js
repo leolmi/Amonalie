@@ -72,6 +72,51 @@ angular.module('amonalieApp')
       ctx.stroke();
     };
 
+    /**
+     * Disegna un cerchio
+     * @param ctx (contesto)
+     * @param c (coordinate del centro: c.x c.y)
+     * @param r (raggio)
+     * @param [color] (colore interno)
+     * @param [width] (spessore linea)
+     * @param [linecolor] (colore linea)
+     */
+    var drawCircle = function(ctx, c, r, color, width, linecolor){
+      color = color ? color : 'white';
+      width = width ? width : 0;
+      linecolor = linecolor ? linecolor : 'transparent';
+
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r, 0, 2 * Math.PI, false);
+      ctx.fillStyle = color;
+      ctx.fill();
+      if (width>0) {
+        ctx.lineWidth = width;
+        ctx.strokeStyle = linecolor;
+      }
+      ctx.stroke();
+    };
+
+    /**
+     * Disegna un arco in senso orario (0=asse x)
+     * @param ctx (contesto)
+     * @param c (coordinate del centro: c.x c.y)
+     * @param r (raggio)
+     * @param a (angoli: a.start (0pi-2pi) / a.end(0pi-2pi))
+     * @param color (colore linea)
+     * @param width (spessore linea)
+     */
+    var drawArc = function(ctx, c, r, a, color, width) {
+      color = color ? color : 'white';
+      width = width ? width : 1;
+
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r, a.start, a.end);
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    };
+
     var mesi = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
     var getMonth = function(m) {
       return mesi[m];
@@ -95,6 +140,8 @@ angular.module('amonalieApp')
       drawRect: drawRect,
       drawLineRect:drawLineRect,
       drawText: drawText,
-      fillRect: fillRect
+      fillRect: fillRect,
+      drawCircle:drawCircle,
+      drawArc:drawArc
     }
   }]);
