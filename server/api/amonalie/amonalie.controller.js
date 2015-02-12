@@ -25,15 +25,7 @@ exports.manage = function(req, res) {
   return u.notfound(res);
 };
 
-
-
-var https = require('https');
-var config = require('../../config/environment');
-
-
-
 // scarica le anomalie da assistant
 exports.milk = function(req, res) {
   return u.notfound(res);
 };
-
