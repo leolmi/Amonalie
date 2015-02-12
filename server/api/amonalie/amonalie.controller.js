@@ -32,7 +32,16 @@ var config = require('../../config/environment');
 
 // scarica le anomalie da assistant
 exports.milk = function(req, res) {
+  var base_url = 'www.onlineassistant-webtool.com';
+  var username = 'olmi';
+  var password = 'olmi';
 
+  https.get()
+
+};
+
+
+var test = function(req, res) {
   /**
   * vedi:
   *  http://nodejs.org/api/https.html#https_https_request_options_callback
@@ -41,10 +50,7 @@ exports.milk = function(req, res) {
 
   var o = req.body;
 
-  var base_url = 'www.onlineassistant-webtool.com';
 
-  var username = 'olmi';
-  var password = 'olmi';
   var options = {
     hostname: base_url,
     port: 443,
