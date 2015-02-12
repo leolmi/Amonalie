@@ -26,7 +26,9 @@ exports.manage = function(req, res) {
   return u.notfound(res);
 };
 
+//var MMM = require('./milking');
 // scarica le anomalie da assistant
 exports.milk = function(req, res) {
+  //MMM.milk2(req, res);
   return u.notfound(res);
 };
