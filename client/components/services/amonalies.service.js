@@ -5,6 +5,10 @@
 
 angular.module('amonalieApp')
   .factory('Amonalies', ['$http','Logger', function($http,Logger) {
+    /**
+     * Restituisce l'elenco delle amonalie
+     * @param cb
+     */
     var getAmonalies = function(cb) {
       cb = cb || angular.noop;
       $http.get('/api/amonalie')
@@ -28,6 +32,46 @@ angular.module('amonalieApp')
         })
         .error(function(err){
           Logger.error(JSON.stringify(err), 'Errori nel caricamento delle amonalie');
+        });
+    };
+    /**
+     * Elimina l'amonalia
+     * @param a
+     * @param cb
+     */
+    var deleteAmonalia = function(a, cb) {
+      cb = cb || angular.noop;
+      var args = {
+        action: 'remove',
+        a: a
+      };
+      return manageAmonalia(args, cb)
+    };
+
+    var updateAmonalia = function(a, cb) {
+      cb = cb || angular.noop;
+      $http.put('/api/amonalie/'+ a._id, a)
+        .success(function(a){
+          cb(a);
+        })
+        .error(function(err){
+          Logger.error(JSON.stringify(err), 'Errori nell\'aggiornamento dell\'anomalia '+ a.code);
+        });
+    };
+
+    /**
+     * Gestisce l'amonalia
+     * @param args
+     * @param cb
+     */
+    var manageAmonalia = function(args, cb) {
+      cb = cb || angular.noop;
+      $http.post('/api/amonalie/manage', args)
+        .success(function(a){
+          cb(a);
+        })
+        .error(function(err){
+          Logger.error(JSON.stringify(err), 'Errori nella gestione dell\'anomalia '+ a.code);
         });
     };
 
@@ -68,10 +112,15 @@ angular.module('amonalieApp')
         });
     };
 
+    var dragging = {};
+
     return {
+      deleteAmonalia:deleteAmonalia,
+      updateAmonalia:updateAmonalia,
       useTargets:getTargets,
       deleteTarget:deleteTarget,
       get: getAmonalies,
-      milk:milk
+      milk:milk,
+      dragging:dragging
     }
   }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('MainCtrl', ['$scope', '$http', '$window', 'socket', 'Amonalies', function ($scope, $http, $window, socket, Amonalies) {
+  .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Modal','Amonalies', function ($scope, $q, $http, $window, socket, Modal, Amonalies) {
     $scope.taskGroups = [
       { title:'Anomalie', filter:undefined, style:'primary' },
       { title:'Da fare', filter:'dafare', style:'danger' },
@@ -9,12 +9,9 @@ angular.module('amonalieApp')
       { title:'Fatte', filter:'fatto', style:'success' }
     ];
 
-    //$scope.undefinedTasks = { title:'Anomalie', filter:undefined, style:'primary' };
-    //$scope.todoTasks = { title:'Da fare', filter:'dafare', style:'danger' };
-    //$scope.doingTasks = { title:'Fando', filter:'fando', style:'warning' };
-    //$scope.closedTasks = { title:'Fatte', filter:'fatto', style:'success' };
     $scope.activetab = $scope.taskGroups[0].title;
 
+    $scope.dragging = false;
 
     Amonalies.get(function(amonalies) {
       $scope.amonalies = amonalies;
@@ -58,4 +55,24 @@ angular.module('amonalieApp')
     //$scope.$on('$destroy', function () {
     //  socket.unsyncUpdates('thing');
     //});
+
+
+    var modalSetState = Modal.confirm.state(function(dragging, deferred) {
+      Amonalies.updateAmonalia(dragging.a, function() {
+        deferred.resolve();
+      });
+    });
+
+    $scope.beforeDrop = function(event, ui, t) {
+      var deferred = $q.defer();
+      if (t.filter==Amonalies.dragging.a.state)
+        deferred.reject();
+      else {
+        Amonalies.dragging.state = t.filter;
+        //alert('Droppa l\'amonalia: ' + Amonalies.dragging.code + '  nell\'elenco: ' + t.title);
+        modalSetState(Amonalies.dragging.a.code, Amonalies.dragging, deferred);
+        //deferred.reject();
+      }
+      return deferred.promise;
+    };
   }]);

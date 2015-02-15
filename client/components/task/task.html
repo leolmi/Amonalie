@@ -1,3 +1,5 @@
+<button type="button" class="close" data-ng-click="delete()">&times;</button>
 <strong>{{amonalia.code}}</strong> {{amonalia.app}} <span ng-show="isworking(amonalia)" class="task-users"><span class="glyphicon glyphicon-user"></span> {{getusers(amonalia)}}</span>
-<p ng-hide="opened" ng-click="toggle()">{{amonalia.desc}}</p>
-<pre ng-show="opened" ng-click="toggle()">{{amonalia.desc}}</pre>
+<p ng-hide="opened" >{{amonalia.desc}}</p>
+<pre ng-show="opened" >{{amonalia.desc}}</pre>
+<span class="fa aslink expand-collapse" ng-click="toggle()" ng-class="{'fa-angle-double-down':!opened, 'fa-angle-double-up':opened}"></span>

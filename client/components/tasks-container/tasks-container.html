@@ -5,4 +5,7 @@
     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
   </div>
 </div>
-<task ng-repeat="a in amonalies | filter: { state:tasks.filter } | filter:searchtext" ng-model="a"></task>
+<div ng-show="dragging" data-drop="true" data-jqyoui-options jqyoui-droppable></div>
+<task ng-repeat="a in amonalies | filter: { state:tasks.filter } | filter:searchtext"
+      data-drag="true" jqyoui-draggable="{animate:true, onStart:'startCallback(a)'}" data-jqyoui-options="{revert: 'invalid'}"
+      ng-model="a"></task>

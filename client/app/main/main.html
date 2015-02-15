@@ -6,7 +6,8 @@
       <a href class="aslink" ng-class="tasks.style" ng-click="selectTab(tasks.title)">{{tasks.title}}</a>
     </li>
   </ul>
-  <div ng-repeat="tasks in taskGroups" class="col-sm-3 tasks-container" ng-class="{notab:large}" ng-show="large || activetab==tasks.title">
+  <div ng-repeat="tasks in taskGroups" class="col-sm-3 tasks-container" ng-class="{notab:large}"
+       ng-show="large || activetab==tasks.title" data-drop="true" data-jqyoui-options jqyoui-droppable="{beforeDrop: 'beforeDrop(tasks)'}">
     <tasks-container ng-model="tasks" amonalies="amonalies" showtitle="large"></tasks-container>
   </div>
 </div>

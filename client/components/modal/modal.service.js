@@ -73,6 +73,49 @@ angular.module('amonalieApp')
           };
         },
 
+        state: function(stt) {
+          stt = stt || angular.noop;
+
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              name = args.shift(),
+              stateModal;
+
+            stateModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Assegna Anomalia '+name,
+                template: 'components/task/task-assign.html',
+                info: args[0],
+                buttons: [{
+                  classes: 'btn-primary',
+                  text: 'Assegna',
+                  click: function(e) {
+                    applyState();
+                    stateModal.close(e);
+                  }
+                },{
+                  classes: 'btn-default',
+                  text: 'Annulla',
+                  click: function(e) {
+                    stateModal.dismiss(e);
+                    args[1].reject();
+                  }
+                }]
+              }
+            }, 'modal-standard');
+
+            var applyState = function(){
+              args[0].a.state = args[0].state;
+            };
+
+            stateModal.result.then(function(event) {
+              stt.apply(event, args);
+            });
+          };
+        },
+
+
         show: function() {
           return function () {
             var args = Array.prototype.slice.call(arguments),

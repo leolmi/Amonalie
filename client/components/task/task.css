@@ -13,7 +13,38 @@ task:hover {
   background-color: wheat;
 }
 
+task .close {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+
 .task-users {
   right: 8px;
   position: absolute;
+}
+
+.task-action {
+  position: absolute;
+  margin-top: 30px;
+  opacity: .2;
+  font-size: 20px;
+}
+.task-action:hover {
+  opacity: 1;
+}
+.task-action-right{
+  right: 4px;
+}
+.task-action-left{
+  left: 4px;
+}
+.expand-collapse {
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+  opacity: .4;
+}
+.expand-collapse:hover {
+  opacity: 1;
 }

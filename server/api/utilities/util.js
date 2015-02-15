@@ -75,6 +75,7 @@ exports.error = error;
 
 exports.update = function(schema, req, res) {
   if(req.body._id) { delete req.body._id; }
+  console.log('Oggetto: '+JSON.stringify(req.body));
   schema.findById(req.params.id, function (err, obj) {
     if (err) { return error(res, err); }
     if(!obj) { return notfound(res); }

@@ -5,6 +5,7 @@ angular.module('amonalieApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngDragDrop',
   'btford.socket-io',
   'ui.bootstrap',
   'toastr'
