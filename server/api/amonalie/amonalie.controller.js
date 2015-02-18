@@ -1,4 +1,3 @@
-
 /**
  * Created by Leo on 03/02/2015.
  */
@@ -7,7 +6,7 @@
 var _ = require('lodash');
 var u = require('../utilities/util');
 var Amonalie = require('./amonalie.model');
-
+var cow = require('./milking');
 
 // Get list of amonalie
 exports.index = function(req, res) {
@@ -26,9 +25,7 @@ exports.manage = function(req, res) {
   return u.notfound(res);
 };
 
-//var MMM = require('./milking');
 // scarica le anomalie da assistant
 exports.milk = function(req, res) {
-  //MMM.milk(req, res);
-  return u.notfound(res);
+  cow.milk(req, res);
 };
