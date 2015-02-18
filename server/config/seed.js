@@ -83,7 +83,7 @@ User.find({}).remove(function() {
       email: 'leo.olmi@gmail.com',
       password: 'amonalie',
       assistant: {
-        user: 'olmi',
+        username: 'olmi',
         password: 'olmi'
       }
     },{
@@ -93,7 +93,7 @@ User.find({}).remove(function() {
       email: 'yuboski@gmail.com',
       password: 'amonalie',
       assistant: {
-        user: 'boschi',
+        username: 'boschi',
         password: 'boschi'
       }
     },{
@@ -103,7 +103,7 @@ User.find({}).remove(function() {
       email: 'carlo.indolfi@gmail.com',
       password: 'amonalie',
       assistant: {
-        user: 'indolfi',
+        username: 'indolfi',
         password: 'indolfi'
       }
     }, function() {

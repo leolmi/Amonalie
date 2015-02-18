@@ -48,3 +48,9 @@ task .close {
 .expand-collapse:hover {
   opacity: 1;
 }
+
+.open-details {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}

@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
 var UserAssistantSchema = new Schema({
-  user: String,
+  username: String,
   password: String
 })
 
@@ -142,6 +142,13 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  },
+  /**
+   * Restituisce vero se ha un account assistant valido
+   * @returns {*|$scope.assistant.username|$scope.assistant.password}
+   */
+  hasValidAssistant: function() {
+    return this.assistant.length && this.assistant.username && this.assistant.password;
   }
 };
 

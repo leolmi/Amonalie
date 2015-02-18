@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','Logger', function($http,Logger) {
+  .factory('Amonalies', ['$http','Logger','Auth', function($http, Logger, Auth) {
     /**
      * Restituisce l'elenco delle amonalie
      * @param cb
@@ -98,12 +98,16 @@ angular.module('amonalieApp')
         });
     };
 
-    var milk = function() {
-      var options = {
-        user: 'testuser',
-        password: 'testpsw'
+    var milk = function(options) {
+      var user = Auth.getCurrentUser();
+      if (!user.assistant.length || !user.assistant[0].username || !user.assistant[0].password) {
+        alert('Impostare un account assistant valido e riprovare!')
+        return;
       };
-      $http.post('/api/amonalie/assistant', options)
+
+      options = options || {};
+
+      $http.post('/api/amonalie/assistant/'+user._id, options)
         .success(function(result){
           Logger.ok(JSON.stringify(result), 'Ricevuto');
         })

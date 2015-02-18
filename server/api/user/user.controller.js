@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var u = require('../utilities/util');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -98,4 +99,38 @@ exports.me = function(req, res, next) {
  */
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
+};
+
+/**
+ * Creates a new user
+ */
+exports.data = function (req, res, next) {
+  var userId = req.params.id;
+  User.findById(userId, function (err, user) {
+    if (err) return u.error(res, err);
+    if (!user) return res.send(401);
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.save(function(err) {
+      if (err) return u.error(res, err);
+      res.send(200);
+    });
+  });
+};
+
+exports.assistant = function (req, res, next) {
+  var userId = req.params.id;
+  User.findById(userId, function (err, user) {
+    if (err) return u.error(res, err);
+    if (!user) return res.send(401);
+    user.assistant = [];
+    user.assistant.push({
+      username:req.body.username,
+      password:req.body.password
+    });
+    user.save(function(err) {
+      if (err) return u.error(res, err);
+      res.send(200);
+    });
+  });
 };

@@ -28,5 +28,29 @@ var AmonalieSchema = new Schema({
   tasks: [TaskSchema],
   params: [ParamSchema]
 });
+/**
+ * Genera l'anomalia
+ * @param params
+ * @param columns
+ * @returns {AmonalieSchema}
+ */
+AmonalieSchema.statics.generate = function generate(params, columns) {
+  var amonalia = {
+    code:'',
+    app:'',
+    desc:'',
+    state:undefined,
+    tasks: [],
+    params: []
+  };
+  for(var pn in columns) {
+    if (columns[pn]=='Codice') amonalia.code=params[pn];
+    if (columns[pn]=='Funzione') amonalia.app=params[pn];
+    if (columns[pn]=='Oggetto') amonalia.desc=params[pn];
+    amonalia.params.push({name:columns[pn], value:params[pn]})
+  }
+  return amonalia;
+};
+
 
 module.exports = mongoose.model('Amonalie', AmonalieSchema);

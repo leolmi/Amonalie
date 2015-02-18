@@ -14,4 +14,7 @@ router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
+router.post('/data/:id', controller.data);
+router.post('/assistant/:id', controller.assistant);
+
 module.exports = router;

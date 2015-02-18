@@ -124,3 +124,19 @@ exports.index = function(schema, req, res) {
     return ok(res, objs);
   });
 };
+
+exports.uiid_templates = {
+  guid: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx',
+  id12: 'xxxxxxxxxxxx'
+}
+
+exports.uuid = function(template) {
+  template = template || 'xxxxxxxxxxxx';
+  var d = new Date().getTime();
+  var id = template.replace(/[xy]/g, function(c) {
+    var r = (d + Math.random()*16)%16 | 0;
+    d = Math.floor(d/16);
+    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return id;
+}

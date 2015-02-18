@@ -11,6 +11,6 @@ var router = express.Router();
 router.get('/', controller.index);
 router.put('/:id', controller.update);
 router.post('/', controller.manage);
-router.post('/assistant', controller.milk);
+router.post('/assistant/:id', controller.milk);
 
 module.exports = router;

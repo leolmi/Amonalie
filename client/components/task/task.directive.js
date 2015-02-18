@@ -39,6 +39,10 @@ angular.module('amonalieApp')
               scope.delete = function() {
                 modalDelete(scope.amonalia.code, scope.amonalia);
               };
+
+              scope.details = function() {
+
+              };
             }
         }
     }]);
