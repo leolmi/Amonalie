@@ -33,7 +33,7 @@ angular.module('amonalieApp')
           Logger.ok('Account assistant aggiornato correttamente!');
         })
         .error(function(err){
-          Logger.error(JSON.stringify(err), 'Errori nell\'aggiornamento dell\'account assistant!');
+          Logger.error('Errori nell\'aggiornamento dell\'account assistant!', JSON.stringify(err));
         });
     };
 
@@ -45,7 +45,7 @@ angular.module('amonalieApp')
           Logger.ok('Account utente aggiornato correttamente!');
         })
         .error(function(err){
-          Logger.error(JSON.stringify(err), 'Errori nell\'aggiornamento dell\'account utente!');
+          Logger.error('Errori nell\'aggiornamento dell\'account utente!', JSON.stringify(err));
         });
     };
   });

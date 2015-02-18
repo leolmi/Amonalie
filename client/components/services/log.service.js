@@ -27,20 +27,28 @@ angular.module('amonalieApp')
       }
     }
 
-    var toastOk = function(content, header){
-      toastr.success(header, content, getToastrSettings());
+    var toastOk = function(title, message){
+      if (typeof message!='string')
+        message = JSON.stringify(message);
+      toastr.success(message, title, getToastrSettings());
     };
 
-    var toastError = function(content, header){
-      toastr.error(header, content, getToastrSettings());
+    var toastError = function(title, message){
+      if (typeof message!='string')
+        message = JSON.stringify(message);
+      toastr.error(message, title, getToastrSettings());
     };
 
-    var toastInfo = function(content, header){
-      toastr.info(header, content, getToastrSettings());
+    var toastInfo = function(title, message){
+      if (typeof message!='string')
+        message = JSON.stringify(message);
+      toastr.info(message, title, getToastrSettings());
     };
 
-    var toastWarning = function(content, header){
-      toastr.warning(header, content, getToastrSettings());
+    var toastWarning = function(title, message){
+      if (typeof message!='string')
+        message = JSON.stringify(message);
+      toastr.warning(message, title, getToastrSettings());
     };
 
     return {
