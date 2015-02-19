@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','$location','Logger','Auth','Modal', function($http, $location, Logger, Auth, Modal) {
+  .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http, $rootScope, $location, Logger, Auth, Modal) {
     var _amonalies = [];
 
     var checkKnown = function(amonalies) {
@@ -133,17 +133,20 @@ angular.module('amonalieApp')
         return;
       }
       _milking = true;
+      $rootScope.$broadcast('MILKING');
       options = options || {};
 
       $http.post('/api/amonalie/assistant/'+user._id, options)
         .success(function(result){
           var report = 'Aggiunte:'+result.added.length+'; Aggiornate:'+result.updated.length+'; Scartate:'+result.discards.length+';';
           Logger.ok('Milk Terminato!', report);
-          _milking = false;
         })
         .error(function(err){
           Logger.error('Errori nel caricamento delle amonalie', JSON.stringify(err));
+        })
+        .then(function() {
           _milking = false;
+          $rootScope.$broadcast('MILKING');
         });
     };
 
@@ -158,6 +161,7 @@ angular.module('amonalieApp')
       deleteTarget:deleteTarget,
       get: getAmonalies,
       milk:milk,
+      milking:function(){return _milking;},
       checkKnown:checkKnown,
       dragging:dragging
     }

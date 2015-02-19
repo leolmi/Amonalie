@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, Amonalies) {
+  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Amonalies) {
     $scope.menu = [{
       link: '/',
       icon: 'fa-trello'
@@ -11,10 +11,11 @@ angular.module('amonalieApp')
     },{
       link: '/targets',
       icon: 'fa-tachometer'
-    },{
-      action: Amonalies.milk,
-      icon: 'fa-cloud-download'
     }];
+    //,{
+    //  action: Amonalies.milk,
+    //  icon: 'fa-cloud-download'
+    //}];
     $scope.version = '1.0.0';
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -35,5 +36,11 @@ angular.module('amonalieApp')
         action();
     };
 
+    $scope.milk = function() {
+      Amonalies.milk();
+    };
 
+    $scope.$on('MILKING', function() {
+      $scope.milking = Amonalies.milking();
+    });
   });

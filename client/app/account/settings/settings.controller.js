@@ -17,7 +17,7 @@ angular.module('amonalieApp')
         default: return '';
       }
     };
-    var resetMessage = function() { $scope.message=undefined; };
+    var resetMessage = function() { $scope.exmessage=undefined; };
 
     if ($location.search())
       $scope.exmessage = getMessage($location.search().message);
