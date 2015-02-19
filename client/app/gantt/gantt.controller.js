@@ -6,10 +6,10 @@
 angular.module('amonalieApp')
   .controller('GanttCtrl', ['$scope', '$rootScope', '$http', '$timeout', 'drawing', 'Gantt', 'Amonalies', function ($scope, $rootScope, $http, $timeout, drawing, Gantt, Amonalies) {
     $scope.waiting = true;
-    Amonalies.get(function(amonalies) {
-      $scope.amonalies = amonalies;
-      $scope.waiting = false;
-    });
+    //Amonalies.get(function(amonalies) {
+    //  $scope.amonalies = amonalies;
+    //  $scope.waiting = false;
+    //});
     var elm = document.getElementById('gcontainer');
     var cnv = document.getElementById('gantt-canvas');
     var ctx2d = cnv.getContext('2d');
@@ -92,6 +92,7 @@ angular.module('amonalieApp')
         $scope.context = ctx;
         resizeRedraw();
         $scope.loading = false;
+        $scope.waiting = false;
       });
     };
 

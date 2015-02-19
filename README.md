@@ -8,6 +8,8 @@ da fare:
     - card anomalia: inserire i dati mancanti;
     - filtri avanzati;
     - funzione settings;
+    - numero di anomalie presenti
+    - evidenza amonalie 'nuove'
     
   - GANTT:
     - filtri di visualizzazione;

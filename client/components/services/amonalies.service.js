@@ -4,7 +4,22 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','Logger','Auth', function($http, Logger, Auth) {
+  .factory('Amonalies', ['$http','$location','Logger','Auth', function($http, $location, Logger, Auth) {
+    var _amonalies = [];
+
+    var checkKnown = function(amonalies) {
+      if (amonalies && amonalies.length) {
+        //alert('amonalies:  nuove:'+amonalies.length+'  viste:'+_amonalies.length);
+        if (_amonalies.length) {
+          amonalies.forEach(function (a) {
+            a.new = !$.grep(_amonalies, function (exa) { return exa.code == a.code; }).length;
+          });
+        }
+        else if (!_amonalies.length)
+          _amonalies = amonalies;
+      }
+    };
+
     /**
      * Restituisce l'elenco delle amonalie
      * @param cb
@@ -27,6 +42,7 @@ angular.module('amonalieApp')
                   }
                 });
             });
+            checkKnown(amonalies);
             cb(amonalies, targets);
           });
         })
@@ -102,7 +118,7 @@ angular.module('amonalieApp')
     var milk = function(options) {
       var user = Auth.getCurrentUser();
       if (!user.assistant.length || !user.assistant[0].username || !user.assistant[0].password) {
-        alert('Impostare un account assistant valido e riprovare!')
+        $location.path('/settings').search('message=assistant');
         return;
       };
       if (_milking) {
@@ -126,6 +142,7 @@ angular.module('amonalieApp')
 
     var dragging = {};
 
+
     return {
       deleteAmonalia:deleteAmonalia,
       updateAmonalia:updateAmonalia,
@@ -133,6 +150,7 @@ angular.module('amonalieApp')
       deleteTarget:deleteTarget,
       get: getAmonalies,
       milk:milk,
+      checkKnown:checkKnown,
       dragging:dragging
     }
   }]);

@@ -2,10 +2,10 @@
   {{showtitle ? tasks.title : ''}}
   <div class="input-group input-group-sm">
     <input type="text" class="form-control" placeholder="cerca..." aria-describedby="..." ng-model="searchtext">
-    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+    <span class="input-group-addon">{{filtered.length}}</span>
   </div>
 </div>
-<div ng-show="dragging" data-drop="true" data-jqyoui-options jqyoui-droppable></div>
-<task ng-repeat="a in amonalies | filter: { state:tasks.filter } | filter:searchtext"
+<!--<div ng-show="dragging" data-drop="true" data-jqyoui-options jqyoui-droppable></div>-->
+<task ng-repeat="a in filtered = (amonalies | filter: { state:tasks.filter } | filter:searchtext)"
       data-drag="true" jqyoui-draggable="{animate:true, onStart:'startCallback(a)'}" data-jqyoui-options="{revert: 'invalid'}"
       ng-model="a"></task>
