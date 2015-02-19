@@ -2,6 +2,7 @@
 
 angular.module('amonalieApp')
   .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Modal','Amonalies', function ($scope, $q, $http, $window, socket, Modal, Amonalies) {
+    $scope.waiting = true;
     $scope.taskGroups = [
       { title:'Anomalie', filter:undefined, style:'primary' },
       { title:'Da fare', filter:'dafare', style:'danger' },
@@ -15,6 +16,7 @@ angular.module('amonalieApp')
 
     Amonalies.get(function(amonalies) {
       $scope.amonalies = amonalies;
+      $scope.waiting = false;
     });
 
     var win = angular.element($window);

@@ -23,6 +23,7 @@ var ParamSchema = new Schema({
 var AmonalieSchema = new Schema({
   code:String,
   app:String,
+  obj:String,
   desc:String,
   state:String,
   tasks: [TaskSchema],
@@ -38,6 +39,7 @@ AmonalieSchema.statics.generate = function generate(params, columns) {
   var amonalia = {
     code:'',
     app:'',
+    obj:'',
     desc:'',
     state:undefined,
     tasks: [],
@@ -46,7 +48,8 @@ AmonalieSchema.statics.generate = function generate(params, columns) {
   for(var pn in columns) {
     if (columns[pn]=='Codice') amonalia.code=params[pn];
     if (columns[pn]=='Funzione') amonalia.app=params[pn];
-    if (columns[pn]=='Oggetto') amonalia.desc=params[pn];
+    if (columns[pn]=='Oggetto') amonalia.obj=params[pn];
+    if (columns[pn]=='Descrizione') amonalia.desc=params[pn];
     amonalia.params.push({name:columns[pn], value:params[pn]})
   }
   return amonalia;

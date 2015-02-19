@@ -10,16 +10,16 @@ var Amonalie = require('../api/amonalie/amonalie.model');
 var User = require('../api/user/user.model');
 
 Target.find({}).remove(function() {
-  var d = new Date('2015-2-16');
-  Target.create({
-    _id: '54b3e04cde6279a8211b42fd',
-    name: 'Obiettivo di test',
-    info: 'Test per vedere se funziona',
-    active: true,
-    date: d.getTime()
-  },function() {
-    console.log('finished populating things');
-  });
+  //var d = new Date('2015-2-16');
+  //Target.create({
+  //  _id: '54b3e04cde6279a8211b42fd',
+  //  name: 'Obiettivo di test',
+  //  info: 'Test per vedere se funziona',
+  //  active: true,
+  //  date: d.getTime()
+  //},function() {
+  //  console.log('finished populating things');
+  //});
 });
 
 
@@ -35,7 +35,8 @@ Amonalie.find({}).remove(function() {
   Amonalie.create({
     code:'263514',
     app:'DataPainter',
-    desc:'asdfaf sdf asdfasdfasdfs',
+    obj:'descrizione breve dell\'anomalia bla',
+    desc:'aswqe ew rqwcrq cr qrc q fqfc qfqef qw fr wr qerqwer qwercqewrqerc qwercqcr qwerqcr qwcrqrewr qer qdfaf sdf asdfasdfasdfs',
     state: 'fando',
     tasks: [
       {owner:'leo', start:d2_n, end:0, work:'', target:'54b3e04cde6279a8211b42fd'}],
@@ -46,7 +47,8 @@ Amonalie.find({}).remove(function() {
   },{
     code:'263115',
     app:'WikiReports',
-    desc:'asdfaf sdf asdfasdfasdfs',
+    obj:'descrizione breve dell\'anomalia bla',
+    desc:'asdfaf sdf asdfasdfasdfs asdf dsf asdfasdf asdf asfas dfas dfasdf asdfasd sdf asdfas dfasdf asdf asfas asdfasd fasd f',
     state: 'dafare',
     tasks: [
       {owner:'yuri', start:d1_n, end:d2_n, work:'WR_004'},
@@ -58,7 +60,8 @@ Amonalie.find({}).remove(function() {
   },{
     code:'262555',
     app:'QueryBuilder',
-    desc:'asdfaf sdf asdfasdfasdfs',
+    obj:'descrizione breve dell\'anomalia bla',
+    desc:'asdfaf sdf asdfa b kytbhrt bhr tbh rt bhrtb rythrbh rtbh kyt bryth rytbhrty brt hb ryhbrbt h rtyhrytbh rythrt bhrybhrt hrtbhr thryh rthrthr th rtyhr tbh rtyh rthsdfasdfs',
     state: undefined,
     tasks: [],
     params: [

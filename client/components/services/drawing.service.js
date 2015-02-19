@@ -132,6 +132,32 @@ angular.module('amonalieApp')
       return new Date(y, m, 0).getDate();
     };
 
+    /**
+     * Disegna un poligono colorato
+     * @param ctx
+     * @param points
+     * @param color
+     */
+    var drawPolygon = function(ctx, points, color) {
+      points = points || [];
+      //alert('arriva: color='+color);
+      color = color ? color : 'white';
+
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      var onfirst = true;
+      points.forEach(function(p){
+        if (onfirst)
+          ctx.moveTo(p.x,p.y);
+        else
+          ctx.lineTo(p.x, p.y);
+        onfirst = false;
+      });
+      ctx.closePath();
+      ctx.fill();
+      //ctx.stroke();
+    };
+
     return {
       colors: colors,
       getMonth: getMonth,
@@ -142,6 +168,7 @@ angular.module('amonalieApp')
       drawText: drawText,
       fillRect: fillRect,
       drawCircle:drawCircle,
-      drawArc:drawArc
+      drawArc:drawArc,
+      drawPolygon:drawPolygon
     }
   }]);

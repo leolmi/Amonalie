@@ -5,8 +5,10 @@
 
 angular.module('amonalieApp')
   .controller('GanttCtrl', ['$scope', '$rootScope', '$http', '$timeout', 'drawing', 'Gantt', 'Amonalies', function ($scope, $rootScope, $http, $timeout, drawing, Gantt, Amonalies) {
+    $scope.waiting = true;
     Amonalies.get(function(amonalies) {
       $scope.amonalies = amonalies;
+      $scope.waiting = false;
     });
     var elm = document.getElementById('gcontainer');
     var cnv = document.getElementById('gantt-canvas');
@@ -97,6 +99,10 @@ angular.module('amonalieApp')
       if (!$scope.context) return;
       var date_month = $rootScope.gantt_date.getMonth();
       var date_year = $rootScope.gantt_date.getYear();
+      var now = new Date();
+
+
+
       var eff_H = $scope.context.height;
       var days = drawing.getDaysInMonth(date_month+1, date_year);
       var min_W = Gantt.constants.item_min_width * days;
@@ -113,6 +119,8 @@ angular.module('amonalieApp')
         step:eff_W / days,
         offset:offset
       };
+      if (now.getMonth()==date_month && now.getYear()==date_year)
+        $scope.info.today = now.getDate();
 
       $timeout(function() {
         $('.gantt-scrollable-container').height(eff_H);

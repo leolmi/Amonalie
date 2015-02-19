@@ -8,6 +8,7 @@ angular.module('amonalieApp')
     var constants = {
       header_height: 32,
       header_color: '#222',
+      header_today_color: 'blue',
       header_line_color: '#111',
       item_min_width: 48,
       row_height: 24
@@ -23,6 +24,8 @@ angular.module('amonalieApp')
       drawing.drawLine(ctx, {x:0,y:constants.header_height}, {x:info.w,y:constants.header_height}, constants.header_line_color, 1);
       for(var i=0; i<info.days; i++) {
         var x = i*info.step;
+        if (info.today==i+1)
+          drawing.fillRect(ctx, {x:x,y:0}, {w:info.step, h:constants.header_height}, constants.header_today_color);
         drawing.drawLine(ctx, {x:x, y:0}, {x:x, y:info.h}, '#666');
         drawing.drawText(ctx, (i+1), {x:x+7, y:12}, '10pt Calibri', '#bbb');
       }
@@ -35,9 +38,6 @@ angular.module('amonalieApp')
     }
 
     function drawTask(ctx, info, t) {
-      //var left = ~~(scope.task_width*(t.d-1)+scope.offset.x)+1;
-      //var top = ~~(Gantt.constants.row_height*t.user_idx+scope.offset.y)+1;
-      //var width = ~~(scope.task_width*t.dw)-1;
       var x = ~~(info.step*(t.d-1)+info.offset.x)+1;
       var y = ~~(constants.row_height*t.user_idx+info.offset.y)+1;
       var w = ~~(info.step*t.dw)-1;
@@ -47,7 +47,6 @@ angular.module('amonalieApp')
       drawing.fillRect(ctx,{x:x,y:y},{w:w,h:h}, c.background );
       drawing.drawLineRect(ctx,{x:x,y:y},{w:w,h:h}, c.line)
       drawing.drawText(ctx, t.a.code, {x:x+4,y:y+15}, 'Calibri 8px', c.text);
-
     }
 
     /**

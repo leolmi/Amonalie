@@ -7,10 +7,18 @@ task {
   margin: 4px 0;
   position: relative;
   display: block;
+  font-size: 10px;
 }
 
 task:hover {
-  background-color: wheat;
+  background-color: darkorange;
+  border-color: sienna;
+  cursor: -webkit-grab;
+}
+
+task > pre {
+  font-size: 11px;
+  margin: 0 -4px 8px;
 }
 
 task .close {
@@ -22,6 +30,8 @@ task .close {
 .task-users {
   right: 8px;
   position: absolute;
+  z-index: 4;
+  top: 20px;
 }
 
 .task-action {
@@ -44,6 +54,8 @@ task .close {
   right: 10px;
   bottom: 4px;
   opacity: .4;
+  z-index: 4;
+  font-size: 16px;
 }
 .expand-collapse:hover {
   opacity: 1;
@@ -53,4 +65,15 @@ task .close {
   position: absolute;
   top: 2px;
   right: 8px;
+  z-index: 4;
+  font-size: 16px;
+}
+
+task band {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  right: -1px;
+  top:-1px;
+  opacity: .6;
 }
