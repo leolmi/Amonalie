@@ -7,7 +7,6 @@ var User = require('../user/user.model');
 var _ = require('lodash');
 var https = require('https');
 var config = require('../../config/environment');
-var request = require('request');
 var querystring = require('querystring');
 var u = require('../utilities/util');
 var fs = require('fs');
