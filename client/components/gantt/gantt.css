@@ -105,7 +105,7 @@ gantt {
 }
 
 .task-element {
-  padding: 6px;
+  padding: 5px;
   border-radius: 3px;
   position: absolute;
   font-size: 10px;

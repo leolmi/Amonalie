@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','$location','Logger','Auth', function($http, $location, Logger, Auth) {
+  .factory('Amonalies', ['$http','$location','Logger','Auth','Modal', function($http, $location, Logger, Auth, Modal) {
     var _amonalies = [];
 
     var checkKnown = function(amonalies) {
@@ -50,6 +50,13 @@ angular.module('amonalieApp')
           Logger.error('Errori nel caricamento delle amonalie', JSON.stringify(err));
         });
     };
+
+    var modalShow = Modal.confirm.edittask();
+
+    var show = function(info){
+      modalShow(info);
+    };
+
     /**
      * Elimina l'amonalia
      * @param a
@@ -144,6 +151,7 @@ angular.module('amonalieApp')
 
 
     return {
+      show:show,
       deleteAmonalia:deleteAmonalia,
       updateAmonalia:updateAmonalia,
       useTargets:getTargets,

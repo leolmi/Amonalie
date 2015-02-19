@@ -1,0 +1,27 @@
+<div class="target-editor-container" ng-controller="TargetModalCtrl">
+  <div class="row">
+    <div class="col-sm-12">
+      <form class="form" novalidate>
+        <div class="form-group">
+          <label> Titolo</label>
+          <input type="text" class="form-control input-sm" ng-model="$parent.modal.clone.title"/>
+        </div>
+        <div class="form-group">
+          <label> Descrzione</label>
+          <textarea class="form-control input-sm" rows="4" ng-model="$parent.modal.clone.desc"></textarea>
+        </div>
+        <div class="form-group">
+          <label> Scadenza</label>
+          <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="$parent.modal.clone.date" is-open="opened" datepicker-options="options" close-text="Chiudi" ng-required="true" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+        <div><span class="fa aslink" ng-class="{'fa-check-square':$parent.modal.clone.active,'fa-square':!$parent.modal.clone.active}" ng-click="toggle()"></span> <strong>Attivo</strong></div>
+      </form>
+    </div>
+  </div>
+  <pre>{{debug}}</pre>
+</div>

@@ -1,0 +1,28 @@
+<h1>{{modal.info.a.code}}</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <form class="form" novalidate>
+      <div class="form-group">
+        <label> Stato</label>
+        <select ng-show="modal.info.state" class="form-control" ng-model="modal.info.state">
+          <option ng-repeat="s in modal.states">{{s}}</option>
+        </select>
+        <input ng-hide="modal.info.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
+      </div>
+    </form>
+    <div ng-repeat="task in modal.info.a.tasks" class="detal-task btn-warning">
+      <p><strong>{{task.owner}}</strong></p>
+      <p><strong>Inizio</strong>: {{task.start ? modal.getDate(task.start) : 'non definita'}}</p>
+      <p><strong>Fine</strong>: {{task.end ? modal.getDate(task.end) : 'non definita'}}</p>
+      <p ng-show="task.work">Fatta su: <strong>{{task.work}}</strong></p>
+      <pre ng-show="task.notes">{{task.notes}}</pre>
+    </div>
+  </div>
+</div>
+<hr>
+<i class="fa fa-th-list"></i>
+<span ng-show="modal.collapsed" class="fa fa-chevron-circle-down aslink" ng-click="modal.collapsed=false"></span>
+<span ng-hide="modal.collapsed" class="fa fa-chevron-circle-up aslink" ng-click="modal.collapsed=true"></span>
+<ul collapse="modal.collapsed">
+  <li ng-repeat="p in modal.info.a.params">{{p.name}} = {{p.value}}</li>
+</ul>

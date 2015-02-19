@@ -1,6 +1,6 @@
 task {
   border: #888 1px solid;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 12px;
   background-color: #ddd;
   color:#222;
@@ -78,3 +78,22 @@ task band {
   opacity: .6;
 }
 
+
+.task-footer-band {
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  opacity: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin: 0;
+}
+.task-footer-band:hover{
+  cursor: pointer;
+  background-color: #000;
+  opacity: .3;
+}

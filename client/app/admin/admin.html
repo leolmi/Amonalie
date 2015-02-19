@@ -2,7 +2,7 @@
 
 <div class="container">
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="user in users">
+    <li class="list-group-item" ng-repeat="user in users" ng-class="{'user-isme':isme(user)}">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.email}}</span>
         <a ng-click="delete(user)" class="trash" ng-hide="isme(user)"><span class="glyphicon glyphicon-trash pull-right"></span></a>

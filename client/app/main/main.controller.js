@@ -59,7 +59,7 @@ angular.module('amonalieApp')
     //});
 
 
-    var modalSetState = Modal.confirm.state(function(dragging, deferred) {
+    var modalSetState = Modal.confirm.edittask(function(dragging, deferred) {
       Amonalies.updateAmonalia(dragging.a, function() {
         deferred.resolve();
       });
@@ -71,9 +71,8 @@ angular.module('amonalieApp')
         deferred.reject();
       else {
         Amonalies.dragging.state = t.filter;
-        //alert('Droppa l\'amonalia: ' + Amonalies.dragging.code + '  nell\'elenco: ' + t.title);
-        modalSetState(Amonalies.dragging.a.code, Amonalies.dragging, deferred);
-        //deferred.reject();
+        Amonalies.dragging.title = 'Assegna amonalia: '+ Amonalies.dragging.a.code;
+        modalSetState(Amonalies.dragging, deferred);
       }
       return deferred.promise;
     };

@@ -18,6 +18,9 @@
   /*background-color: #222;*/
   color: #ddd;
 }
+.navbar-brand {
+  padding: 15px 10px;
+}
 .navbar-brand > img {
   margin-top: -6px;
 }

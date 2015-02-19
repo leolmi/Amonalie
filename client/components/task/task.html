@@ -3,5 +3,6 @@
 <strong>{{amonalia.code}}</strong> {{amonalia.app}} <span ng-show="isworking(amonalia)" class="task-users"><span class="glyphicon glyphicon-user"></span> {{getusers(amonalia)}}</span>
 <p>{{amonalia.obj}}</p>
 <pre ng-show="opened" >{{amonalia.desc}}</pre>
-<span class="fa aslink expand-collapse" ng-click="toggle()" ng-class="{'fa-angle-double-down':!opened, 'fa-angle-double-up':opened}"></span>
+<!--<span class="fa aslink expand-collapse" ng-click="toggle()" ng-class="{'fa-angle-double-down':!opened, 'fa-angle-double-up':opened}"></span>-->
 <band ng-show="amonalia.new" color="'red'" size="30" distance="20"></band>
+<div class="task-footer-band" ng-click="toggle()">dettagli</div>

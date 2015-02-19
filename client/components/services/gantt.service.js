@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Gantt', ['Modal','drawing', function(Modal,drawing) {
+  .factory('Gantt', ['Amonalies','drawing', function(Amonalies,drawing) {
     var constants = {
       header_height: 32,
       header_color: '#222',
@@ -13,10 +13,15 @@ angular.module('amonalieApp')
       item_min_width: 48,
       row_height: 24
     };
-    var modalShow = Modal.confirm.show();
 
     var showTaskDetail = function(t) {
-      modalShow(t);
+      var info = {
+        title: 'Anomalia '+ t.a.code,
+        a: t.a,
+        t:t,
+        readonly: true
+      };
+      Amonalies.show(info);
     };
 
     function drawHeader(ctx, info) {

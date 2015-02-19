@@ -32,7 +32,7 @@ angular.module('amonalieApp')
       }
     };
 
-    function daydiff(d1, d2) {
+    function dayDiff(d1, d2) {
       return ~~((d2-d1)/(1000*60*60*24));
     }
 
@@ -54,7 +54,7 @@ angular.module('amonalieApp')
             if ((t.start >= start && t.start < end) || (t.end <= end && t.end > start) ||
               (t.start <= start && t.end >= end)) {
               var d = (t.start >= start && t.start < end) ? t.start : start;
-              var dw = (t.end && t.end>d) ? daydiff(d, t.end) : 1;
+              var dw = (t.end && t.end>d) ? dayDiff(d, t.end) : 1;
               var newt = getTask(t, a, (new Date(d)).getDate(), dw);
               ts.push(newt);
             }

@@ -20,11 +20,11 @@ angular.module('amonalieApp')
     var resetMessage = function() { $scope.message=undefined; };
 
     if ($location.search())
-      $scope.message = getMessage($location.search().message);
+      $scope.exmessage = getMessage($location.search().message);
 
 
     $scope.closeAlert = function() {
-      $scope.message = undefined;
+      $scope.exmessage = undefined;
     };
 
     $scope.changePassword = function(form) {

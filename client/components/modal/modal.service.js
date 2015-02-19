@@ -58,7 +58,7 @@ angular.module('amonalieApp')
                     deleteModal.close(e);
                   }
                 }, {
-                  classes: 'btn-default',
+                  classes: 'btn-primary',
                   text: 'Annulla',
                   click: function(e) {
                     deleteModal.dismiss(e);
@@ -73,74 +73,122 @@ angular.module('amonalieApp')
           };
         },
 
-        state: function(stt) {
+        edittask: function(stt) {
           stt = stt || angular.noop;
 
           return function() {
             var args = Array.prototype.slice.call(arguments),
-              name = args.shift(),
-              stateModal;
+              taskModal;
 
-            stateModal = openModal({
-              modal: {
-                dismissable: true,
-                title: 'Assegna Anomalia '+name,
-                template: 'components/task/task-assign.html',
-                info: args[0],
-                buttons: [{
-                  classes: 'btn-primary',
-                  text: 'Assegna',
-                  click: function(e) {
-                    applyState();
-                    stateModal.close(e);
-                  }
-                },{
-                  classes: 'btn-default',
-                  text: 'Annulla',
-                  click: function(e) {
-                    stateModal.dismiss(e);
+            var buttons =[];
+            if (!args[0].readonly) {
+              buttons.push({
+                classes: 'btn-warning',
+                text: 'Applica',
+                click: function (e) {
+                  applyValues();
+                  taskModal.close(e);
+                }
+              });
+            }
+            buttons.push({
+              classes: 'btn-primary',
+                text: 'Chiudi',
+                click: function(e) {
+                  taskModal.dismiss(e);
+                  if(args[1] && args[1].reject)
                     args[1].reject();
-                  }
-                }]
-              }
-            }, 'modal-standard');
-
-            var applyState = function(){
-              args[0].a.state = args[0].state;
-            };
-
-            stateModal.result.then(function(event) {
-              stt.apply(event, args);
+                }
             });
-          };
-        },
 
-
-        show: function() {
-          return function () {
-            var args = Array.prototype.slice.call(arguments),
-              showModal;
-
-            showModal = openModal({
+            taskModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Amonalia n°' + args[0].a.code,
-                desc: args[0].a.app + ': ' + args[0].a.desc,
-                a: args[0].a,
-                template: 'components/gantt/gantt-detail.html',
-                buttons: [{
-                  classes: 'btn-primary',
-                  text: 'OK',
-                  click: function (e) {
-                    showModal.dismiss(e);
-                  }
-                }],
+                title: args[0].title,
+                template: 'components/task/task-modal.html',
+                info: args[0],
+                collapsed:true,
+                buttons: buttons,
+                states:['dafare','fando','fatto'],
                 getDate: function(n) {
                   var d = new Date(n);
                   return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
                 }
               }
             }, 'modal-standard');
+
+            var applyValues = function(){
+              if (args[0].state)
+                args[0].a.state = args[0].state;
+            };
+
+            taskModal.result.then(function(event) {
+              stt.apply(event, args);
+            });
+          };
+        },
+
+        edittarget : function() {
+          return function () {
+            var args = Array.prototype.slice.call(arguments),
+              targetModal,
+              clone;
+
+            var getClone = function() {
+              return {
+                title: args[0].target.name,
+                desc:args[0].target.info,
+                active:args[0].target.active,
+                date: args[0].target.date ? new Date(args[0].target.date) : (new Date()).getTime()
+              }
+            };
+
+            clone = getClone();
+
+            targetModal = openModal({
+              modal: {
+                dismissable: true,
+                title: args[0].title,
+                target: args[0].target,
+                clone:clone,
+                template: 'components/target/target-modal.html',
+                buttons: [{
+                  classes: 'btn-warning',
+                  text: 'Applica',
+                  click: function (e) {
+                    applyValues();
+                    targetModal.close(e);
+                  }
+                },{
+                  classes: 'btn-primary',
+                  text: 'Chiudi',
+                  click: function(e) {
+                    targetModal.dismiss(e);
+                    if(args[1] && args[1].reject)
+                      args[1].reject();
+                  }
+                }]//,
+                //options: {
+                //  formatYear: 'yy',
+                //  startingDay: 1
+                //},
+                //format:'dd MMMM yyyy',
+                //opened:false,
+                //open: function(e) {
+                //  e.preventDefault();
+                //  e.stopPropagation();
+                //  this.opened =!this.opened;
+                //}
+              }
+            }, 'modal-standard');
+
+            var applyValues = function(){
+              args[0].target.name = clone.title;
+              args[0].target.info = clone.desc;
+              args[0].target.active = clone.active;
+              args[0].target.date = clone.date.getTime();
+              //TODO: QUI SALVA!
+            };
           }
         }
       }
