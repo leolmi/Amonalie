@@ -24,7 +24,8 @@
     "connect-mongo": "^0.4.1",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^2.0.2"
+    "socketio-jwt": "^2.0.2",
+    "cheerio": "~0.18.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
@@ -78,8 +79,7 @@
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "supertest": "~0.11.0",
-    "should": "~3.3.1",
-    "cheerio": "~0.18.0"
+    "should": "~3.3.1"
   },
   "engines": {
     "node": "0.10.35",
