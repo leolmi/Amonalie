@@ -58,11 +58,18 @@ angular.module('amonalieApp')
     };
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
+      if (info.history) {
+        //TODO: Storicizzazione dell'obiettivo
+        alert('Storicizza l\'obiettivo [da implementare]!');
+        return;
+      }
+
       info.target.name = info.obj.title;
       info.target.info = info.obj.desc;
       info.target.active = info.obj.active;
-      alert('la data è:'+info.obj.date+'  di tipo: '+(typeof info.obj.date));
       info.target.date = getDateNum(info.obj.date);
+
+
 
       if (info.target._id){
         $http.put('/api/targets/'+info.target._id, info.target)

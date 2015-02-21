@@ -29,4 +29,9 @@ angular.module('amonalieApp')
       };
       Amonalies.editTarget(target);
     };
+
+    $scope.toggleMine = function() {
+      //TODO: filtro sugli obiettivi personali
+      alert('Filtra gli obiettivi personali [da implementare]!')
+    };
   }]);

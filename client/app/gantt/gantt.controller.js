@@ -120,8 +120,16 @@ angular.module('amonalieApp')
         step:eff_W / days,
         offset:offset
       };
-      if (now.getMonth()==date_month && now.getYear()==date_year)
+      if (now.getMonth()==date_month && now.getYear()==date_year) {
         $scope.info.today = now.getDate();
+        $scope.today = {
+          x:(now.getDate()-1)*$scope.info.step,
+          w:$scope.info.step,
+          h:$scope.info.h
+        };
+      }
+      else $scope.today = undefined;
+
 
       $timeout(function() {
         $('.gantt-scrollable-container').height(eff_H);
@@ -138,6 +146,17 @@ angular.module('amonalieApp')
     };
 
     $scope.openTask = function(t) { Gantt.showTaskDetail(t); };
+
+    $scope.goToday = function() {
+      $rootScope.gantt_date = new Date();
+      refresh();
+    };
+
+    $scope.getTodayStyle = function() {
+      if ($scope.today)
+        return {left:$scope.today.x+'px', width:$scope.today.w+'px', height:$scope.today.h+'px'};
+      return '';
+    };
 
     $scope.getTaskStyle = function(t) {
       var left = ~~($scope.info.step*(t.d-1)+$scope.info.offset.x)+1;

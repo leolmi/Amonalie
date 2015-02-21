@@ -54,3 +54,10 @@ target:hover {
   border: 0;
   padding: 0;
 }
+
+.target-disabled {
+  font-size: 60px;
+  position: absolute;
+  right: 70px;
+  top: 26px;
+}

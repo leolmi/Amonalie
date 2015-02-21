@@ -143,6 +143,13 @@ angular.module('amonalieApp')
                 clone:args[0].obj,
                 template: 'components/target/target-modal.html',
                 buttons: [{
+                  classes: 'btn-danger',
+                  text: 'Archivia',
+                  click: function (e) {
+                    args[0].history = true;
+                    targetModal.close(e);
+                  }
+                },{
                   classes: 'btn-warning',
                   text: 'Applica',
                   click: function (e) {

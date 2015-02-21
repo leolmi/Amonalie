@@ -96,3 +96,39 @@ body {
   color: darkorange;
 }
 
+.page-bar {
+  text-align: right;
+  height: 42px;
+  padding: 4px 12px;
+}
+
+.page-bar-button {
+  font-size: 24px;
+  color:#666;
+  margin: 0 8px 0 8px;
+}
+
+.page-bar-button:hover {
+  font-size: 26px;
+  color:darkorange;
+  margin: -2px 7px 0 7px;
+}
+
+.element-footer-band {
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  opacity: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin: 0;
+}
+.element-footer-band:hover{
+  cursor: pointer;
+  background-color: #000;
+  opacity: .3;
+}

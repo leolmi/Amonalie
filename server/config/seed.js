@@ -25,12 +25,10 @@ Target.find({}).remove(function() {
 
 
 Amonalie.find({}).remove(function() {
-  var d1 = new Date('2015-2-4');
+  var d1 = new Date('2015-2-20');
   var d1_n = d1.getTime();
-  var d2 = new Date('2015-2-6');
+  var d2 = new Date('2015-2-23');
   var d2_n = d2.getTime();
-  console.log('d1:'+d1_n+'  d1:'+d1.toLocaleString());
-  console.log('d2:'+d2_n+'  d2:'+d2.toLocaleString());
 
   Amonalie.create({
     code:'263514',

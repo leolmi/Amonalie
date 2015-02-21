@@ -78,6 +78,7 @@ angular.module('amonalieApp')
     };
 
     $scope.newAmonalia = function(){
-      alert('Non implementato! ..... ancora');
+      //TODO: Crea una nuova amonalia
+      alert('Crea una nuova amonalia [da implementare]!');
     };
   }]);

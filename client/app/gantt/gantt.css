@@ -24,3 +24,12 @@
 .gantt-navigator:hover {
   opacity: 1;
 }
+
+.gantt-today {
+  position: absolute;
+  top: 0px;
+  z-index: 54;
+  background-color: black;
+  opacity: .3;
+  pointer-events:none;
+}

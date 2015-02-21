@@ -4,9 +4,11 @@
   <pre>{{target.info}}</pre>
   <span><small>autore: </small><strong>{{target.author_name}}</strong></span>
   <span><small>scadenza: </small><strong>{{getDate()}}</strong></span>
+  <circular-gauge ng-show="target.active" ng-model="info"></circular-gauge>
+  <div ng-show="target.active" class="target-duedays">{{getDueDays()}}</div>
+  <span ng-hide="target.active" class="target-disabled fa fa-pause"></span>
   <div class="target-detail" collapse="isCollapsed">
     <p>Dettagli del target: anomalie da fare, fando e fatte</p>
   </div>
-  <circular-gauge ng-model="info"></circular-gauge>
-  <div class="target-duedays">{{getDueDays()}}</div>
+  <div class="element-footer-band" ng-click="toggle()">dettagli</div>
 </div>
