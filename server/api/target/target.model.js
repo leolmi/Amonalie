@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var TargetSchema = new Schema({
   name: String,
   info: String,
+  author:String,
   active: Boolean,
   date: Number
 });

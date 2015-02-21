@@ -21,6 +21,15 @@ exports.index = function(req, res) {
   });
 };
 
+exports.getname = function(req, res) {
+  var userId = req.params.id;
+  User.findById(userId, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.send(401);
+    res.json(user.name);
+  });
+};
+
 /**
  * Creates a new user
  */

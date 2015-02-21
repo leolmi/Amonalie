@@ -20,11 +20,9 @@ angular.module('amonalieApp')
 
     return {
       restrict: 'E',
-      //scope: { info: '=ngModel'},
-      //templateUrl: 'components/circular-gauge/circular-gauge.html',
-      template: '<canvas id="circular-gauge"></canvas><div class="gauge-value"><strong>{{info.value}}</strong><small>%</small></div>',
+      template: '<canvas></canvas><div class="gauge-value"><strong>{{info.value}}</strong><small>%</small></div>',
       link: function (scope, elm, atr) {
-        var cnv = document.getElementById('circular-gauge');
+        var cnv = elm.find('canvas')[0];
         var ctx2d = cnv.getContext('2d');
 
         scope.$on("TARGET_REFRESH", function (e, info) {

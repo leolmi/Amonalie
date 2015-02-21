@@ -1,11 +1,12 @@
 <div class="target">
   <button type="button" class="close" data-ng-click="delete()">&times;</button>
-  <h1>{{target.name}}</h1>
-  <p>({{target.info}})</p>
-  <p>scadenza:{{getDate()}}</p>
-  <!--<progressbar class="progress-striped active aslink" value="dynamic" type="{{type}}" ng-click="toggle()">{{dynamic}}%</progressbar>-->
+  <h1 class="aslink" ng-click="edit()">{{target.name}}</h1>
+  <p>{{target.info}}</p>
+  <span><small>autore: </small><strong>{{target.author_name}}</strong></span>
+  <span><small>scadenza: </small><strong>{{getDate()}}</strong></span>
   <div class="target-detail" collapse="isCollapsed">
     <p>Dettagli del target: anomalie da fare, fando e fatte</p>
   </div>
   <circular-gauge ng-model="info"></circular-gauge>
+  <div class="target-duedays">{{getDueDays()}}</div>
 </div>

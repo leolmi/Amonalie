@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('TargetsCtrl', ['$scope','$http','socket','Amonalies','Modal', function ($scope, $http, socket, Amonalies, Modal) {
+  .controller('TargetsCtrl', ['$scope','$http','socket','Auth','Amonalies', function ($scope, $http, socket, Auth, Amonalies) {
     $scope.waiting = true;
     Amonalies.get(function(amonalies, targets) {
       $scope.amonalies = amonalies;
@@ -19,25 +19,14 @@ angular.module('amonalieApp')
       socket.unsyncUpdates('target');
     });
 
-    var modalEdit = Modal.confirm.edittarget();
-
     $scope.newTarget = function() {
-      //TODO: dovrebbe aprire l'editor del target, non crearlo direttamente
-
       var target = {
         name: 'Nuovo obiettivo',
         info: '',
+        author: Auth.getCurrentUser()._id,
         active: true,
-        date: new Date()
+        date: (new Date()).getTime()
       };
-
-      var info = {
-        title:'Nuovo Obiettivo',
-        target:target
-      }
-
-      modalEdit(info);
-      //$http.post('/api/targets', { name: 'Nuovo obiettivo', active:true });
+      Amonalies.editTarget(target);
     };
-
   }]);

@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('target', ['$timeout','drawing','Modal','Amonalies', function ($timeout,drawing,Modal,Amonalies) {
+  .directive('target', ['$http','$timeout','drawing','Modal','Amonalies', function ($http,$timeout,drawing,Modal,Amonalies) {
     return {
       restrict: 'E',
       scope: { target: '=ngModel', amonalies:'='},
@@ -52,8 +52,29 @@ angular.module('amonalieApp')
           Amonalies.deleteTarget(target);
         });
 
+        if (!scope.target.author_name) {
+          $http.get('/api/users/name/' + scope.target.author)
+            .success(function (name) {
+              scope.target.author_name = name;
+            })
+            .error(function(err){
+              scope.target.author_name = 'sconosciuto';
+            });
+        }
+
+        scope.getDueDays = function() {
+          var now = (new Date()).getTime();
+          var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+          var timeDiff = scope.target.date - now;
+          return Math.floor(timeDiff / _MS_PER_DAY)+1;
+        };
+
         scope.delete = function() {
           modalDelete(scope.target.name, scope.target);
+        };
+
+        scope.edit = function() {
+          Amonalies.editTarget(scope.target);
         };
       }
     }

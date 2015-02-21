@@ -10,6 +10,7 @@ target {
   position: relative;
   display: block;
   opacity: .9;
+  min-height: 112px;
 }
 target:hover {
   opacity: 1;
@@ -40,3 +41,9 @@ target:hover {
   z-index: 10;
 }
 
+.target-duedays {
+  font-size: 45px;
+  position: absolute;
+  right: 140px;
+  top: 20px;
+}

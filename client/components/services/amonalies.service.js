@@ -57,6 +57,48 @@ angular.module('amonalieApp')
       modalShow(info);
     };
 
+    var modalEditTarget = Modal.confirm.edittarget(function(info){
+      info.target.name = info.obj.title;
+      info.target.info = info.obj.desc;
+      info.target.active = info.obj.active;
+      alert('la data è:'+info.obj.date+'  di tipo: '+(typeof info.obj.date));
+      info.target.date = getDateNum(info.obj.date);
+
+      if (info.target._id){
+        $http.put('/api/targets/'+info.target._id, info.target)
+          .success(function(){
+            Logger.ok('Obiettivo "'+ info.target.name+'" aggiornato correttamente!');
+          })
+          .error(function(err){
+            Logger.error('Errori nell\'aggiornamento dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+          });
+      }
+      else {
+        $http.post('/api/targets', info.target)
+          .success(function(){
+            Logger.ok('Obiettivo "'+ info.target.name+'" creato correttamente!');
+          })
+          .error(function(err){
+            Logger.error('Errori nella creazione dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+          });
+      }
+    });
+
+    var editTarget = function(target){
+      var info = {
+        title: target._id ? 'modifica Obiettivo' :  'Nuovo Obiettivo',
+        target: target,
+        obj: {
+          title:target.name,
+          desc: target.info,
+          active: target.active,
+          date: target.date
+        }
+      };
+
+      modalEditTarget(info);
+    };
+
     /**
      * Elimina l'amonalia
      * @param a
@@ -152,9 +194,39 @@ angular.module('amonalieApp')
 
     var dragging = {};
 
+    var getDateStr = function(dt){
+      if (typeof dt=='string')
+        return dt;
+      if (typeof dt =='number')
+        dt = new Date(dt);
+      if (!dt)
+        dt = new Date();
+      if (dt.getDate)
+        return dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
+    };
+
+    var getDateByString = function(dt) {
+      var d = new Date();
+      var v = dt.split('/');
+      if (v && v.length>2){
+        d = new Date(v[2],v[1],v[0]);
+      }
+      alert('trasforma da: '+dt+'    a: '+ d.toLocaleString());
+      return d;
+    };
+
+    var getDateNum = function(dt) {
+      if (typeof dt=='string')
+        dt = getDateByString(dt);
+      if (!dt.getTime)
+        dt = new Date();
+      return dt.getTime();
+    };
 
     return {
       show:show,
+      editTarget:editTarget,
+      getDateStr:getDateStr,
       deleteAmonalia:deleteAmonalia,
       updateAmonalia:updateAmonalia,
       useTargets:getTargets,

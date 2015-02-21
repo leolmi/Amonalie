@@ -128,35 +128,24 @@ angular.module('amonalieApp')
           };
         },
 
-        edittarget : function() {
+        edittarget : function(edt) {
+          edt = edt || angular.noop;
+
           return function () {
             var args = Array.prototype.slice.call(arguments),
-              targetModal,
-              clone;
-
-            var getClone = function() {
-              return {
-                title: args[0].target.name,
-                desc:args[0].target.info,
-                active:args[0].target.active,
-                date: args[0].target.date ? new Date(args[0].target.date) : (new Date()).getTime()
-              }
-            };
-
-            clone = getClone();
+              targetModal;
 
             targetModal = openModal({
               modal: {
                 dismissable: true,
                 title: args[0].title,
                 target: args[0].target,
-                clone:clone,
+                clone:args[0].obj,
                 template: 'components/target/target-modal.html',
                 buttons: [{
                   classes: 'btn-warning',
                   text: 'Applica',
                   click: function (e) {
-                    applyValues();
                     targetModal.close(e);
                   }
                 },{
@@ -167,28 +156,13 @@ angular.module('amonalieApp')
                     if(args[1] && args[1].reject)
                       args[1].reject();
                   }
-                }]//,
-                //options: {
-                //  formatYear: 'yy',
-                //  startingDay: 1
-                //},
-                //format:'dd MMMM yyyy',
-                //opened:false,
-                //open: function(e) {
-                //  e.preventDefault();
-                //  e.stopPropagation();
-                //  this.opened =!this.opened;
-                //}
+                }]
               }
             }, 'modal-standard');
 
-            var applyValues = function(){
-              args[0].target.name = clone.title;
-              args[0].target.info = clone.desc;
-              args[0].target.active = clone.active;
-              args[0].target.date = clone.date.getTime();
-              //TODO: QUI SALVA!
-            };
+            targetModal.result.then(function(e) {
+              edt.apply(e, args);
+            });
           }
         }
       }

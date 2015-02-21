@@ -1,4 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+
+
 <div class="row" ng-hide="targets.length || waiting" >
   <div class="col-md-4"></div>
   <div class="col-md-4">
@@ -6,6 +8,9 @@
   </div>
 </div>
 <div class="container targets-container" ng-show="targets.length && !waiting">
+  <div class="targets-bar">
+    <span class="fa fa-plus-circle aslink targets-bar-button" ng-click="newTarget()"></span>
+  </div>
   <target ng-repeat="target in targets" ng-model="target" amonalies="amonalies"></target>
 </div>
 <waiting ng-show="waiting"></waiting>
