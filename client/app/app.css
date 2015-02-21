@@ -83,3 +83,16 @@ body {
 .nav > li > a {
   color: #666;
 }
+
+.navbar > .container .navbar-brand.font-success {
+  color: #398439;
+}
+
+.navbar > .container .navbar-brand.font-warning {
+  color: #ac2925;
+}
+.navbar > .container .navbar-brand.font-success:hover,
+.navbar > .container .navbar-brand.font-warning:hover {
+  color: darkorange;
+}
+

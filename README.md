@@ -16,6 +16,7 @@ da fare:
     
   - TARGETS:
     - elenco delle segnalazioni per user con indicazione dello stato;
+    - filtri di visualizzazione;
     
   - SYNCDB:
     - finestra modale con impostazioni di sincronizzazione;

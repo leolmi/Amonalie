@@ -137,6 +137,14 @@ angular.module('amonalieApp')
       },
 
       /**
+       * Verifica che l'utente abbia un account assistant
+       * @returns {$scope.assistant.username|*|$scope.assistant.password}
+       */
+      isAssistant: function() {
+        return currentUser.assistant.length && currentUser.assistant[0].username && currentUser.assistant[0].password;
+      },
+
+      /**
        * Get auth token
        */
       getToken: function() {

@@ -36,6 +36,11 @@ angular.module('amonalieApp')
         action();
     };
 
+    $scope.isAssistant = function() {
+      //alert('is assistant:'+Auth.isAssistant()+'  user:'+JSON.stringify(Auth.getCurrentUser().assistant));
+      return Auth.isAssistant();
+    };
+
     $scope.milk = function() {
       Amonalies.milk();
     };

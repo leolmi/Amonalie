@@ -76,4 +76,8 @@ angular.module('amonalieApp')
       }
       return deferred.promise;
     };
+
+    $scope.newAmonalia = function(){
+      alert('Non implementato! ..... ancora');
+    };
   }]);

@@ -10,7 +10,7 @@
       <a ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-href="{{item.link}}" ng-click="doAction(item.action)" class="navbar-brand aslink">
         <i class="fa fa-lg" ng-class="item.icon"></i> {{item.title}}
       </a>
-      <a ng-click="milk()" ng-hide="milking" class="navbar-brand aslink"> <i class="fa fa-lg fa-cloud-download"></i> </a>
+      <a ng-click="milk()" ng-hide="milking" class="navbar-brand aslink" ng-class="{'font-success':isAssistant(), 'font-warning':!isAssistant()}"> <i class="fa fa-lg fa-cloud-download"></i> </a>
       <a ng-show="milking" class="navbar-brand working-brand"> <i class="fa fa-lg fa-cloud"></i> </a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">

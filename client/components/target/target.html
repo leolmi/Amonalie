@@ -1,7 +1,7 @@
 <div class="target">
   <button type="button" class="close" data-ng-click="delete()">&times;</button>
   <h1 class="aslink" ng-click="edit()">{{target.name}}</h1>
-  <p>{{target.info}}</p>
+  <pre>{{target.info}}</pre>
   <span><small>autore: </small><strong>{{target.author_name}}</strong></span>
   <span><small>scadenza: </small><strong>{{getDate()}}</strong></span>
   <div class="target-detail" collapse="isCollapsed">

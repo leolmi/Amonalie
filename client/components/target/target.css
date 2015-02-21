@@ -47,3 +47,10 @@ target:hover {
   right: 140px;
   top: 20px;
 }
+
+.target > pre {
+  background-color: transparent;
+  color: #222;
+  border: 0;
+  padding: 0;
+}
