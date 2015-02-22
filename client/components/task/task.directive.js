@@ -41,12 +41,10 @@ angular.module('amonalieApp')
               };
 
               scope.details = function() {
-                var info = {
-                  title: 'Anomalia '+ scope.amonalia.code,
-                  a: scope.amonalia,
+                var opt = {
                   readonly: true
-                };
-                Amonalies.show(info);
+                }
+                Amonalies.editTask(scope.amonalia, opt);
               };
             }
         }

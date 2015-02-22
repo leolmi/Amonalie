@@ -22,16 +22,6 @@ angular.module('amonalieApp')
       $scope.$parent.modal.clone.active = !$scope.$parent.modal.clone.active;
     };
 
-
-    //var getDate = function() {
-    //  var d = $scope.$parent.modal.clone.date;
-    //  alert('data originale:')
-    //  if (!d) d = new Date();
-    //  return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
-    //}
-    //
-    //$scope.dt = getDate();
-
     $scope.format = 'dd/MM/yyyy';
 
     $scope.debug = $scope.$parent.modal.clone;

@@ -72,7 +72,11 @@ angular.module('amonalieApp')
             });
           };
         },
-
+        /**
+         * Modifica un'attività
+         * @param {Function} stt - funzione chiamata alla conferma del dialog
+         * @returns {Function}   - funzione per aprire il dialog
+         */
         edittask: function(stt) {
           stt = stt || angular.noop;
 
@@ -83,10 +87,17 @@ angular.module('amonalieApp')
             var buttons =[];
             if (!args[0].readonly) {
               buttons.push({
+                classes: 'btn-danger onleft',
+                text: 'Archivia',
+                click: function (e) {
+                  args[0].history = true;
+                  taskModal.close(e);
+                }
+              });
+              buttons.push({
                 classes: 'btn-warning',
                 text: 'Applica',
                 click: function (e) {
-                  applyValues();
                   taskModal.close(e);
                 }
               });
@@ -96,8 +107,8 @@ angular.module('amonalieApp')
                 text: 'Chiudi',
                 click: function(e) {
                   taskModal.dismiss(e);
-                  if(args[1] && args[1].reject)
-                    args[1].reject();
+                  if(args[0].def && args[0].def.reject)
+                    args[0].def.reject();
                 }
             });
 
@@ -107,27 +118,23 @@ angular.module('amonalieApp')
                 title: args[0].title,
                 template: 'components/task/task-modal.html',
                 info: args[0],
-                collapsed:true,
-                buttons: buttons,
-                states:['dafare','fando','fatto'],
-                getDate: function(n) {
-                  var d = new Date(n);
-                  return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
-                }
+                buttons: buttons
               }
             }, 'modal-standard');
 
-            var applyValues = function(){
-              if (args[0].state)
-                args[0].a.state = args[0].state;
-            };
-
-            taskModal.result.then(function(event) {
-              stt.apply(event, args);
+            taskModal.result.then(function(e) {
+              stt.apply(e, args);
+            },function() {
+              if(args[0].def && args[0].def.reject)
+                args[0].def.reject();
             });
           };
         },
-
+        /**
+         * Modifica un obiettivo
+         * @param {Function} edt - funzione chiamata alla conferma del dialog
+         * @returns {Function}   - funzione per aprire il dialog
+         */
         edittarget : function(edt) {
           edt = edt || angular.noop;
 
@@ -143,7 +150,7 @@ angular.module('amonalieApp')
                 clone:args[0].obj,
                 template: 'components/target/target-modal.html',
                 buttons: [{
-                  classes: 'btn-danger',
+                  classes: 'btn-danger onleft',
                   text: 'Archivia',
                   click: function (e) {
                     args[0].history = true;
@@ -169,6 +176,9 @@ angular.module('amonalieApp')
 
             targetModal.result.then(function(e) {
               edt.apply(e, args);
+            },function() {
+              if(args[1] && args[1].reject)
+                args[1].reject();
             });
           }
         }

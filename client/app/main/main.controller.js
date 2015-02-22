@@ -32,7 +32,6 @@ angular.module('amonalieApp')
 
     $scope.selectTab = function(name) {
       $scope.activetab = name;
-      //$scope.$apply();
     };
 
     //$scope.awesomeThings = [];
@@ -58,21 +57,16 @@ angular.module('amonalieApp')
     //  socket.unsyncUpdates('thing');
     //});
 
-
-    var modalSetState = Modal.confirm.edittask(function(dragging, deferred) {
-      Amonalies.updateAmonalia(dragging.a, function() {
-        deferred.resolve();
-      });
-    });
-
     $scope.beforeDrop = function(event, ui, t) {
       var deferred = $q.defer();
       if (t.filter==Amonalies.dragging.a.state)
         deferred.reject();
       else {
-        Amonalies.dragging.state = t.filter;
-        Amonalies.dragging.title = 'Assegna amonalia: '+ Amonalies.dragging.a.code;
-        modalSetState(Amonalies.dragging, deferred);
+        var opt = {
+          state: t.filter,
+          def: deferred
+        };
+        Amonalies.editTask(Amonalies.dragging.a, opt);
       }
       return deferred.promise;
     };

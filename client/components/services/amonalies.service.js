@@ -51,16 +51,38 @@ angular.module('amonalieApp')
         });
     };
 
-    var modalShow = Modal.confirm.edittask();
+    var modalEditTask = Modal.confirm.edittask(function(info){
+      //alert('argomenti: '+JSON.stringify(info));
+      if (info.history) {
+        //TODO: Storicizzazione dell'attività
+        alert('Storicizza l\'attività [da implementare]!');
+        if (info.def)
+          info.def.reject();
+        return;
+      }
+      if (info.state)
+        info.a.state = info.state;
+      if (info.def && info.def.resolve)
+        info.def.resolve();
+    });
 
-    var show = function(info){
-      modalShow(info);
+    var editTask = function(amonalia, opt){
+      var info = {
+        title: 'Anomalia '+ amonalia.code,
+        a: amonalia,
+        state: opt ? opt.state : undefined,
+        readonly: opt ? opt.readonly : false,
+        def: opt ? opt.def : undefined
+      };
+      modalEditTask(info);
     };
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
       if (info.history) {
         //TODO: Storicizzazione dell'obiettivo
         alert('Storicizza l\'obiettivo [da implementare]!');
+        if (info.def)
+          info.def.reject();
         return;
       }
 
@@ -231,7 +253,7 @@ angular.module('amonalieApp')
     };
 
     return {
-      show:show,
+      editTask:editTask,
       editTarget:editTarget,
       getDateStr:getDateStr,
       deleteAmonalia:deleteAmonalia,

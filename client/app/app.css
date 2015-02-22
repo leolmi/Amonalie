@@ -28,6 +28,11 @@ body {
   color: #ddd;
 }
 
+.aslink { cursor: pointer; }
+.onleft { float: left; }
+.onright { float: right; }
+
+
 .modal {
   color: #111;
 }
@@ -36,6 +41,7 @@ body {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -72,9 +78,8 @@ body {
   z-index: -10;
 }
 
-.aslink {
-  cursor: pointer;
-}
+
+
 
 .list-group-item {
   color: #111;
@@ -96,6 +101,10 @@ body {
   color: darkorange;
 }
 
+
+/*---------- PAGE BAR ----------*/
+/*  menu di pagina
+*/
 .page-bar {
   text-align: right;
   height: 42px;
@@ -114,6 +123,10 @@ body {
   margin: -2px 7px 0 7px;
 }
 
+
+/*---------- ELEMENT FOOTER BAND ----------*/
+/*  banda nel footer per aprire e chiudere i dettagli
+*/
 .element-footer-band {
   color: #fff;
   text-align: center;
