@@ -104,7 +104,7 @@ angular.module('amonalieApp')
             }
             buttons.push({
               classes: 'btn-primary',
-                text: 'Chiudi',
+                text: args[0].readonly ? 'Chiudi' : 'Annulla',
                 click: function(e) {
                   taskModal.dismiss(e);
                   if(args[0].def && args[0].def.reject)

@@ -6,6 +6,7 @@
 angular.module('amonalieApp')
   .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http, $rootScope, $location, Logger, Auth, Modal) {
     var _amonalies = [];
+    var states = ['dafare','fando','fatto'];
 
     var checkKnown = function(amonalies) {
       if (amonalies && amonalies.length) {
@@ -67,10 +68,29 @@ angular.module('amonalieApp')
     });
 
     var editTask = function(amonalia, opt){
+      if (opt) {
+        switch(opt.state) {
+          //fatte
+          case states[2]:
+            //TODO: verifica la chiusura di tutti i task dell'anomalia
+            break;
+          //fando
+          case states[1]:
+            //TODO: se non esiste un task aperto ne crea uno nuovo
+            break;
+          //da fare
+          case states[0]:
+            break;
+        }
+      }
+
       var info = {
         title: 'Anomalia '+ amonalia.code,
         a: amonalia,
-        state: opt ? opt.state : undefined,
+        obj: {
+          state: opt ? opt.state : amonalia.state,
+          note: amonalia.note
+        },
         readonly: opt ? opt.readonly : false,
         def: opt ? opt.def : undefined
       };

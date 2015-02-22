@@ -18,7 +18,7 @@ var TaskSchema = new Schema({
 var ParamSchema = new Schema({
   name: String,
   value: String
-})
+});
 
 var AmonalieSchema = new Schema({
   code:String,
@@ -26,9 +26,11 @@ var AmonalieSchema = new Schema({
   obj:String,
   desc:String,
   state:String,
+  note:String,
   tasks: [TaskSchema],
   params: [ParamSchema]
 });
+
 /**
  * Genera l'anomalia
  * @param params

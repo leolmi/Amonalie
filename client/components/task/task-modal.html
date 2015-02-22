@@ -11,13 +11,7 @@
           <input ng-hide="modal.info.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
         </div>
       </form>
-      <div ng-repeat="task in modal.info.a.tasks" class="detal-task btn-warning">
-        <p><strong>{{task.owner}}</strong></p>
-        <p><strong>Inizio</strong>: {{task.start ? getDate(task.start) : 'non definita'}}</p>
-        <p><strong>Fine</strong>: {{task.end ? getDate(task.end) : 'non definita'}}</p>
-        <p ng-show="task.work">Fatta su: <strong>{{task.work}}</strong></p>
-        <pre ng-show="task.notes">{{task.notes}}</pre>
-      </div>
+      <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t"></task-item>
     </div>
   </div>
   <hr>

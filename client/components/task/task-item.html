@@ -1,0 +1,7 @@
+<div class="task-item">
+  <p><strong>{{task.owner}}</strong></p>
+  <p><strong>Inizio</strong>: {{task.start ? getDate(task.start) : 'non definita'}}</p>
+  <p><strong>Fine</strong>: {{task.end ? getDate(task.end) : 'non definita'}}</p>
+  <p ng-show="task.work">Fatta su: <strong>{{task.work}}</strong></p>
+  <pre ng-show="task.notes">{{task.notes}}</pre>
+</div>

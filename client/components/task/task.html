@@ -1,8 +1,6 @@
-<!--<button type="button" class="close" data-ng-click="delete()">&times;</button>-->
 <span class="fa aslink fa-cog open-details" ng-click="details()"></span>
 <strong>{{amonalia.code}}</strong> {{amonalia.app}} <span ng-show="isworking(amonalia)" class="task-users"><span class="glyphicon glyphicon-user"></span> {{getusers(amonalia)}}</span>
 <p>{{amonalia.obj}}</p>
 <pre ng-show="opened" >{{amonalia.desc}}</pre>
-<!--<span class="fa aslink expand-collapse" ng-click="toggle()" ng-class="{'fa-angle-double-down':!opened, 'fa-angle-double-up':opened}"></span>-->
 <band ng-show="amonalia.new" color="'red'" size="30" distance="20"></band>
 <div class="element-footer-band" ng-click="toggle()">dettagli</div>
