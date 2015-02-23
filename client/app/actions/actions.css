@@ -1,0 +1,17 @@
+.single-action {
+  width: 24px;
+}
+
+single-action > pre {
+  margin: 10px 0px 4px;
+}
+
+.list-actions {
+  margin-top: 24px;
+}
+
+.list-actions > li:hover {
+  color:#fff;
+  background-color: #ed9c28;
+  border-color: #d58512;
+}

@@ -141,7 +141,7 @@ angular.module('amonalieApp')
        * @returns {$scope.assistant.username|*|$scope.assistant.password}
        */
       isAssistant: function() {
-        return currentUser.assistant.length && currentUser.assistant[0].username && currentUser.assistant[0].password;
+        return currentUser.assistant && currentUser.assistant.length && currentUser.assistant[0].username && currentUser.assistant[0].password;
       },
 
       /**

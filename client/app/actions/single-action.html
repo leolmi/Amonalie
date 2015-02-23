@@ -1,0 +1,5 @@
+<i class="single-action fa" ng-class="{'fa-pencil':a.action=='upd','fa-bolt':a.action=='new','fa-times-circle-o':a.action=='del'}"></i>
+[{{getDate(a.date)}}] <strong>{{a.owner}}</strong> {{getActionDesc(a.action)}} - {{a.context}}
+<i ng-show="a.obj" class="fa fa-ellipsis-h aslink onright" ng-click="collapsed=!collapsed"></i>
+<pre collapse="collapsed">{{a.obj}}</pre>
+<!--<pre>{{a}}</pre>-->

@@ -70,6 +70,19 @@ function setTokenCookie(req, res) {
   res.redirect('/');
 }
 
+function getUser(req, cb) {
+  validateJwt(req, null, function(err) {
+    if (err) return cb(err);
+    User.findById(req.user._id, function(err, user) {
+      if (err) return cb(err);
+      if (!user) cb(null, null);
+      return cb(null,user);
+    });
+  });
+};
+
+
+exports.getUser = getUser;
 exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;
 exports.signToken = signToken;

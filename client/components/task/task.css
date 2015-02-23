@@ -16,6 +16,10 @@ task:hover {
   cursor: -webkit-grab;
 }
 
+.task-editor-container > h1 {
+  margin: 0;
+}
+
 task > pre {
   font-size: 11px;
   margin: 0 -4px 8px;
@@ -78,4 +82,27 @@ task band {
   opacity: .6;
 }
 
+.task-data {
+  margin-bottom: 10px;
+}
 
+.task-item {
+  padding: 10px;
+  position: relative;
+  border-radius: 6px;
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 4px;
+  min-height: 52px;
+}
+.task-item > p {
+  margin: 0;
+}
+.task-item-form {
+  margin-top: 24px;
+}
+.item-state {
+  position: absolute;
+  right: 32px;
+  font-size: 32px;
+}

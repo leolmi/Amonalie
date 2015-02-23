@@ -8,6 +8,7 @@
 var Target = require('../api/target/target.model');
 var Amonalie = require('../api/amonalie/amonalie.model');
 var User = require('../api/user/user.model');
+var Log = require('../api/actions/actions.model');
 
 Target.find({}).remove(function() {
   //var d = new Date('2015-2-16');
@@ -20,8 +21,12 @@ Target.find({}).remove(function() {
   //},function() {
   //  console.log('finished populating things');
   //});
+  console.log('eliminati gli obiettivi');
 });
 
+Log.find({}).remove(function() {
+  console.log('eliminati i log');
+});
 
 
 Amonalie.find({}).remove(function() {
@@ -37,7 +42,7 @@ Amonalie.find({}).remove(function() {
     desc:'aswqe ew rqwcrq cr qrc q fqfc qfqef qw fr wr qerqwer qwercqewrqerc qwercqcr qwerqcr qwcrqrewr qer qdfaf sdf asdfasdfasdfs',
     state: 'fando',
     tasks: [
-      {owner:'leo', start:d2_n, end:0, work:'', target:'54b3e04cde6279a8211b42fd'}],
+      {owner:'leo', start:d2_n, end:0, work:'', target:''}],
     params: [
       {name:'priority',value:'3'},
       {name:'stima',value:'6'},
@@ -67,7 +72,7 @@ Amonalie.find({}).remove(function() {
       {name:'stima',value:'6'},
       {name:'ref. tech',value:'zanella'}]
   },function() {
-    console.log('finished populating amonalie');
+    console.log('popolate le anomalie');
   });
 });
 
@@ -108,7 +113,7 @@ User.find({}).remove(function() {
         password: 'indolfi'
       }
     }, function() {
-      console.log('finished populating users');
+      console.log('popolati gli utenti');
     }
   );
 });

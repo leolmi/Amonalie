@@ -1,0 +1,14 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="input-group input-group-sm">
+    <input type="text" class="form-control" placeholder="cerca..." aria-describedby="..." ng-model="searchtext">
+    <span class="input-group-addon">{{filtered.length}}</span>
+  </div>
+  <ul class="list-group list-actions">
+    <li class="list-group-item" ng-repeat="a in filtered = (actions | filter:searchtext | orderBy:'date':true)">
+      <single-action ng-model="a"></single-action>
+    </li>
+  </ul>
+</div>
+<waiting ng-show="waiting"></waiting>

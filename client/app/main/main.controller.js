@@ -14,8 +14,11 @@ angular.module('amonalieApp')
 
     $scope.dragging = false;
 
-    Amonalies.get(function(amonalies) {
+    Amonalies.get(function(amonalies, targets) {
       $scope.amonalies = amonalies;
+      $scope.targets = targets;
+      socket.syncUpdates('amonalie', $scope.amonalies);
+      socket.syncUpdates('target', $scope.targets);
       $scope.waiting = false;
     });
 
@@ -66,7 +69,7 @@ angular.module('amonalieApp')
           state: t.filter,
           def: deferred
         };
-        Amonalies.editTask(Amonalies.dragging.a, opt);
+        Amonalies.editAmonalia(Amonalies.dragging.a, opt);
       }
       return deferred.promise;
     };
@@ -75,4 +78,9 @@ angular.module('amonalieApp')
       //TODO: Crea una nuova amonalia
       alert('Crea una nuova amonalia [da implementare]!');
     };
+
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('amonalie');
+      socket.unsyncUpdates('target');
+    });
   }]);

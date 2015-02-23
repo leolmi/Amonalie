@@ -77,7 +77,7 @@ angular.module('amonalieApp')
          * @param {Function} stt - funzione chiamata alla conferma del dialog
          * @returns {Function}   - funzione per aprire il dialog
          */
-        edittask: function(stt) {
+        editamonalia: function(stt) {
           stt = stt || angular.noop;
 
           return function() {
@@ -115,7 +115,7 @@ angular.module('amonalieApp')
             taskModal = openModal({
               modal: {
                 dismissable: true,
-                title: args[0].title,
+                htmltitle: args[0].title,
                 template: 'components/task/task-modal.html',
                 info: args[0],
                 buttons: buttons

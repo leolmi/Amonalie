@@ -1,20 +1,21 @@
 <div class="task-editor-container" ng-controller="TaskModalCtrl">
-  <h1>{{modal.info.a.code}}</h1>
-  <div class="row">
+  <p>{{modal.info.a.obj}}</p>
+  <pre>{{modal.info.a.desc}}</pre>
+  <div class="row task-data">
     <div class="col-sm-12">
       <form class="form" novalidate>
         <div class="form-group">
-          <label> Stato</label>
-          <select ng-show="modal.info.state" class="form-control" ng-model="modal.info.state">
+          <label>Stato</label>
+          <select ng-show="modal.info.obj.state" class="form-control" ng-model="modal.info.obj.state">
             <option ng-repeat="s in states">{{s}}</option>
           </select>
-          <input ng-hide="modal.info.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
+          <input ng-hide="modal.info.obj.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
         </div>
       </form>
-      <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t"></task-item>
+      <label>Interventi</label> <i class="fa fa-plus-square onright aslink" ng-click="addItem()"></i>
+      <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly"></task-item>
     </div>
   </div>
-  <hr>
   <i class="fa fa-th-list"></i>
   <span class="fa aslink" ng-class="{'fa-chevron-circle-down':collapsed, 'fa-chevron-circle-up':!collapsed}" ng-click="collapsed=!collapsed"></span>
   <ul collapse="collapsed">

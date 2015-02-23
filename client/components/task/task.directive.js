@@ -41,10 +41,7 @@ angular.module('amonalieApp')
               };
 
               scope.details = function() {
-                var opt = {
-                  readonly: true
-                }
-                Amonalies.editTask(scope.amonalia, opt);
+                Amonalies.editAmonalia(scope.amonalia);
               };
             }
         }

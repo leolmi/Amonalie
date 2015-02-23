@@ -52,8 +52,7 @@ angular.module('amonalieApp')
         });
     };
 
-    var modalEditTask = Modal.confirm.edittask(function(info){
-      //alert('argomenti: '+JSON.stringify(info));
+    var modalEditAmonalia = Modal.confirm.editamonalia(function(info){
       if (info.history) {
         //TODO: Storicizzazione dell'attività
         alert('Storicizza l\'attività [da implementare]!');
@@ -61,13 +60,15 @@ angular.module('amonalieApp')
           info.def.reject();
         return;
       }
-      if (info.state)
-        info.a.state = info.state;
+      if (info.obj.state)
+        info.a.state = info.obj.state;
       if (info.def && info.def.resolve)
         info.def.resolve();
+
+      update('amonalie',info.a,'Amonalia','code');
     });
 
-    var editTask = function(amonalia, opt){
+    var editAmonalia = function(amonalia, opt){
       if (opt) {
         switch(opt.state) {
           //fatte
@@ -85,8 +86,9 @@ angular.module('amonalieApp')
       }
 
       var info = {
-        title: 'Anomalia '+ amonalia.code,
+        title: '<strong>'+amonalia.code+'</strong> - '+amonalia.app,
         a: amonalia,
+        t: opt ? opt.task : undefined,
         obj: {
           state: opt ? opt.state : amonalia.state,
           note: amonalia.note
@@ -94,7 +96,7 @@ angular.module('amonalieApp')
         readonly: opt ? opt.readonly : false,
         def: opt ? opt.def : undefined
       };
-      modalEditTask(info);
+      modalEditAmonalia(info);
     };
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
@@ -111,27 +113,48 @@ angular.module('amonalieApp')
       info.target.active = info.obj.active;
       info.target.date = getDateNum(info.obj.date);
 
+      update('targets',info.target,'Obiettivo');
+      //if (info.target._id){
+      //  $http.put('/api/targets/'+info.target._id, info.target)
+      //    .success(function(){
+      //      Logger.ok('Obiettivo "'+ info.target.name+'" aggiornato correttamente!');
+      //    })
+      //    .error(function(err){
+      //      Logger.error('Errori nell\'aggiornamento dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+      //    });
+      //}
+      //else {
+      //  $http.post('/api/targets', info.target)
+      //    .success(function(){
+      //      Logger.ok('Obiettivo "'+ info.target.name+'" creato correttamente!');
+      //    })
+      //    .error(function(err){
+      //      Logger.error('Errori nella creazione dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+      //    });
+      //}
+    });
 
-
-      if (info.target._id){
-        $http.put('/api/targets/'+info.target._id, info.target)
+    function update(dest, obj, typedesc, namep) {
+      namep = namep || 'name';
+      if (obj._id){
+        $http.put('/api/'+dest+'/'+obj._id, obj)
           .success(function(){
-            Logger.ok('Obiettivo "'+ info.target.name+'" aggiornato correttamente!');
+            Logger.ok(typedesc+' "'+ obj[namep]+'" aggiornato correttamente!');
           })
           .error(function(err){
-            Logger.error('Errori nell\'aggiornamento dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+            Logger.error('Errori nell\'aggiornamento di ('+typedesc+'): "'+ obj[namep]+'"', JSON.stringify(err));
           });
       }
       else {
-        $http.post('/api/targets', info.target)
+        $http.post('/api/'+dest, obj)
           .success(function(){
-            Logger.ok('Obiettivo "'+ info.target.name+'" creato correttamente!');
+            Logger.ok(typedesc+' "'+ obj[namep]+'" creato correttamente!');
           })
           .error(function(err){
-            Logger.error('Errori nella creazione dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
+            Logger.error('Errori nella creazione dell\'elemento di tipo '+typedesc, JSON.stringify(err));
           });
       }
-    });
+    }
 
     var editTarget = function(target){
       var info = {
@@ -273,7 +296,7 @@ angular.module('amonalieApp')
     };
 
     return {
-      editTask:editTask,
+      editAmonalia:editAmonalia,
       editTarget:editTarget,
       getDateStr:getDateStr,
       deleteAmonalia:deleteAmonalia,

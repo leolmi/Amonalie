@@ -15,13 +15,11 @@ angular.module('amonalieApp')
     };
 
     var showTaskDetail = function(t) {
-      var info = {
-        title: 'Anomalia '+ t.a.code,
-        a: t.a,
-        t:t,
+      var opt = {
+        task:t,
         readonly: true
       };
-      Amonalies.show(info);
+      Amonalies.editAmonalia(t.a, opt);
     };
 
     function drawHeader(ctx, info) {

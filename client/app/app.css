@@ -31,7 +31,7 @@ body {
 .aslink { cursor: pointer; }
 .onleft { float: left; }
 .onright { float: right; }
-
+.vertical { resize: vertical; }
 
 .modal {
   color: #111;
