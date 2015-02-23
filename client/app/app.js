@@ -54,6 +54,9 @@ angular.module('amonalieApp', [
         if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
+        else if (next.asadmin && !Auth.isAdmin()) {
+          $location.path('/login');
+        }
       });
     });
   });

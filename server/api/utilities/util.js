@@ -7,12 +7,19 @@ var _ = require('lodash');
 var L = require('../actions/actions.controller');
 var auth = require('../../auth/auth.service');
 
-var log = function(req, ctx, act, obj) {
+var log = function(req, ctx, act, obj, org) {
   auth.getUser(req, function(err, user) {
     if (err) return console.log('ERRORE: '+JSON.stringify(err));
-    L.log(user.name, ctx, act, obj)
+    var logobj = getLogObject(obj, org);
+    L.log(user.name, ctx, act, logobj)
   });
 };
+
+function getLogObject(obj, org) {
+  if (!org) return obj;
+  var original = (typeof org=='string') ? JSON.parse(org) : org;
+  return {original:original, modified:obj};
+}
 
 
 exports.log = log;
@@ -67,12 +74,14 @@ exports.update = function(schema, req, res) {
   schema.findById(req.params.id, function (err, obj) {
     if (err) { return error(res, err); }
     if(!obj) { return notfound(res); }
-    log(req, obj.constructor.modelName, 'upd', obj);
+
+    var original = JSON.stringify(obj);
     var updated = _.merge(obj, req.body, function(a,b){
       return _.isArray(a) ? b : undefined;
     });
     updated.save(function (err) {
       if (err) { return error(res, err); }
+      log(req, obj.constructor.modelName, 'upd', updated, original);
       return ok(res, obj);
     });
   });

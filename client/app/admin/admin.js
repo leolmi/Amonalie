@@ -6,6 +6,7 @@ angular.module('amonalieApp')
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl',
-        authenticate: true
+        authenticate: true,
+        asadmin: true
       });
   });

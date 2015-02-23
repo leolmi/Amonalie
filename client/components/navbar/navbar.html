@@ -17,10 +17,9 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            <i class="fa fa-user fa-fw"></i> <small> {{getCurrentUser().name}} </small> <i class="fa fa-caret-down fa-fw"></i>
           </a>
           <ul class="dropdown-menu dropdown-user">
-            <li><p class="navbar-text"><strong>{{ getCurrentUser().name }}</strong></p></li>
             <li ng-class="{active: isActive('/settings')}"><a href="/settings"><i class="fa fa-gear fa-lg"></i> Impostazioni</a></li>
             <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin"><i class="fa fa-users fa-lg"></i> Utenti</a></li>
             <li ng-show="isAdmin()" ng-class="{active: isActive('/actions')}"><a href="/actions"><i class="fa fa-bars fa-lg"></i> Eventi</a></li>

@@ -9,6 +9,7 @@ angular.module('amonalieApp')
       .when('/actions', {
         templateUrl: 'app/actions/actions.html',
         controller: 'ActionsCtrl',
-        authenticate: true
+        authenticate: true,
+        asadmin: true
       });
   });
