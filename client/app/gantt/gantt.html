@@ -1,9 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<div class="container">
-  <div class="page-bar">
-    <span class="fa fa-bookmark aslink page-bar-button" ng-click="goToday()" popover="Torna ad oggi" popover-trigger="mouseenter" popover-placement="bottom"></span>
-  </div>
-</div>
+<page-bar ng-model="buttons"></page-bar>
+
 <div class="gantt-title" ng-hide="waiting">
   <span class="gantt-navigator glyphicon glyphicon-chevron-left" ng-click="moveDate(false)"></span>
   <div class="gantt-title-content">

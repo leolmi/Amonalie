@@ -10,6 +10,17 @@ angular.module('amonalieApp')
     var cnv = document.getElementById('gantt-canvas');
     var ctx2d = cnv.getContext('2d');
 
+    function goToday() {
+      cache.context.o.gantt.date = new Date();
+      refresh();
+    }
+
+    $scope.buttons = [{
+      desc:'Torna ad oggi',
+      class:'fa-bookmark',
+      click: goToday
+    }];
+
     var getTask = function(t, a, d, dw){
       var style = 'primary';
       switch (a.state){
@@ -140,11 +151,6 @@ angular.module('amonalieApp')
     };
 
     $scope.openTask = function(t) { Gantt.showTaskDetail(t); };
-
-    $scope.goToday = function() {
-      cache.context.o.gantt.date = new Date();
-      refresh();
-    };
 
     $scope.getTodayStyle = function() {
       if ($scope.today)

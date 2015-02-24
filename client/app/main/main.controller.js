@@ -10,6 +10,25 @@ angular.module('amonalieApp')
       { title:'Fando', filter:'fando', style:'warning', filtername:'fando' },
       { title:'Fatte', filter:'fatto', style:'success', filtername:'fatto' }
     ];
+    function newAmonalia(){
+      //TODO: Crea una nuova amonalia
+      alert('Crea una nuova amonalia [da implementare]!');
+    };
+
+    function filterEditor() {
+      //TODO: Imposta i filtri globali
+      alert('Imposta i filtri globali [da implementare]!');
+    }
+
+    $scope.buttons = [{
+      desc:'Imposta i filtri globali',
+      class:'fa-filter',
+      click: filterEditor
+    },{
+      desc:'Crea una nuova amonalia',
+      class:'fa-plus-circle',
+      click: newAmonalia
+    }];
 
     $scope.activetab = $scope.taskGroups[0].title;
 
@@ -65,10 +84,5 @@ angular.module('amonalieApp')
         Amonalies.editAmonalia(Amonalies.dragging.a, opt);
       }
       return deferred.promise;
-    };
-
-    $scope.newAmonalia = function(){
-      //TODO: Crea una nuova amonalia
-      alert('Crea una nuova amonalia [da implementare]!');
     };
   }]);

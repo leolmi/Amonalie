@@ -95,7 +95,7 @@ angular.module('amonalieApp')
                 }
               });
               buttons.push({
-                classes: 'btn-warning',
+                classes: 'btn-success',
                 text: 'Applica',
                 click: function (e) {
                   taskModal.close(e);
@@ -157,14 +157,14 @@ angular.module('amonalieApp')
                     targetModal.close(e);
                   }
                 },{
-                  classes: 'btn-warning',
+                  classes: 'btn-success',
                   text: 'Applica',
                   click: function (e) {
                     targetModal.close(e);
                   }
                 },{
                   classes: 'btn-primary',
-                  text: 'Chiudi',
+                  text: 'Annulla',
                   click: function(e) {
                     targetModal.dismiss(e);
                     if(args[1] && args[1].reject)

@@ -1,10 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+<page-bar ng-model="buttons"></page-bar>
 
-<div class="container">
-  <div class="page-bar">
-    <span class="fa fa-plus-circle aslink page-bar-button" ng-click="newAmonalia()" popover="Crea una nuova amonalia" popover-trigger="mouseenter" popover-placement="bottom"></span>
-  </div>
-</div>
 <div class="row row-tasks" ng-hide="waiting">
   <ul class="nav nav-tabs nav-tasks" ng-hide="large">
     <li ng-repeat="tasks in taskGroups" role="presentation" ng-class="{active:activetab==tasks.title}">

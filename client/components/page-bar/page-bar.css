@@ -1,0 +1,23 @@
+.page-bar {
+  text-align: right;
+  height: 42px;
+  padding: 4px 12px;
+}
+
+.page-bar-button {
+  font-size: 24px;
+  color:#666;
+  margin: 0 8px 0 8px;
+}
+
+.page-bar-button-checked {
+  font-size: 24px;
+  color: #398439;
+  margin: 0 8px 0 8px;
+}
+
+.page-bar-button:hover {
+  font-size: 26px;
+  color:darkorange;
+  margin: -2px 7px 0 7px;
+}

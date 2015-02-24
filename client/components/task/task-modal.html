@@ -12,7 +12,7 @@
           <input ng-hide="modal.info.obj.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
         </div>
       </form>
-      <label>Interventi</label> <i class="fa fa-plus-square onright aslink" ng-click="addItem()"></i>
+      <label>Interventi</label> <i ng-hide="modal.info.readonly" class="fa fa-plus-square onright aslink" ng-click="addItem()"></i>
       <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly"></task-item>
     </div>
   </div>
