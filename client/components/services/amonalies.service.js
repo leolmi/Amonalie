@@ -86,6 +86,9 @@ angular.module('amonalieApp')
         }
       }
 
+      if (!amonalia.state && !opt)
+        opt = { state:'dafare' };
+
       var info = {
         title: '<strong>'+amonalia.code+'</strong> - '+amonalia.app,
         a: amonalia,

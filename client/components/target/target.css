@@ -20,10 +20,6 @@ target:hover {
   margin: 4px 0;
 }
 
-.target .close {
-  margin-top: -6px;
-}
-
 .target .progress {
   margin-bottom: 0;
 }

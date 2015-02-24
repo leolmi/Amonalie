@@ -35,7 +35,7 @@ task .close {
   right: 8px;
   position: absolute;
   z-index: 4;
-  top: 20px;
+  top: 32px;
 }
 
 .task-action {
@@ -65,13 +65,33 @@ task .close {
   opacity: 1;
 }
 
+/*.open-details {*/
+  /*position: absolute;*/
+  /*top: 2px;*/
+  /*right: 8px;*/
+  /*z-index: 4;*/
+  /*font-size: 16px;*/
+/*}*/
 .open-details {
   position: absolute;
-  top: 2px;
-  right: 8px;
   z-index: 4;
+  right: 0px;
+  top: 0px;
   font-size: 16px;
+  border: transparent;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 3px;
+  opacity: .4;
+  width: 32px;
+  height: 32px;
 }
+
+.open-details:hover {
+  opacity: 1;
+}
+
+
+
 
 task band {
   position: absolute;
