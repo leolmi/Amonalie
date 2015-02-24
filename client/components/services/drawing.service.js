@@ -140,7 +140,6 @@ angular.module('amonalieApp')
      */
     var drawPolygon = function(ctx, points, color) {
       points = points || [];
-      //alert('arriva: color='+color);
       color = color ? color : 'white';
 
       ctx.fillStyle = color;

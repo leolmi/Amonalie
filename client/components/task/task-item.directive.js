@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('taskItem', ['$location', function ($location) {
+  .directive('taskItem', ['Logger', function (Logger) {
     return {
       restrict: 'E',
       scope: {task: '=ngModel', targets:'=', readonly:'='},
@@ -32,7 +32,7 @@ angular.module('amonalieApp')
         };
         scope.delete = function() {
           //TODO: elimina il task
-          alert('Elimina il task [da implementare]!');
+          Logger.info('Elimina il task','(da implementare)');
         };
         scope.open_start = function(e) {
           e.preventDefault();

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Modal','Amonalies','cache', function ($scope, $q, $http, $window, socket, Modal, Amonalies, cache) {
+  .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Logger','Amonalies','cache', function ($scope, $q, $http, $window, socket, Logger, Amonalies, cache) {
     $scope.context = cache.context;
     cache.init();
     $scope.taskGroups = [
@@ -12,12 +12,12 @@ angular.module('amonalieApp')
     ];
     function newAmonalia(){
       //TODO: Crea una nuova amonalia
-      alert('Crea una nuova amonalia [da implementare]!');
+      Logger.info('Crea una nuova amonalia','(da implementare)');
     };
 
     function filterEditor() {
       //TODO: Imposta i filtri globali
-      alert('Imposta i filtri globali [da implementare]!');
+      Logger.info('Imposta i filtri globali','(da implementare)');
     }
 
     $scope.buttons = [{

@@ -18,9 +18,6 @@ angular.module('amonalieApp')
                   else
                     c['page-bar-button']=true;
                   return c;
-                  //return b.checked ?
-                  //  {'page-bar-button-checked':true,b.class:true}:
-                  //  {'page-bar-button':true,'"+b.class+"':true};
                 };
             }
         }

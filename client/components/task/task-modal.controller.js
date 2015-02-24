@@ -4,11 +4,11 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('TaskModalCtrl', ['$scope', '$http', function ($scope, $http) {
+  .controller('TaskModalCtrl', ['$scope', 'Logger', function ($scope, Logger) {
     $scope.collapsed = true;
     $scope.states = ['dafare','fando','fatto'];
     $scope.addItem = function () {
       //TODO: aggiunge un nuovo task
-      alert('Aggiunge un nuovo task');
+      Logger.info('Aggiunge un nuovo task','(da implementare)');
     };
   }]);

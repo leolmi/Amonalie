@@ -10,7 +10,6 @@ angular.module('amonalieApp')
 
     var checkKnown = function(amonalies) {
       if (amonalies && amonalies.length) {
-        //alert('amonalies:  nuove:'+amonalies.length+'  viste:'+_amonalies.length);
         if (_amonalies.length) {
           amonalies.forEach(function (a) {
             a.new = !$.grep(_amonalies, function (exa) { return exa.code == a.code; }).length;
@@ -44,7 +43,6 @@ angular.module('amonalieApp')
                 });
             });
             checkKnown(amonalies);
-            //alert('restituisce: amonalies='+amonalies.length+'  targets='+targets.length);
             cb(amonalies, targets);
           });
         })
@@ -56,7 +54,7 @@ angular.module('amonalieApp')
     var modalEditAmonalia = Modal.confirm.editamonalia(function(info){
       if (info.history) {
         //TODO: Storicizzazione dell'attività
-        alert('Storicizza l\'attività [da implementare]!');
+        Logger.info('Storicizza l\'attività','(da implementare)');
         if (info.def)
           info.def.reject();
         return;
@@ -106,7 +104,7 @@ angular.module('amonalieApp')
     var modalEditTarget = Modal.confirm.edittarget(function(info){
       if (info.history) {
         //TODO: Storicizzazione dell'obiettivo
-        alert('Storicizza l\'obiettivo [da implementare]!');
+        Logger.info('Storicizza l\'obiettivo','(da implementare)');
         if (info.def)
           info.def.reject();
         return;
@@ -262,7 +260,7 @@ angular.module('amonalieApp')
         return;
       };
       if (_milking) {
-        alert('Mungitura già in corso, attendere...');
+        Logger.warning('Mungitura in corso!','attendere...')
         return;
       }
       _milking = true;
@@ -302,7 +300,6 @@ angular.module('amonalieApp')
       if (v && v.length>2){
         d = new Date(v[2],v[1],v[0]);
       }
-      alert('trasforma da: '+dt+'    a: '+ d.toLocaleString());
       return d;
     };
 

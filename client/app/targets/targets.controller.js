@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('TargetsCtrl', ['$scope','Auth','cache','Amonalies', function ($scope,Auth,cache,Amonalies) {
+  .controller('TargetsCtrl', ['$scope','Auth','cache','Amonalies','Logger', function ($scope,Auth,cache,Amonalies,Logger) {
     $scope.context = cache.context;
 
     function newTarget() {
@@ -14,7 +14,7 @@ angular.module('amonalieApp')
     function toggleMine() {
       cache.context.o.targets.mine = !cache.context.o.targets.mine;
       //TODO: filtro sugli obiettivi personali
-      alert('Filtra gli obiettivi personali [da implementare]!')
+      Logger.info('Filtra gli obiettivi personali','(da implementare)');
       $scope.buttons[0].checked = cache.context.o.targets.mine;
     }
 

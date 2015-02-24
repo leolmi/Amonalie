@@ -12,8 +12,9 @@
           <input ng-hide="modal.info.obj.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
         </div>
       </form>
-      <label>Interventi</label> <i ng-hide="modal.info.readonly" class="fa fa-plus-square onright aslink" ng-click="addItem()"></i>
+      <label>Interventi</label>
       <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly"></task-item>
+      <p ng-hide="modal.info.readonly" class="new-task aslink" ng-click="addItem()"><i class="fa fa-plus-circle"></i> Aggiungi un nuovo intervento</p>
     </div>
   </div>
   <i class="fa fa-th-list"></i>

@@ -102,10 +102,6 @@ task band {
   opacity: .6;
 }
 
-.task-data {
-  margin-bottom: 10px;
-}
-
 .task-item {
   padding: 10px;
   position: relative;
@@ -125,4 +121,19 @@ task band {
   position: absolute;
   right: 32px;
   font-size: 32px;
+}
+
+.new-task {
+  width: 100%;
+  text-align: center;
+  display: block;
+  color: #777;
+  border: transparent 1px solid;
+  padding: 12px;
+}
+.new-task:hover {
+  color: darkorange;
+  border: #eee 1px solid;
+  padding: 12px;
+  border-radius: 6px;
 }

@@ -6,7 +6,7 @@
   min-height: 148px;
 }
 .tasks-title {
-  border-width: 1px;
+  border-width: 0;
   border-style: solid;
   padding: 8px;
   font-size: 10px;
