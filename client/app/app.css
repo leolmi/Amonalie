@@ -28,6 +28,10 @@ body {
   color: #ddd;
 }
 
+.popover {
+  color:darkorange;
+}
+
 .aslink { cursor: pointer; }
 .onleft { float: left; }
 .onright { float: right; }
@@ -89,6 +93,10 @@ body {
   color: #666;
 }
 
+.font-green {
+  color: #398439;
+}
+
 .navbar > .container .navbar-brand.font-success {
   color: #398439;
 }
@@ -114,6 +122,12 @@ body {
 .page-bar-button {
   font-size: 24px;
   color:#666;
+  margin: 0 8px 0 8px;
+}
+
+.page-bar-button-checked {
+  font-size: 24px;
+  color: #398439;
   margin: 0 8px 0 8px;
 }
 

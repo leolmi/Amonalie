@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container">
   <div class="page-bar">
-    <span class="fa fa-bookmark aslink page-bar-button" ng-click="goToday()"></span>
+    <span class="fa fa-bookmark aslink page-bar-button" ng-click="goToday()" popover="Torna ad oggi" popover-trigger="mouseenter" popover-placement="bottom"></span>
   </div>
 </div>
 <div class="gantt-title" ng-hide="waiting">
@@ -20,15 +20,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="u in context.users" ng-class-odd="'row-odd'" ng-class-even="'row-even'">
+      <tr ng-repeat="u in ctx.users" ng-class-odd="'row-odd'" ng-class-even="'row-even'">
         <th>{{u}}</th>
       </tr>
     </tbody>
   </table>
   <div id="gcontainer" class="gantt-scrollable-container">
-    <div class="task-element" ng-repeat="t in context.tasks" ng-class="'btn-'+t.style" ng-style="getTaskStyle(t)" title="{{t.a.app}}" ng-click="openTask(t)">{{t.a.code}}</div>
+    <div class="task-element" ng-repeat="t in ctx.tasks" ng-class="'btn-'+t.style" ng-style="getTaskStyle(t)" title="{{t.a.app}}" ng-click="openTask(t)">{{t.a.code}}</div>
     <div class="gantt-today" ng-style="getTodayStyle()" ng-show="today"></div>
     <canvas id="gantt-canvas" width="600"></canvas>
   </div>
 </div>
-<waiting ng-show="waiting"></waiting>
+<waiting ng-show="context.idle"></waiting>

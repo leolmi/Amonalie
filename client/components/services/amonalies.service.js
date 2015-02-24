@@ -44,6 +44,7 @@ angular.module('amonalieApp')
                 });
             });
             checkKnown(amonalies);
+            //alert('restituisce: amonalies='+amonalies.length+'  targets='+targets.length);
             cb(amonalies, targets);
           });
         })
@@ -155,6 +156,21 @@ angular.module('amonalieApp')
           });
       }
     }
+
+    var createNewTarget = function() {
+      Auth.isLoggedInAsync(function(islogged) {
+        if (islogged) {
+          var target = {
+            name: 'Nuovo obiettivo',
+            info: '',
+            author: Auth.getCurrentUser()._id,
+            active: true,
+            date: (new Date()).getTime()
+          };
+          editTarget(target);
+        }
+      });
+    };
 
     var editTarget = function(target){
       var info = {
@@ -297,6 +313,7 @@ angular.module('amonalieApp')
 
     return {
       editAmonalia:editAmonalia,
+      createNewTarget:createNewTarget,
       editTarget:editTarget,
       getDateStr:getDateStr,
       deleteAmonalia:deleteAmonalia,

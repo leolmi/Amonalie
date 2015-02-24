@@ -4,12 +4,8 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('GanttCtrl', ['$scope', '$rootScope', '$http', '$timeout', 'drawing', 'Gantt', 'Amonalies', function ($scope, $rootScope, $http, $timeout, drawing, Gantt, Amonalies) {
-    $scope.waiting = true;
-    //Amonalies.get(function(amonalies) {
-    //  $scope.amonalies = amonalies;
-    //  $scope.waiting = false;
-    //});
+  .controller('GanttCtrl', ['$scope','$rootScope','$http','$timeout','drawing','Gantt','cache',function ($scope,$rootScope,$http,$timeout,drawing,Gantt,cache) {
+    $scope.context = cache.context;
     var elm = document.getElementById('gcontainer');
     var cnv = document.getElementById('gantt-canvas');
     var ctx2d = cnv.getContext('2d');
@@ -36,16 +32,16 @@ angular.module('amonalieApp')
       return ~~((d2-d1)/(1000*60*60*24));
     }
 
-    var calcTasks = function(amonalies, ctx) {
+    var calcTasks = function(ctx) {
       var ts = [];
       var us = [];
-      var m = $rootScope.gantt_date.getMonth();
-      var start_d = new Date($rootScope.gantt_date.getFullYear(),m,1);    // new Date($rootScope.gantt_date.getFullYear(),$rootScope.gantt_date.getMonth(), 0);
+      var m = cache.context.o.gantt.date.getMonth();
+      var start_d = new Date(cache.context.o.gantt.date.getFullYear(),m,1);
       var start = start_d.getTime();
       start_d.setMonth(m+1);
       var end = start_d.getTime();
 
-      amonalies.forEach(function(a) {
+      $scope.context.amonalies.forEach(function(a) {
         if (a.tasks.length) {
           a.tasks.forEach(function(t) {
             // 1. la data di inizio è compresa tra 'start' ed 'end';
@@ -74,6 +70,7 @@ angular.module('amonalieApp')
     };
 
     var calcHeight = function(ctx){
+      if (!ctx.users) return;
       var n = ctx.users.length ? ctx.users.length : 1;
       var H = (n+2) * Gantt.constants.row_height + Gantt.constants.header_height;
       ctx.height = H;
@@ -85,26 +82,23 @@ angular.module('amonalieApp')
 
     var refresh = function() {
       var ctx = {};
-      Amonalies.get(function(amonalies){
-        calcTasks(amonalies, ctx);
-        calcHeight(ctx);
-        $scope.moving = undefined;
-        $scope.context = ctx;
-        resizeRedraw();
-        $scope.loading = false;
-        $scope.waiting = false;
-      });
+      calcTasks(ctx);
+      calcHeight(ctx);
+      $scope.moving = undefined;
+      $scope.ctx = ctx;
+      resizeRedraw();
+      $scope.loading = false;
     };
 
     var resizeRedraw = function() {
-      if (!$scope.context) return;
-      var date_month = $rootScope.gantt_date.getMonth();
-      var date_year = $rootScope.gantt_date.getYear();
+      if (!$scope.ctx) return;
+      var date_month = cache.context.o.gantt.date.getMonth();
+      var date_year = cache.context.o.gantt.date.getYear();
       var now = new Date();
 
 
 
-      var eff_H = $scope.context.height;
+      var eff_H = $scope.ctx.height;
       var days = drawing.getDaysInMonth(date_month+1, date_year);
       var min_W = Gantt.constants.item_min_width * days;
       var w = elm.offsetWidth;
@@ -148,7 +142,7 @@ angular.module('amonalieApp')
     $scope.openTask = function(t) { Gantt.showTaskDetail(t); };
 
     $scope.goToday = function() {
-      $rootScope.gantt_date = new Date();
+      cache.context.o.gantt.date = new Date();
       refresh();
     };
 
@@ -165,17 +159,17 @@ angular.module('amonalieApp')
       return {left:left+'px', top:top+'px', width:width+'px'};
     };
     $scope.getMonth = function() {
-      return drawing.getMonth($rootScope.gantt_date.getMonth());
+      return drawing.getMonth(cache.context.o.gantt.date.getMonth());
     };
     $scope.getYear = function() {
-      return $rootScope.gantt_date.getFullYear();
+      return cache.context.o.gantt.date.getFullYear();
     };
     $scope.moveDate = function(up) {
       if ($scope.moving)
         $scope.moving.cancel();
       $scope.loading = true;
       var delta = up ? 1 : -1;
-      $rootScope.gantt_date.setMonth($rootScope.gantt_date.getMonth() + delta);
+      cache.context.o.gantt.date.setMonth(cache.context.o.gantt.date.getMonth() + delta);
       refresh();
     };
 

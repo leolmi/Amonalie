@@ -1,26 +1,19 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Modal','Amonalies', function ($scope, $q, $http, $window, socket, Modal, Amonalies) {
-    $scope.waiting = true;
+  .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Modal','Amonalies','cache', function ($scope, $q, $http, $window, socket, Modal, Amonalies, cache) {
+    $scope.context = cache.context;
+    cache.init();
     $scope.taskGroups = [
-      { title:'Anomalie', filter:undefined, style:'primary' },
-      { title:'Da fare', filter:'dafare', style:'danger' },
-      { title:'Fando', filter:'fando', style:'warning' },
-      { title:'Fatte', filter:'fatto', style:'success' }
+      { title:'Anomalie', filter:undefined, style:'primary', filtername:'amonalies' },
+      { title:'Da fare', filter:'dafare', style:'danger', filtername:'dafare' },
+      { title:'Fando', filter:'fando', style:'warning', filtername:'fando' },
+      { title:'Fatte', filter:'fatto', style:'success', filtername:'fatto' }
     ];
 
     $scope.activetab = $scope.taskGroups[0].title;
 
     $scope.dragging = false;
-
-    Amonalies.get(function(amonalies, targets) {
-      $scope.amonalies = amonalies;
-      $scope.targets = targets;
-      socket.syncUpdates('amonalie', $scope.amonalies);
-      socket.syncUpdates('target', $scope.targets);
-      $scope.waiting = false;
-    });
 
     var win = angular.element($window);
 
@@ -78,9 +71,4 @@ angular.module('amonalieApp')
       //TODO: Crea una nuova amonalia
       alert('Crea una nuova amonalia [da implementare]!');
     };
-
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('amonalie');
-      socket.unsyncUpdates('target');
-    });
   }]);

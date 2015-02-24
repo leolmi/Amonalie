@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="page-bar">
-    <span class="fa fa-plus-circle aslink page-bar-button" ng-click="newAmonalia()"></span>
+    <span class="fa fa-plus-circle aslink page-bar-button" ng-click="newAmonalia()" popover="Crea una nuova amonalia" popover-trigger="mouseenter" popover-placement="bottom"></span>
   </div>
 </div>
 <div class="row row-tasks" ng-hide="waiting">
@@ -13,7 +13,7 @@
   </ul>
   <div ng-repeat="tasks in taskGroups" class="col-sm-3 tasks-container" ng-class="{notab:large}"
        ng-show="large || activetab==tasks.title" data-drop="true" data-jqyoui-options jqyoui-droppable="{beforeDrop: 'beforeDrop(tasks)'}">
-    <tasks-container ng-model="tasks" amonalies="amonalies" showtitle="large"></tasks-container>
+    <tasks-container ng-model="tasks" amonalies="context.amonalies" showtitle="large"></tasks-container>
   </div>
 </div>
-<waiting ng-show="waiting"></waiting>
+<waiting ng-show="context.idle"></waiting>

@@ -1,17 +1,18 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 
-<div class="row" ng-hide="targets.length || waiting" >
+<div class="row" ng-hide="context.targets.length || waiting" >
   <div class="col-md-4"></div>
   <div class="col-md-4">
     <alert class="alert alert-info aslink new-target" ng-click="newTarget()"><strong>Nessun obiettivo definito</strong>, clicca qui per crearne uno nuovo.</alert>
   </div>
 </div>
-<div class="container targets-container" ng-show="targets.length && !waiting">
+<div class="container targets-container" ng-show="context.targets.length && !waiting">
   <div class="page-bar">
-    <span class="fa fa-user aslink page-bar-button" ng-click="toggleMine()"></span>
-    <span class="fa fa-plus-circle aslink page-bar-button" ng-click="newTarget()"></span>
+    <span class="fa fa-user aslink" popover="Visualizza solo i miei obiettivi" popover-trigger="mouseenter" popover-placement="bottom"
+          ng-class="{'page-bar-button':!context.o.targets.mine, 'page-bar-button-checked':context.o.targets.mine}" ng-click="toggleMine()"></span>
+    <span class="fa fa-plus-circle aslink page-bar-button" ng-click="newTarget()" popover="Crea un nuovo obiettivo" popover-trigger="mouseenter" popover-placement="bottom"></span>
   </div>
-  <target ng-repeat="target in targets" ng-model="target" amonalies="amonalies"></target>
+  <target ng-repeat="target in context.targets" ng-model="target" amonalies="amonalies"></target>
 </div>
-<waiting ng-show="waiting"></waiting>
+<waiting ng-show="context.idle"></waiting>
