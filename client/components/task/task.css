@@ -1,8 +1,15 @@
 task {
-  border: #888 1px solid;
-  border-radius: 3px;
+  /*border: #888 1px solid;*/
+  /*border-radius: 3px;*/
   padding: 12px;
+  /*background-color: #ddd;*/
+  /*background: linear-gradient(rgb(252, 255, 244) 0%, rgb(179, 190, 173) 82%);*/
   background-color: #ddd;
+  /*border-bottom: 1px solid #111;*/
+  border-radius: 3px;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+
   color:#222;
   margin: 4px 0;
   position: relative;
@@ -11,8 +18,8 @@ task {
 }
 
 task:hover {
-  background-color: darkorange;
-  border-color: sienna;
+  background-color: #fff;
+  /*border-color: sienna;*/
   cursor: -webkit-grab;
 }
 
@@ -138,4 +145,53 @@ task band {
   border: #eee 1px solid;
   padding: 12px;
   border-radius: 6px;
+}
+/*.element-category {*/
+  /*position: absolute;*/
+  /*left: 0px;*/
+  /*top: 0px;*/
+  /*width: 20%;*/
+  /*height: 100%;*/
+  /*opacity: .3;*/
+  /*border-right: #fff 2px solid;*/
+  /*border-bottom-left-radius: 3px;*/
+  /*border-top-left-radius: 3px;*/
+/*}*/
+
+.a-selector {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  height: 100%;
+  width: 21%;
+  opacity: 0;
+  background-color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  color:#eee;
+}
+.a-selector > .fa {
+  font-size: 50px;
+}
+
+.a-selector:hover {
+  opacity: 1;
+  background-color: #333;
+  top: -1px;
+  left: -1px;
+  height: 101%;
+}
+
+.a-selected {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  height: 101%;
+  width: 21%;
+  background-color: #333;
+  text-align: center;
+  color:#eee;
+}
+.a-selected > .fa {
+  font-size: 50px;
 }

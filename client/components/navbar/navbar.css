@@ -30,6 +30,10 @@
   .navbar > .container-fluid .navbar-brand {
     margin-left: 15px;
   }
+
+  .navbar-header {
+    width: 100%;
+  }
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
@@ -37,6 +41,12 @@
     color: darkorange;
   }
 }
+
 .navbar-default .working-brand {
   color:#c9302c;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: burlywood;
 }

@@ -2,20 +2,13 @@
 
 angular.module('amonalieApp')
   .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Amonalies) {
-    $scope.menu = [{
-      link: '/',
-      icon: 'fa-trello'
-    },{
-      link: '/gantt',
-      icon: 'fa-calendar'
-    },{
-      link: '/targets',
-      icon: 'fa-tachometer'
-    }];
-    //,{
-    //  action: Amonalies.milk,
-    //  icon: 'fa-cloud-download'
-    //}];
+    $scope.menu = [
+      { link: '/', icon: 'fa-trello' },
+      { link: '/gantt', icon: 'fa-calendar' },
+      { link: '/targets', icon: 'fa-tachometer' }
+      //,{ link: '/test', icon: 'fa-bug' }
+    ];
+
     $scope.version = '1.0.0';
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -37,7 +30,6 @@ angular.module('amonalieApp')
     };
 
     $scope.isAssistant = function() {
-      //alert('is assistant:'+Auth.isAssistant()+'  user:'+JSON.stringify(Auth.getCurrentUser().assistant));
       return Auth.isAssistant();
     };
 

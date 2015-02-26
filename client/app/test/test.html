@@ -1,0 +1,17 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+  <h1>Tests</h1>
+
+  <div class="input-group">
+    <input type="text" class="form-control" ng-model="element.color">
+    <span class="input-group-btn">
+      <button class="btn btn-default btn-add-color" type="button" ng-click="addElement()" ng-style="getElementStyle()">Add This Color</button>
+    </span>
+  </div>
+  <hr>
+  <div class="test-element" ng-repeat="e in elements" ng-style="getStyle($index)">
+    <button type="button" class="close" data-ng-click="delete($index)">&times;</button>
+  </div>
+</div>

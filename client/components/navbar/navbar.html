@@ -1,20 +1,13 @@
 <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-href="{{item.link}}" ng-click="doAction(item.action)" class="navbar-brand aslink">
         <i class="fa fa-lg" ng-class="item.icon"></i> {{item.title}}
       </a>
       <a ng-click="milk()" ng-hide="milking" class="navbar-brand aslink" ng-class="{'font-success':isAssistant(), 'font-warning':!isAssistant()}"> <i class="fa fa-lg fa-cloud-download"></i> </a>
       <a ng-show="milking" class="navbar-brand working-brand"> <i class="fa fa-lg fa-cloud"></i> </a>
-    </div>
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav navbar-right">
+
+      <ul class="nav navbar-nav onright">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-user fa-fw"></i> <small> {{getCurrentUser().name}} </small> <i class="fa fa-caret-down fa-fw"></i>

@@ -4,10 +4,24 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http, $rootScope, $location, Logger, Auth, Modal) {
+  .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http,$rootScope,$location,Logger,Auth,Modal) {
     var _amonalies = [];
-    var states = ['dafare','fando','fatto'];
+    //var colors = ['#87e0fd',"fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow",
+    //              "darkblue","darkmagenta","black","darkgreen","dodgerblue","indigo","darkorange","olivedrab ","orchid"];
 
+    var colors = [
+        '#87e0fd', //celestino
+        '#cdeb8e', //verdino
+        '#606c88', //grigio-celeste
+        '#ff7400', //arancioncino
+        '#ff1a00', //rossotto
+        '#4f85bb', //celeste
+        '#febf01', //giallo
+        '#a4b357', //oliva
+      ];
+
+    var states = ['dafare','fando','fatto'];
+    var _apps = [];
     var checkKnown = function(amonalies) {
       if (amonalies && amonalies.length) {
         if (_amonalies.length) {
@@ -20,18 +34,29 @@ angular.module('amonalieApp')
       }
     };
 
+    var getAppColor = function(app){
+      var lng = colors.length;
+      var pos = _apps.indexOf(app);
+      var index = pos % lng;
+      if (index<0) return 'white';
+      return colors[index];
+    };
+
     /**
      * Restituisce l'elenco delle amonalie
      * @param cb
      */
     var getAmonalies = function(cb) {
       cb = cb || angular.noop;
+      var apps = [];
       $http.get('/api/amonalie')
         .success(function(amonalies){
           //inserisce le info sui targets
           getTargets(function(targets) {
             amonalies.forEach(function (a) {
-              if (a.tasks.length)
+              if (apps.indexOf(a.app)<0)
+                apps.push(a.app);
+              if (a.tasks.length && targets.length)
                 a.tasks.forEach(function (t) {
                   if (t.target) {
                     var result = $.grep(targets, function (target) {
@@ -42,6 +67,7 @@ angular.module('amonalieApp')
                   }
                 });
             });
+            _apps = apps;
             checkKnown(amonalies);
             cb(amonalies, targets);
           });
@@ -295,6 +321,8 @@ angular.module('amonalieApp')
 
     return {
       editAmonalia:editAmonalia,
+      apps:function(){return _apps;},
+      getAppColor:getAppColor,
       createNewTarget:createNewTarget,
       editTarget:editTarget,
       getDateStr:getDateStr,

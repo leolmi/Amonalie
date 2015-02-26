@@ -1,0 +1,10 @@
+.test-element {
+  width: 100px;
+  height: 24px;
+  border-radius: 6px;
+  padding: 2px 6px 6px;
+}
+
+.btn-add-color {
+  color: #222;
+}
