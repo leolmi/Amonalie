@@ -41,6 +41,7 @@ Amonalie.find({}).remove(function() {
     obj:'descrizione breve dell\'anomalia bla',
     desc:'aswqe ew rqwcrq cr qrc q fqfc qfqef qw fr wr qerqwer qwercqewrqerc qwercqcr qwerqcr qwcrqrewr qer qdfaf sdf asdfasdfasdfs',
     state: 'fando',
+    archived:false,
     tasks: [
       {owner:'leo', start:d2_n, end:0, work:'', target:''}],
     params: [
@@ -53,6 +54,7 @@ Amonalie.find({}).remove(function() {
     obj:'descrizione breve dell\'anomalia bla',
     desc:'asdfaf sdf asdfasdfasdfs asdf dsf asdfasdf asdf asfas dfas dfasdf asdfasd sdf asdfas dfasdf asdf asfas asdfasd fasd f',
     state: 'dafare',
+    archived:false,
     tasks: [
       {owner:'yuri', start:d1_n, end:d2_n, work:'WR_004'},
       {owner:'yuri', start:d2_n, end:d2_n, work:'WR_005'}],
@@ -66,6 +68,7 @@ Amonalie.find({}).remove(function() {
     obj:'descrizione breve dell\'anomalia bla',
     desc:'asdfaf sdf asdfa b kytbhrt bhr tbh rt bhrtb rythrbh rtbh kyt bryth rytbhrty brt hb ryhbrbt h rtyhrytbh rythrt bhrybhrt hrtbhr thryh rthrthr th rtyhr tbh rtyh rthsdfasdfs',
     state: undefined,
+    archived:false,
     tasks: [],
     params: [
       {name:'priority',value:'3'},

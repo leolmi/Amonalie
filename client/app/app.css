@@ -109,7 +109,10 @@ body {
   color: darkorange;
 }
 
-
+.page-message {
+  margin-top: 40px;
+  text-align: center;
+}
 
 
 /*---------- ELEMENT FOOTER BAND ----------*/

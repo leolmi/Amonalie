@@ -15,7 +15,7 @@ var u = require('../utilities/util');
 
 // Get list of things
 exports.index = function(req, res) {
-  return u.index(Target, req, res);
+  return u.index(Target, req, res, {archived:false});
 };
 
 // Get a single thing

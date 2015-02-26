@@ -10,7 +10,7 @@ var cow = require('./milking');
 
 // Get list of amonalie
 exports.index = function(req, res) {
-  return u.index(Amonalie, req, res);
+  return u.index(Amonalie, req, res, {archived:false});
 };
 
 // Updates an existing amonalia in the DB.

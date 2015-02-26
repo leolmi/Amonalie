@@ -1,7 +1,19 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<page-bar ng-model="buttons"></page-bar>
+<page-bar ng-model="buttons" ng-show="ctx.users.length"></page-bar>
 
-<div class="gantt-title" ng-hide="waiting">
+<div class="container" ng-hide="ctx.users.length">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <alert type="warning" class="page-message">
+        <strong>Nessun elemento da mostrare</strong>
+        <p>inserire dei task assegnandoli a utenti per visualizzare oggetti sulla linea temporale.</p>
+      </alert>
+    </div>
+  </div>
+</div>
+
+<div class="gantt-title" ng-hide="context.idle || !ctx.users.length">
   <span class="gantt-navigator glyphicon glyphicon-chevron-left" ng-click="moveDate(false)"></span>
   <div class="gantt-title-content">
     <h2>{{getMonth()}}</h2>
@@ -9,7 +21,7 @@
   </div>
   <span class="gantt-navigator glyphicon glyphicon-chevron-right" ng-click="moveDate(true)"></span>
 </div>
-<div class="gantt-container" ng-hide="waiting">
+<div class="gantt-container" ng-hide="context.idle || !ctx.users.length">
   <table class="table table-condensed table-users">
     <thead>
       <tr>

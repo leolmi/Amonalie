@@ -74,6 +74,7 @@ task .close {
 /*}*/
 .open-details {
   position: absolute;
+  background-color: transparent;
   z-index: 4;
   right: 0px;
   top: 0px;
@@ -81,13 +82,14 @@ task .close {
   border: transparent;
   border-bottom-left-radius: 6px;
   border-top-right-radius: 3px;
-  opacity: .4;
+  opacity: .6;
   width: 32px;
   height: 32px;
 }
 
 .open-details:hover {
   opacity: 1;
+  background-color: white;
 }
 
 

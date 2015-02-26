@@ -8,7 +8,8 @@ var TargetSchema = new Schema({
   info: String,
   author:String,
   active: Boolean,
-  date: Number
+  date: Number,
+  archived:Boolean
 });
 
 module.exports = mongoose.model('Target', TargetSchema);

@@ -1,7 +1,7 @@
 <button type="button" class="open-details" ng-click="details()"><i class="fa aslink fa-pencil"></i></button>
-<!--<span class="fa"></span>-->
 <strong>{{amonalia.code}}</strong> {{amonalia.app}} <span ng-show="isworking(amonalia)" class="task-users"><span class="glyphicon glyphicon-user"></span> {{getusers(amonalia)}}</span>
 <p>{{amonalia.obj}}</p>
 <pre ng-show="opened" >{{amonalia.desc}}</pre>
-<band ng-show="amonalia.new" color="'red'" size="30" distance="20"></band>
+<band ng-show="amonalia.new && !amonalia.archived" color="'red'" size="30" distance="20"></band>
+<band ng-show="amonalia.archived" color="'grey'" size="30" distance="20"></band>
 <div class="element-footer-band" ng-click="toggle()">dettagli</div>

@@ -52,17 +52,17 @@ angular.module('amonalieApp')
     };
 
     var modalEditAmonalia = Modal.confirm.editamonalia(function(info){
-      if (info.history) {
-        //TODO: Storicizzazione dell'attività
-        Logger.info('Storicizza l\'attività','(da implementare)');
-        if (info.def)
-          info.def.reject();
+      if (info.history && !info.a.archived && !confirm('Attenzione, l\'anomalia sarà archiviata negli storici, continuare?')) {
+        info.def.reject();
         return;
       }
       if (info.obj.state)
         info.a.state = info.obj.state;
       if (info.def && info.def.resolve)
         info.def.resolve();
+      if (info.history) {
+        info.a.archived = info.a.archived ? false : true;
+      }
 
       update('amonalie',info.a,'Amonalia','code');
     });
@@ -102,11 +102,8 @@ angular.module('amonalieApp')
     };
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
-      if (info.history) {
-        //TODO: Storicizzazione dell'obiettivo
-        Logger.info('Storicizza l\'obiettivo','(da implementare)');
-        if (info.def)
-          info.def.reject();
+      if (info.history && !info.target.archived && !confirm('Attenzione, l\'obiettivo sarà archiviato negli storici, continuare?')) {
+        info.def.reject();
         return;
       }
 
@@ -114,26 +111,11 @@ angular.module('amonalieApp')
       info.target.info = info.obj.desc;
       info.target.active = info.obj.active;
       info.target.date = getDateNum(info.obj.date);
+      if (info.history) {
+        info.target.archived = info.target.archived ? false : true;
+      }
 
       update('targets',info.target,'Obiettivo');
-      //if (info.target._id){
-      //  $http.put('/api/targets/'+info.target._id, info.target)
-      //    .success(function(){
-      //      Logger.ok('Obiettivo "'+ info.target.name+'" aggiornato correttamente!');
-      //    })
-      //    .error(function(err){
-      //      Logger.error('Errori nell\'aggiornamento dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
-      //    });
-      //}
-      //else {
-      //  $http.post('/api/targets', info.target)
-      //    .success(function(){
-      //      Logger.ok('Obiettivo "'+ info.target.name+'" creato correttamente!');
-      //    })
-      //    .error(function(err){
-      //      Logger.error('Errori nella creazione dell\'obiettivo "'+ info.target.name+'"', JSON.stringify(err));
-      //    });
-      //}
     });
 
     function update(dest, obj, typedesc, namep) {

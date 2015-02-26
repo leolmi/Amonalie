@@ -88,7 +88,7 @@ angular.module('amonalieApp')
             if (!args[0].readonly) {
               buttons.push({
                 classes: 'btn-danger onleft',
-                text: 'Archivia',
+                text: args[0].a.archived ? 'Ripristina' : 'Archivia',
                 click: function (e) {
                   args[0].history = true;
                   taskModal.close(e);
@@ -151,7 +151,7 @@ angular.module('amonalieApp')
                 template: 'components/target/target-modal.html',
                 buttons: [{
                   classes: 'btn-danger onleft',
-                  text: 'Archivia',
+                  text: args[0].target.archived ? 'Ripristina' : 'Archivia',
                   click: function (e) {
                     args[0].history = true;
                     targetModal.close(e);

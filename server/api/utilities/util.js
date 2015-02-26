@@ -116,8 +116,8 @@ exports.get = function(schema, req, res) {
   });
 };
 
-exports.index = function(schema, req, res) {
-  schema.find(function (err, objs) {
+exports.index = function(schema, req, res, filter) {
+  schema.find(filter, function (err, objs) {
     console.log('Trovati: '+objs.length+' elementi.');
     if(err) { return error(res, err); }
     return ok(res, objs);

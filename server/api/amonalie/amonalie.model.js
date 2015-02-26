@@ -27,6 +27,7 @@ var AmonalieSchema = new Schema({
   desc:String,
   state:String,
   note:String,
+  archived:Boolean,
   tasks: [TaskSchema],
   params: [ParamSchema]
 });
@@ -44,6 +45,7 @@ AmonalieSchema.statics.generate = function generate(params, columns) {
     obj:'',
     desc:'',
     state:undefined,
+    archived:false,
     tasks: [],
     params: []
   };
