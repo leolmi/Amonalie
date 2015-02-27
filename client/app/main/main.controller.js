@@ -12,7 +12,7 @@ angular.module('amonalieApp')
     ];
     function newAmonalia(){
       Amonalies.createAmonalia();
-    };
+    }
 
     function filterEditor() {
       //TODO: Imposta i filtri globali

@@ -6,6 +6,7 @@
 angular.module('amonalieApp')
   .controller('GanttCtrl', ['$scope','$rootScope','$http','$timeout','drawing','Gantt','cache',function ($scope,$rootScope,$http,$timeout,drawing,Gantt,cache) {
     $scope.context = cache.context;
+
     var elm = document.getElementById('gcontainer');
     var cnv = document.getElementById('gantt-canvas');
     var ctx2d = cnv.getContext('2d');
@@ -178,7 +179,7 @@ angular.module('amonalieApp')
       cache.context.o.gantt.date.setMonth(cache.context.o.gantt.date.getMonth() + delta);
       refresh();
     };
-
-    refresh();
-
+    cache.check(function() {
+      refresh();
+    });
   }]);

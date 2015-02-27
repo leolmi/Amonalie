@@ -6,6 +6,7 @@
 angular.module('amonalieApp')
   .controller('TargetsCtrl', ['$scope','Auth','cache','Amonalies','Logger', function ($scope,Auth,cache,Amonalies,Logger) {
     $scope.context = cache.context;
+    cache.check();
 
     function newTarget() {
       Amonalies.createNewTarget();

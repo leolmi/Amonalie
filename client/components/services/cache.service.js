@@ -58,6 +58,12 @@ angular.module('amonalieApp')
       });
     }
 
+    function check(cb) {
+      if (!_context.amonalies || !_context.amonalies.length)
+        init(cb);
+      else if (cb) cb();
+    }
+
     function refresh(cb){
       if (_context.idle) return;
       _context.idle = true;
@@ -81,6 +87,7 @@ angular.module('amonalieApp')
 
     return {
       init:init,
+      check:check,
       refresh:refresh,
       flush:flush,
       context:_context

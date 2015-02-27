@@ -43,6 +43,22 @@ angular.module('amonalieApp')
     };
 
     /**
+     * Restituisce l'elenco degli obiettivi
+     * @param cb
+     */
+    var getTargets = function(cb) {
+      cb = cb || angular.noop;
+      $http.get('/api/targets')
+        .success(function(targets){
+          cb(targets);
+        })
+        .error(function(err){
+          Logger.error('Errori nel caricamento dei targets', JSON.stringify(err));
+          cb();
+        });
+    };
+
+    /**
      * Restituisce l'elenco delle amonalie
      * @param cb
      */
@@ -56,7 +72,7 @@ angular.module('amonalieApp')
             amonalies.forEach(function (a) {
               if (apps.indexOf(a.app)<0)
                 apps.push(a.app);
-              if (a.tasks.length && targets.length)
+              if (targets && a.tasks.length && targets.length)
                 a.tasks.forEach(function (t) {
                   if (t.target) {
                     var result = $.grep(targets, function (target) {
@@ -147,7 +163,7 @@ angular.module('amonalieApp')
      */
     var handleSelection = function(selection) {
       if (!selection || selection.length<=0) {
-        Logger.info('Nessun elemento selezionato');
+        Logger.warning('Nessun elemento selezionato');
         return;
       }
       var args = {
@@ -270,6 +286,7 @@ angular.module('amonalieApp')
             info: '',
             author: Auth.getCurrentUser()._id,
             active: true,
+            archived: false,
             date: (new Date()).getTime()
           };
           editTarget(target);
@@ -330,17 +347,6 @@ angular.module('amonalieApp')
         })
         .error(function(err){
           Logger.error('Errori nella gestione dell\'anomalia '+ a.code, JSON.stringify(err));
-        });
-    };
-
-    var getTargets = function(cb) {
-      cb = cb || angular.noop;
-      $http.get('/api/targets')
-        .success(function(targets){
-          cb(targets);
-        })
-        .error(function(err){
-          Logger.error('Errori nel caricamento dei targets', JSON.stringify(err));
         });
     };
 
@@ -430,7 +436,6 @@ angular.module('amonalieApp')
       getDateStr:getDateStr,
       deleteAmonalia:deleteAmonalia,
       updateAmonalia:updateAmonalia,
-      useTargets:getTargets,
       deleteTarget:deleteTarget,
       get: getAmonalies,
       milk:milk,
