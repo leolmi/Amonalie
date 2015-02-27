@@ -1,0 +1,45 @@
+<div class="list-handler-container" ng-controller="AmonalieListCtrl">
+  <p>Effettua l'azione per tutti i <strong>{{modal.info.list.length}}</strong> elementi selezionati</p>
+  <pre>{{getCodes(modal.info.list)}}</pre>
+  <ul class="nav nav-pills nav-modal">
+    <li role="presentation" ng-repeat="i in items" ng-class="{active:modal.info.action==$index}"><a class="aslink" ng-click="setPage($index)">{{i.title}}</a></li>
+  </ul>
+  <pre ng-show="items[modal.info.action].desc" class="list-handler-action-desc">{{items[modal.info.action].desc}}</pre>
+  <div ng-switch="modal.info.action">
+    <div ng-switch-when="0">
+      <form class="form form-modal" novalidate>
+        <label>Stato di destinazione</label>
+        <select class="form-control" ng-model="modal.info.o.state">
+          <option ng-repeat="s in states">{{s}}</option>
+        </select>
+        <div class="modal-btn" ng-class="{'modal-btn-warning':modal.info.o.task, 'modal-btn-default':!modal.info.o.task}" ng-click="modal.info.o.task=!modal.info.o.task">
+          <span class="fa aslink" ng-class="{'fa-chevron-circle-down':!modal.info.o.task, 'fa-chevron-circle-up':modal.info.o.task}"></span>
+          Apri intervento
+        </div>
+        <div collapse="!modal.info.o.task">
+          <label>Chi</label>
+          <input type="text" class="form-control input-sm" ng-model="modal.info.o.owner"/>
+          <label>Obiettivo</label>
+          <select class="form-control input-sm" ng-options="t._id as t.name for t in targets" ng-model="modal.info.o.target">
+            <option style="display:none" value="">seleziona un obiettivo...</option>
+          </select>
+          <label>Inizio</label>
+          <p class="input-group">
+            <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="modal.info.o.date" is-open="start_opened" datepicker-options="options" close-text="Chiudi" ng-required="true" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default input-sm" ng-click="open_start($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+      </form>
+    </div>
+    <div ng-switch-when="1">
+      <label>Obiettivo</label>
+      <select class="form-control input-sm" ng-options="t._id as t.name for t in targets" ng-model="modal.info.o.target">
+        <option style="display:none" value="">seleziona un obiettivo...</option>
+      </select>
+    </div>
+    <div ng-switch-when="2"></div>
+  </div>
+</div>
+

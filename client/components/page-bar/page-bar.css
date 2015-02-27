@@ -21,3 +21,10 @@
   color:darkorange;
   margin: -2px 7px 0 7px;
 }
+
+.page-bar-divider {
+  width: 16px;
+  height: 16px;
+  border-right: #333 1px solid;
+  margin-right: 16px;
+}

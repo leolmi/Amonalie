@@ -11,6 +11,7 @@ angular.module('amonalieApp')
       targets: [],
       idle: false,
       o:{
+        selection: [],
         gantt: {
           date: new Date()
         },
@@ -33,6 +34,7 @@ angular.module('amonalieApp')
         _context.targets = [];
       }
 
+      _context.o.selection = [];
       _context.o.gantt.date = new Date();
       _context.o.targets.mine = false;
       _context.o.filters.amonalies = '';
@@ -60,11 +62,13 @@ angular.module('amonalieApp')
       if (_context.idle) return;
       _context.idle = true;
       cb = cb || angular.noop;
-      Amonalies.get(function(a, t) {
-        _context.amonalies = a;
-        _context.targets = t;
-        socket.syncUpdates('amonalie', _context.amonalies);
-        socket.syncUpdates('target', _context.targets);
+      Amonalies.get(function(err, a, t) {
+        if (!err) {
+          _context.amonalies = a;
+          _context.targets = t;
+          socket.syncUpdates('amonalie', _context.amonalies);
+          socket.syncUpdates('target', _context.targets);
+        }
         _context.idle = false;
         cb(_context);
       })

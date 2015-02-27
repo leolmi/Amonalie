@@ -5,10 +5,10 @@
 
 angular.module('amonalieApp')
   .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http,$rootScope,$location,Logger,Auth,Modal) {
+    var _states = ['dafare','fando','fatto'];
     var _amonalies = [];
     //var colors = ['#87e0fd',"fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow",
     //              "darkblue","darkmagenta","black","darkgreen","dodgerblue","indigo","darkorange","olivedrab ","orchid"];
-
     var colors = [
         '#87e0fd', //celestino
         '#cdeb8e', //verdino
@@ -69,14 +69,19 @@ angular.module('amonalieApp')
             });
             _apps = apps;
             checkKnown(amonalies);
-            cb(amonalies, targets);
+            cb(undefined, amonalies, targets);
           });
         })
         .error(function(err){
+          cb(err);
           Logger.error('Errori nel caricamento delle amonalie', JSON.stringify(err));
         });
     };
 
+    /**
+     * Apre l'editor modale per modificare l'amonalia
+     * @type {Function}
+     */
     var modalEditAmonalia = Modal.confirm.editamonalia(function(info){
       if (info.history && !info.a.archived && !confirm('Attenzione, l\'anomalia sarà archiviata negli storici, continuare?')) {
         info.def.reject();
@@ -92,7 +97,11 @@ angular.module('amonalieApp')
 
       update('amonalie',info.a,'Amonalia','code');
     });
-
+    /**
+     * Modifica un'amonalia
+     * @param amonalia
+     * @param opt
+     */
     var editAmonalia = function(amonalia, opt){
       if (opt) {
         switch(opt.state) {
@@ -126,6 +135,93 @@ angular.module('amonalieApp')
       };
       modalEditAmonalia(info);
     };
+
+    var createAmonalia = function() {
+      //TODO: Crea una nuova amonalia
+      Logger.info('Crea una nuova amonalia','(da implementare)');
+    };
+
+    /**
+     * Modifica l'elenco delle amonalie selezionate
+     * @param selection
+     */
+    var handleSelection = function(selection) {
+      if (!selection || selection.length<=0) {
+        Logger.info('Nessun elemento selezionato');
+        return;
+      }
+      var args = {
+        title: 'Modifica '+selection.length+(selection.length>1 ? ' amonalie' : 'amonalia'),
+        list: selection,
+        action: 0,
+        o: {
+          task: false,
+          state:'dafare',
+          owner:Auth.getCurrentUser().name,
+          target:'',
+          date: (new Date()).getTime()
+        }
+      };
+      modalEditSelection(args);
+    };
+
+    /**
+     * Scorre la lista delle amonalie ed esegue per ciascuna il metodo passato
+     * @param list
+     * @param action
+     */
+    function ona(list, action){
+      while(list.length) {
+        var a = list.pop();
+        action(a);
+      }
+    }
+    /**
+     * Apre l'editor modale per modificare l'elenco delle amonalie selezionate
+     * @type {Function}
+     */
+    var modalEditSelection = Modal.confirm.editlist(function(args){
+      switch(args.action) {
+        case 0:
+          //Passa di stato le anomalie selezionate
+          ona(args.list, function(a) {
+            a.state = args.o.state;
+            //TODO:Modifica le attività
+            updateAmonalia(a);
+          });
+          break;
+        case 1:
+          if (!args.o.target)
+            Logger.warning('Nessun obiettivo selezionato!');
+          else {
+            //Imposta l'obiettivo scelto alle amonalie selezionate
+            ona(args.list, function(a) {
+              a.tasks.forEach(function(t){
+                if (!t.end)
+                  t.target = args.o.target;
+              });
+              updateAmonalia(a);
+            });
+          }
+          break;
+        case 2:
+          //Archivia le amonalie selezionate chiudendo tutte le attività in corso
+          ona(args.list, function(a) {
+            a.archived = true;
+            a.tasks.forEach(function(t){
+              if (!t.start)
+                t.start = (new Date()).getTime();
+              if (!t.end)
+                t.end = (new Date()).getTime();
+            });
+            updateAmonalia(a);
+          });
+          break;
+      }
+    });
+
+
+
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
       if (info.history && !info.target.archived && !confirm('Attenzione, l\'obiettivo sarà archiviato negli storici, continuare?')) {
@@ -261,6 +357,7 @@ angular.module('amonalieApp')
     };
 
     var _milking = false;
+
     var milk = function(options) {
       var user = Auth.getCurrentUser();
       if (!user.assistant.length || !user.assistant[0].username || !user.assistant[0].password) {
@@ -278,10 +375,12 @@ angular.module('amonalieApp')
       $http.post('/api/amonalie/assistant/'+user._id, options)
         .success(function(result){
           var report = 'Aggiunte:'+result.added.length+'; Aggiornate:'+result.updated.length+'; Scartate:'+result.discards.length+';';
+          _milking = false;
           Logger.ok('Milk Terminato!', report);
         })
         .error(function(err){
-          Logger.error('Errori nel caricamento delle amonalie', JSON.stringify(err));
+          _milking = false;
+          Logger.error('Errori nella mungitura di assistant!', JSON.stringify(err));
         })
         .then(function() {
           _milking = false;
@@ -320,7 +419,10 @@ angular.module('amonalieApp')
     };
 
     return {
+      states:function() { return _states; },
+      createAmonalia:createAmonalia,
       editAmonalia:editAmonalia,
+      handleSelection:handleSelection,
       apps:function(){return _apps;},
       getAppColor:getAppColor,
       createNewTarget:createNewTarget,

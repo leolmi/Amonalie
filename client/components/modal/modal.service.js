@@ -116,7 +116,7 @@ angular.module('amonalieApp')
               modal: {
                 dismissable: true,
                 htmltitle: args[0].title,
-                template: 'components/task/task-modal.html',
+                template: 'components/amonalia/amonalia-modal.html',
                 info: args[0],
                 buttons: buttons
               }
@@ -130,6 +130,48 @@ angular.module('amonalieApp')
             });
           };
         },
+        /**
+         * Gestisce contemporaneamente più amonalie
+         * @param cb
+         * @returns {Function}
+         */
+        editlist : function (cb) {
+          cb = cb || angular.noop;
+          return function () {
+            var args = Array.prototype.slice.call(arguments),
+              editModal;
+
+            editModal = openModal({
+              modal: {
+                dismissable: true,
+                title: args[0].title,
+                template: 'components/amonalia/amonalie-list-modal.html',
+                info: args[0],
+                buttons: [{
+                  classes: 'btn-success',
+                  text: 'Applica',
+                  click: function(e) {
+                    editModal.close(e);
+                  }
+                }, {
+                  classes: 'btn-primary',
+                  text: 'Annulla',
+                  click: function(e) {
+                    editModal.dismiss(e);
+                  }
+                }]
+              }
+            }, 'modal-standard');
+
+            editModal.result.then(function(e) {
+              cb.apply(e, args);
+            },function() {
+              if(args[0].def && args[0].def.reject)
+                args[0].def.reject();
+            });
+          }
+        },
+
         /**
          * Modifica un obiettivo
          * @param {Function} edt - funzione chiamata alla conferma del dialog

@@ -4,11 +4,11 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('task', ['cache','Modal','Amonalies','Logger', function (cache,Modal,Amonalies,Logger) {
+  .directive('amonalia', ['cache','Modal','Amonalies','Logger', function (cache,Modal,Amonalies,Logger) {
     return {
       restrict: 'E',
       scope: {amonalia: '=ngModel'},
-      templateUrl: 'components/task/task.html',
+      templateUrl: 'components/amonalia/amonalia.html',
       link: function (scope, elm, atr) {
         scope.opened = false;
 
@@ -36,16 +36,18 @@ angular.module('amonalieApp')
           return (users.length) ? users.join() : '?';
         };
 
-        scope.delete = function() {
-          modalDelete(scope.amonalia.code, scope.amonalia);
-        };
-
         scope.details = function() {
           Amonalies.editAmonalia(scope.amonalia);
         };
 
+        scope.isSelected = function() { return (cache.context.o.selection.indexOf(scope.amonalia)>=0); };
+
         scope.select = function() {
-          scope.amonalia.selected = scope.amonalia.selected ? false : true;
+          var idx = cache.context.o.selection.indexOf(scope.amonalia);
+          if (idx<0)
+            cache.context.o.selection.push(scope.amonalia);
+          else
+            cache.context.o.selection.splice(idx,1);
         };
       }
     }

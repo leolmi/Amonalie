@@ -4,15 +4,14 @@ angular.module('amonalieApp')
   .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Logger','Amonalies','cache', function ($scope, $q, $http, $window, socket, Logger, Amonalies, cache) {
     $scope.context = cache.context;
     cache.init();
-    $scope.taskGroups = [
+    $scope.groups = [
       { title:'Anomalie', filter:undefined, style:'primary', filtername:'amonalies' },
       { title:'Da fare', filter:'dafare', style:'danger', filtername:'dafare' },
       { title:'Fando', filter:'fando', style:'warning', filtername:'fando' },
       { title:'Fatte', filter:'fatto', style:'success', filtername:'fatto' }
     ];
     function newAmonalia(){
-      //TODO: Crea una nuova amonalia
-      Logger.info('Crea una nuova amonalia','(da implementare)');
+      Amonalies.createAmonalia();
     };
 
     function filterEditor() {
@@ -20,7 +19,22 @@ angular.module('amonalieApp')
       Logger.info('Imposta i filtri globali','(da implementare)');
     }
 
+    function handleSelection() {
+      //var selection = [];
+      //cache.context.amonalies.forEach(function(a){
+      //  if (a.selected)
+      //    selection.push(a);
+      //});
+      Amonalies.handleSelection(cache.context.o.selection);
+    }
+
     $scope.buttons = [{
+      desc:'Gestisci selezione multipla',
+      class:'fa-play-circle',
+      click: handleSelection
+    },{
+      divider: true
+    },{
       desc:'Imposta i filtri globali',
       class:'fa-filter',
       click: filterEditor
@@ -30,7 +44,7 @@ angular.module('amonalieApp')
       click: newAmonalia
     }];
 
-    $scope.activetab = $scope.taskGroups[0].title;
+    $scope.activetab = $scope.groups[0].title;
 
     $scope.dragging = false;
 

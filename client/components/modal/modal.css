@@ -21,3 +21,44 @@
 .modal-danger .modal-header {
   background: #d9534f;
 }
+.nav-modal {
+  margin-bottom: 12px;
+}
+
+.modal-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin: 12px 0;
+  border: transparent 1px solid;
+  cursor: pointer;
+}
+
+.form-modal select {
+  color: darkorange;
+}
+
+.modal-btn-default:hover {
+  border-color: #ccc;
+}
+
+.modal-btn-default {
+  background-color: transparent;
+}
+.modal-btn-primary {
+  color:#fff;
+  background-color: #3276b1;
+}
+.modal-btn-success {
+  color:#fff;
+  background-color: #47a447;
+}
+.modal-btn-warning {
+  color:#fff;
+  background-color: #ed9c28;
+}
+.modal-btn-danger {
+  color:#fff;
+  background-color: #d2322d;
+}

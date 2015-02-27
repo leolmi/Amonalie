@@ -1,4 +1,4 @@
-task {
+amonalia {
   /*border: #888 1px solid;*/
   /*border-radius: 3px;*/
   padding: 12px;
@@ -17,49 +17,49 @@ task {
   font-size: 10px;
 }
 
-task:hover {
+amonalia:hover {
   background-color: #fff;
   /*border-color: sienna;*/
   cursor: -webkit-grab;
 }
 
-.task-editor-container > h1 {
+.amonalia-editor-container > h1 {
   margin: 0;
 }
 
-task > pre {
+amonalia > pre {
   font-size: 11px;
   margin: 0 -4px 8px;
 }
 
-task .close {
+amonalia .close {
   position: absolute;
   top: 2px;
   right: 8px;
 }
 
-.task-users {
+.a-users {
   right: 8px;
   position: absolute;
   z-index: 4;
   top: 32px;
 }
 
-.task-action {
-  position: absolute;
-  margin-top: 30px;
-  opacity: .2;
-  font-size: 20px;
-}
-.task-action:hover {
-  opacity: 1;
-}
-.task-action-right{
-  right: 4px;
-}
-.task-action-left{
-  left: 4px;
-}
+/*.task-action {*/
+  /*position: absolute;*/
+  /*margin-top: 30px;*/
+  /*opacity: .2;*/
+  /*font-size: 20px;*/
+/*}*/
+/*.task-action:hover {*/
+  /*opacity: 1;*/
+/*}*/
+/*.task-action-right{*/
+  /*right: 4px;*/
+/*}*/
+/*.task-action-left{*/
+  /*left: 4px;*/
+/*}*/
 .expand-collapse {
   position: absolute;
   right: 10px;
@@ -84,11 +84,11 @@ task .close {
   background-color: transparent;
   z-index: 4;
   right: 0px;
-  top: 0px;
+  top: -1px;
   font-size: 16px;
   border: transparent;
   border-bottom-left-radius: 6px;
-  border-top-right-radius: 3px;
+  /*border-top-right-radius: 3px;*/
   opacity: .6;
   width: 32px;
   height: 32px;
@@ -96,13 +96,14 @@ task .close {
 
 .open-details:hover {
   opacity: 1;
-  background-color: white;
+  background-color: #333;
+  color: #ccc;
 }
 
 
 
 
-task band {
+amonalia band {
   position: absolute;
   width: 70px;
   height: 70px;
@@ -146,24 +147,15 @@ task band {
   padding: 12px;
   border-radius: 6px;
 }
-/*.element-category {*/
-  /*position: absolute;*/
-  /*left: 0px;*/
-  /*top: 0px;*/
-  /*width: 20%;*/
-  /*height: 100%;*/
-  /*opacity: .3;*/
-  /*border-right: #fff 2px solid;*/
-  /*border-bottom-left-radius: 3px;*/
-  /*border-top-left-radius: 3px;*/
-/*}*/
 
 .a-selector {
   position: absolute;
-  left: 0px;
-  top: 0;
-  height: 100%;
-  width: 21%;
+  top: -1px;
+  left: -1px;
+  height: calc(100% + 4px);
+  height: -moz-calc(100% + 4px);
+  height: -webkit-calc(100% + 4px);
+  width: 64px;
   opacity: 0;
   background-color: #ffffff;
   cursor: pointer;
@@ -172,26 +164,38 @@ task band {
 }
 .a-selector > .fa {
   font-size: 50px;
+  display: block;
 }
 
 .a-selector:hover {
   opacity: 1;
   background-color: #333;
-  top: -1px;
-  left: -1px;
-  height: 101%;
 }
 
 .a-selected {
   position: absolute;
   top: -1px;
   left: -1px;
-  height: 101%;
-  width: 21%;
+  height: calc(100% + 4px);
+  height: -moz-calc(100% + 4px);
+  height: -webkit-calc(100% + 4px);
+  width: 64px;
   background-color: #333;
   text-align: center;
   color:#eee;
 }
 .a-selected > .fa {
   font-size: 50px;
+  display: block;
+}
+
+.list-handler-container {
+  min-height: 300px;
+}
+
+
+.list-handler-container .nav-pills > li.active > a,
+.list-handler-container .nav-pills > li.active > a:hover,
+.list-handler-container .nav-pills > li.active > a:focus {
+  background-color: #ed9c28;
 }

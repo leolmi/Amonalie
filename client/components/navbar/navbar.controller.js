@@ -37,6 +37,8 @@ angular.module('amonalieApp')
       Amonalies.milk();
     };
 
+    $scope.milking = Amonalies.milking();
+
     $scope.$on('MILKING', function() {
       $scope.milking = Amonalies.milking();
     });

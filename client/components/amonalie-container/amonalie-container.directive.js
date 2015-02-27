@@ -4,19 +4,17 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('tasksContainer', ['cache','Amonalies',function(cache,Amonalies) {
+  .directive('amonalieContainer', ['cache','Amonalies',function(cache,Amonalies) {
     return {
       restrict: 'E',
-      scope: {tasks: '=ngModel', amonalies:'=', showtitle:'='},
-      templateUrl: 'components/tasks-container/tasks-container.html',
+      scope: {group: '=ngModel', amonalies:'=', showtitle:'='},
+      templateUrl: 'components/amonalie-container/amonalie-container.html',
       link: function (scope, elm, atr) {
         scope.startDrag = function(event, ui, a) {
-          Amonalies.dragging = {
-            a: a
-          };
+          Amonalies.dragging = { a: a };
         };
         scope.filters = cache.context.o.filters;
-        scope.getTaskStyle = function(a) {
+        scope.getAmonaliaStyle = function(a) {
           var color = Amonalies.getAppColor(a.app);
           return {'background': 'linear-gradient(to right, '+color+' 0%, '+color+' 20%, #ddd 21%, #ddd 100%)'};
         };

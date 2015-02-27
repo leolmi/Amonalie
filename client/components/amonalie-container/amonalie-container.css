@@ -1,11 +1,11 @@
-.tasks-container {
+.amonalie-container {
   background-color: #333;
   border-radius: 12px;
   padding: 8px;
   border: #222 1px solid;
   min-height: 148px;
 }
-.tasks-title {
+.amonalie-title {
   border-width: 0;
   border-style: solid;
   padding: 8px;
@@ -17,7 +17,7 @@
   border-top-right-radius: 6px;
 }
 
-.tasks-title.notab {
+.amonalie-title.notab {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }

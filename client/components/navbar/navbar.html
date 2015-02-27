@@ -5,8 +5,7 @@
         <i class="fa fa-lg" ng-class="item.icon"></i> {{item.title}}
       </a>
       <a ng-click="milk()" ng-hide="milking" class="navbar-brand aslink" ng-class="{'font-success':isAssistant(), 'font-warning':!isAssistant()}"> <i class="fa fa-lg fa-cloud-download"></i> </a>
-      <a ng-show="milking" class="navbar-brand working-brand"> <i class="fa fa-lg fa-cloud"></i> </a>
-
+      <a ng-show="milking" class="navbar-brand working-brand" popover="Mungitura in corso, attendere..." popover-trigger="mouseenter" popover-placement="bottom"> <i class="fa fa-lg fa-cloud"></i> </a>
       <ul class="nav navbar-nav onright">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">

@@ -188,7 +188,6 @@ var doHttpsRequest = function(desc, options, data, target, cb) {
 
 
     res.on('data', function (chunk) {
-      //console.log('['+desc+']-BODY: ' + chunk);
       content+=chunk;
     });
     res.on('end', function () {
@@ -278,6 +277,7 @@ exports.milk = function(exreq, exres) {
         o2.headers['DNT'] = '1';
         o2.headers['accept'] = 'text/html, application/xhtml+xml, */*';
 
+        console.log('procede all\'apertura...');
         doHttpsRequest('apertura', o2, undefined, undefined, function(o3, r3, c3) {
           if (r3.code!=200)
             return u.error(exres, new Error('[apertura] - terminata con codice: '+r3.code));

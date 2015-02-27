@@ -1,15 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <page-bar ng-model="buttons"></page-bar>
 
-<div class="row row-tasks" ng-hide="waiting">
-  <ul class="nav nav-tabs nav-tasks" ng-hide="large">
-    <li ng-repeat="tasks in taskGroups" role="presentation" ng-class="{active:activetab==tasks.title}">
-      <a href class="aslink" ng-class="tasks.style" ng-click="selectTab(tasks.title)">{{tasks.title}}</a>
+<div class="row row-amonalie" ng-hide="context.idle">
+  <ul class="nav nav-tabs nav-amonalie" ng-hide="large">
+    <li ng-repeat="g in groups" role="presentation" ng-class="{active:activetab==g.title}">
+      <a href class="aslink" ng-class="g.style" ng-click="selectTab(g.title)">{{g.title}}</a>
     </li>
   </ul>
-  <div ng-repeat="tasks in taskGroups" class="col-sm-3 tasks-container" ng-class="{notab:large}"
-       ng-show="large || activetab==tasks.title" data-drop="true" data-jqyoui-options jqyoui-droppable="{beforeDrop: 'beforeDrop(tasks)'}">
-    <tasks-container ng-model="tasks" amonalies="context.amonalies" showtitle="large"></tasks-container>
+  <div ng-repeat="g in groups" class="col-sm-3 amonalie-container" ng-class="{notab:large}"
+       ng-show="large || activetab==g.title" data-drop="true" data-jqyoui-options jqyoui-droppable="{beforeDrop: 'beforeDrop(g)'}">
+    <amonalie-container ng-model="g" amonalies="context.amonalies" showtitle="large"></amonalie-container>
   </div>
 </div>
 <waiting ng-show="context.idle"></waiting>
