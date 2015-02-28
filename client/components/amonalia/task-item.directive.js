@@ -8,7 +8,7 @@ angular.module('amonalieApp')
     return {
       restrict: 'E',
       scope: {task: '=ngModel', targets:'=', readonly:'='},
-      templateUrl: 'components/task/task-item.html',
+      templateUrl: 'components/amonalia/task-item.html',
       link: function (scope, elm, atr) {
         scope.options = {
           formatYear: 'yy',
@@ -31,8 +31,8 @@ angular.module('amonalieApp')
           scope.collapsed=!scope.collapsed;
         };
         scope.delete = function() {
-          //TODO: elimina il task
-          Logger.info('Elimina il task','(da implementare)');
+          var idx = scope.$parent.modal.info.a.tasks.indexOf(scope.task);
+          scope.$parent.modal.info.a.tasks.splice(idx,1);
         };
         scope.open_start = function(e) {
           e.preventDefault();
@@ -45,7 +45,11 @@ angular.module('amonalieApp')
           scope.end_opened = !scope.end_opened;
         };
         scope.terminate = function() {
-
+          var now = (new Date()).getTime();
+          if (!scope.task_dates.start)
+            scope.task_dates.start = now;
+          if (!scope.task_dates.end)
+            scope.task_dates.end = now;
         };
       }
     }

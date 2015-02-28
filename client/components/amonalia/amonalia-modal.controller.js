@@ -4,11 +4,11 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('AmonaliaModalCtrl', ['$scope','Amonalies','Logger', function ($scope,Amonalies,Logger) {
+  .controller('AmonaliaModalCtrl', ['$scope','Auth','Amonalies', function ($scope,Auth,Amonalies) {
     $scope.collapsed = true;
     $scope.states = Amonalies.states();
     $scope.addItem = function () {
-      //TODO: aggiunge un nuovo task
-      Logger.info('Aggiunge un nuovo task','(da implementare)');
+      var t = Amonalies.getNewTask(Auth.getCurrentUser()._id);
+      $scope.modal.info.a.tasks.push(t);
     };
   }]);

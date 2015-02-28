@@ -6,25 +6,23 @@
   <form class="task-item-form" collapse="collapsed">
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label>Chi</label>
-          <input type="text" class="form-control input-sm" ng-model="task.owner"/>
-        </div>
+        <!-- CHI -->
+        <label>Chi</label>
+        <input type="text" class="form-control input-sm" ng-model="task.owner"/>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <label>Obiettivo</label>
-          <select class="form-control input-sm" ng-options="t._id as t.name for t in targets" ng-model="task.target">
-            <option style="display:none" value="">seleziona un obiettivo...</option>
-          </select>
-        </div>
+        <!-- OBIETTIVO -->
+        <label>Obiettivo</label>
+        <select class="form-control input-sm" ng-options="t._id as t.name for t in targets" ng-model="task.target">
+          <option style="display:none" value="">seleziona un obiettivo...</option>
+        </select>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <label>Inizio</label>
         <p class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.start" is-open="start_opened" datepicker-options="options" close-text="Chiudi" ng-required="true" />
+          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.start" is-open="start_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi" ng-required="true" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default input-sm" ng-click="open_start($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -33,23 +31,21 @@
       <div class="col-md-6">
         <label>Fine</label>
         <p class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.end" is-open="end_opened" placeholder="in lavorazione..." datepicker-options="options" close-text="Chiudi"/>
+          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.end" is-open="end_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default input-sm" ng-click="open_end($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
     </div>
-    <div class="form-group">
-      <label>Lavorata su</label>
-      <input type="text" class="form-control input-sm" ng-model="task.work"/>
-    </div>
-    <div class="form-group">
-      <label>Note</label>
-      <textarea class="form-control vertical input-sm" rows="2" ng-model="task.notes"></textarea>
-    </div>
-    <button ng-hide="done" class="btn btn-primary" ng-click="terminate()">Termina lavori</button>
-    <!--<button class="btn btn-success">Applica</button>-->
+    <!-- INTERVENTO SSF -->
+    <label>Lavorata su</label>
+    <input type="text" class="form-control input-sm" ng-model="task.work"/>
+    <!-- NOTE -->
+    <label>Note</label>
+    <textarea class="form-control vertical input-sm" rows="2" ng-model="task.notes"></textarea>
+
+    <button ng-hide="done" class="btn btn-primary space-before" ng-click="terminate()">Termina lavori</button>
   </form>
   <div ng-hide="readonly" class="element-footer-band" ng-click="toggle()">dettagli</div>
 </div>

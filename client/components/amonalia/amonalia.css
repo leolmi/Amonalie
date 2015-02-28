@@ -1,15 +1,10 @@
 amonalia {
-  /*border: #888 1px solid;*/
-  /*border-radius: 3px;*/
-  padding: 12px;
-  /*background-color: #ddd;*/
-  /*background: linear-gradient(rgb(252, 255, 244) 0%, rgb(179, 190, 173) 82%);*/
+  padding: 12px 12px 4px;
   background-color: #ddd;
-  /*border-bottom: 1px solid #111;*/
   border-radius: 3px;
   border-top: 1px solid #fff;
   border-left: 1px solid #fff;
-
+  min-height: 64px;
   color:#222;
   margin: 4px 0;
   position: relative;
@@ -19,17 +14,11 @@ amonalia {
 
 amonalia:hover {
   background-color: #fff;
-  /*border-color: sienna;*/
   cursor: -webkit-grab;
 }
 
 .amonalia-editor-container > h1 {
   margin: 0;
-}
-
-amonalia > pre {
-  font-size: 11px;
-  margin: 0 -4px 8px;
 }
 
 amonalia .close {
@@ -45,21 +34,6 @@ amonalia .close {
   top: 32px;
 }
 
-/*.task-action {*/
-  /*position: absolute;*/
-  /*margin-top: 30px;*/
-  /*opacity: .2;*/
-  /*font-size: 20px;*/
-/*}*/
-/*.task-action:hover {*/
-  /*opacity: 1;*/
-/*}*/
-/*.task-action-right{*/
-  /*right: 4px;*/
-/*}*/
-/*.task-action-left{*/
-  /*left: 4px;*/
-/*}*/
 .expand-collapse {
   position: absolute;
   right: 10px;
@@ -72,13 +46,6 @@ amonalia .close {
   opacity: 1;
 }
 
-/*.open-details {*/
-  /*position: absolute;*/
-  /*top: 2px;*/
-  /*right: 8px;*/
-  /*z-index: 4;*/
-  /*font-size: 16px;*/
-/*}*/
 .open-details {
   position: absolute;
   background-color: transparent;
@@ -192,6 +159,7 @@ amonalia band {
 .list-handler-container {
   min-height: 300px;
 }
+
 
 
 .list-handler-container .nav-pills > li.active > a,

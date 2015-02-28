@@ -30,6 +30,15 @@ exports.getname = function(req, res) {
   });
 };
 
+exports.list = function(req, res) {
+  User.find({}, function (err, users) {
+    if(err) return res.send(500, err);
+    var us = [];
+    users.forEach(function(u) { us.push({_id: u._id, name: u.name}); })
+    res.json(200, us);
+  });
+};
+
 /**
  * Creates a new user
  */

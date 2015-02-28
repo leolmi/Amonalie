@@ -7,18 +7,12 @@ angular.module('amonalieApp')
   .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http,$rootScope,$location,Logger,Auth,Modal) {
     var _states = ['dafare','fando','fatto'];
     var _amonalies = [];
-    //var colors = ['#87e0fd',"fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow",
-    //              "darkblue","darkmagenta","black","darkgreen","dodgerblue","indigo","darkorange","olivedrab ","orchid"];
     var colors = [
-        '#87e0fd', //celestino
-        '#cdeb8e', //verdino
-        '#606c88', //grigio-celeste
-        '#ff7400', //arancioncino
-        '#ff1a00', //rossotto
-        '#4f85bb', //celeste
-        '#febf01', //giallo
-        '#a4b357', //oliva
-      ];
+      "#FE2E2E", "#FE642E", "#FE2E64", "#FE9A2E", "#FE2E9A", "#FACC2E", "#FE2EC8", "#F7FE2E",
+      "#FE2EF7", "#C8FE2E", "#CC2EFA", "#9AFE2E", "#9A2EFE", "#64FE2E", "#642EFE", "#2EFE2E",
+      "#2E2EFE", "#2EFE64", "#2E64FE", "#2EFE9A", "#2E9AFE", "#2EFEC8", "#2ECCFA", "#2EFEF7"
+    ];
+
 
     var states = ['dafare','fando','fatto'];
     var _apps = [];
@@ -173,9 +167,9 @@ angular.module('amonalieApp')
         o: {
           task: false,
           state:'dafare',
-          owner:Auth.getCurrentUser().name,
+          owner:Auth.getCurrentUser()._id,
           target:'',
-          date: (new Date()).getTime()
+          date:null
         }
       };
       modalEditSelection(args);
@@ -193,6 +187,48 @@ angular.module('amonalieApp')
       }
     }
     /**
+     * Restituisce un nuovo task
+     * @param {String} [userid]
+     * @returns {{owner: *, start: null, end: null, work: string, notes: string, target: string}}
+     */
+    var getNewTask = function(userid) {
+      return {
+        owner:userid ? userid : '',
+        start:null,
+        end:null,
+        work:'',
+        notes:'',
+        target:''
+      };
+    };
+    /**
+     * restituisce vero se il task è attivo
+     * @param t
+     */
+    var isActive = function(t) {
+      return !t.end;
+    };
+    /**
+     * Permette di lavorare sui task attivi
+     * @param a
+     * @param {Boolean} create
+     * @param {Function} h
+     */
+    function onActiveTasks(a, create, h) {
+      var actives = 0;
+      a.tasks.forEach(function(t) {
+        if (isActive(t)){
+          actives++;
+          h(t);
+        }
+      });
+      if (create && actives<1) {
+        var t = getNewTask();
+        a.tasks.push(t);
+        h(t);
+      }
+    }
+    /**
      * Apre l'editor modale per modificare l'elenco delle amonalie selezionate
      * @type {Function}
      */
@@ -202,7 +238,11 @@ angular.module('amonalieApp')
           //Passa di stato le anomalie selezionate
           ona(args.list, function(a) {
             a.state = args.o.state;
-            //TODO:Modifica le attività
+            onActiveTasks(a, true, function(t){
+              if (args.o.owner && !t.owner) t.owner = args.o.owner;
+              if (args.o.target && !t.target) t.target = args.o.target;
+              if (args.o.start && !t.start) t.start = args.o.start;
+            });
             updateAmonalia(a);
           });
           break;
@@ -235,7 +275,6 @@ angular.module('amonalieApp')
           break;
       }
     });
-
 
 
 
@@ -362,6 +401,17 @@ angular.module('amonalieApp')
         });
     };
 
+    var getUsers = function(cb) {
+      $http.get('/api/users/list/')
+        .success(function(users){
+          cb(users);
+        })
+        .error(function(err){
+          Logger.error('Errori durante l\'enumerazione degli utenti', JSON.stringify(err));
+          cb();
+        });
+    };
+
     var _milking = false;
 
     var milk = function(options) {
@@ -438,6 +488,8 @@ angular.module('amonalieApp')
       updateAmonalia:updateAmonalia,
       deleteTarget:deleteTarget,
       get: getAmonalies,
+      getUsers:getUsers,
+      getNewTask:getNewTask,
       milk:milk,
       milking:function(){return _milking;},
       checkKnown:checkKnown,

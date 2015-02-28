@@ -21,9 +21,21 @@
 .modal-danger .modal-header {
   background: #d9534f;
 }
-.nav-modal {
+.space-after {
   margin-bottom: 12px;
 }
+.space-before {
+  margin-top: 12px;
+}
+.modal-body select {
+  color: darkorange;
+}
+.modal-body pre {
+  background-color: yellowgreen;
+}
+
+
+
 
 .modal-btn {
   position: relative;
@@ -33,10 +45,7 @@
   margin: 12px 0;
   border: transparent 1px solid;
   cursor: pointer;
-}
-
-.form-modal select {
-  color: darkorange;
+  color: #666;
 }
 
 .modal-btn-default:hover {
@@ -62,3 +71,4 @@
   color:#fff;
   background-color: #d2322d;
 }
+
