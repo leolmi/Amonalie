@@ -11,29 +11,26 @@ angular.module('amonalieApp')
       templateUrl: 'components/amonalia/amonalia.html',
       link: function (scope, elm, atr) {
         scope.opened = false;
-
-        var modalDelete = Modal.confirm.delete(function(a) {
-          Amonalies.deleteAmonalia(a, function(){
-            Logger.ok('Anomalia '+ a.code+' eliminata!');
-          });
+        Amonalies.getUsers(function(users){
+          var names = [];
+          if (scope.amonalia.tasks.length) {
+            scope.amonalia.tasks.forEach(function(t){
+              var n = Amonalies.getUserName(users, t.owner);
+              if (n && names.indexOf(n)<0)
+                names.push(n);
+            });
+          }
+          scope.usersnames = (names.length) ? names.join() : '?';
         });
-
         scope.toggle = function() {
           scope.opened=!scope.opened;
         };
 
+        var appcolor = Amonalies.getAppColor(scope.amonalia.app);
+        scope.appstyle = {color:appcolor};
+
         scope.isworking = function(){
           return (scope.amonalia.state=='fando');
-        };
-        scope.getusers = function(){
-          var users = [];
-          if (scope.amonalia.tasks.length) {
-            scope.amonalia.tasks.forEach(function(t){
-              if (users.indexOf(t.owner)<0)
-                users.push(t.owner);
-            });
-          }
-          return (users.length) ? users.join() : '?';
         };
 
         scope.details = function() {

@@ -7,4 +7,4 @@
 </div>
 <amonalia ng-repeat="a in filtered = (amonalies | filter: { state:group.filter } | filter:filters[group.filtername])"
       data-drag="{{showtitle}}" jqyoui-draggable="{animate:true, onStart:'startDrag(a)'}" data-jqyoui-options="{revert: 'invalid'}"
-      ng-model="a" ng-style="getAmonaliaStyle(a)"></amonalia>
+      ng-model="a"></amonalia>

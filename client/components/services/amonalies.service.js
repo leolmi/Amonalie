@@ -7,15 +7,19 @@ angular.module('amonalieApp')
   .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http,$rootScope,$location,Logger,Auth,Modal) {
     var _states = ['dafare','fando','fatto'];
     var _amonalies = [];
-    var colors = [
+    var _colors = [
       "#FE2E2E", "#FE642E", "#FE2E64", "#FE9A2E", "#FE2E9A", "#FACC2E", "#FE2EC8", "#F7FE2E",
       "#FE2EF7", "#C8FE2E", "#CC2EFA", "#9AFE2E", "#9A2EFE", "#64FE2E", "#642EFE", "#2EFE2E",
       "#2E2EFE", "#2EFE64", "#2E64FE", "#2EFE9A", "#2E9AFE", "#2EFEC8", "#2ECCFA", "#2EFEF7"
     ];
-
-
-    var states = ['dafare','fando','fatto'];
+    var _users = [];
     var _apps = [];
+
+
+    /**
+     * Verifica le amonalie note all'utente
+     * @param amonalies
+     */
     var checkKnown = function(amonalies) {
       if (amonalies && amonalies.length) {
         if (_amonalies.length) {
@@ -28,12 +32,17 @@ angular.module('amonalieApp')
       }
     };
 
+    /**
+     * Restituisce il colore associato all'app
+     * @param app
+     * @returns {string}
+     */
     var getAppColor = function(app){
-      var lng = colors.length;
+
+      var lng = _colors.length;
       var pos = _apps.indexOf(app);
-      var index = pos % lng;
-      if (index<0) return 'white';
-      return colors[index];
+      var idx = pos % lng;
+      return (idx<0) ? 'white' : _colors[idx];
     };
 
     /**
@@ -58,14 +67,14 @@ angular.module('amonalieApp')
      */
     var getAmonalies = function(cb) {
       cb = cb || angular.noop;
-      var apps = [];
+      _apps = [];
       $http.get('/api/amonalie')
         .success(function(amonalies){
           //inserisce le info sui targets
           getTargets(function(targets) {
             amonalies.forEach(function (a) {
-              if (apps.indexOf(a.app)<0)
-                apps.push(a.app);
+              if (_apps.indexOf(a.app)<0)
+                _apps.push(a.app);
               if (targets && a.tasks.length && targets.length)
                 a.tasks.forEach(function (t) {
                   if (t.target) {
@@ -77,7 +86,6 @@ angular.module('amonalieApp')
                   }
                 });
             });
-            _apps = apps;
             checkKnown(amonalies);
             cb(undefined, amonalies, targets);
           });
@@ -116,15 +124,15 @@ angular.module('amonalieApp')
       if (opt) {
         switch(opt.state) {
           //fatte
-          case states[2]:
+          case _states[2]:
             //TODO: verifica la chiusura di tutti i task dell'anomalia
             break;
           //fando
-          case states[1]:
+          case _states[1]:
             //TODO: se non esiste un task aperto ne crea uno nuovo
             break;
           //da fare
-          case states[0]:
+          case _states[0]:
             break;
         }
       }
@@ -401,15 +409,29 @@ angular.module('amonalieApp')
         });
     };
 
-    var getUsers = function(cb) {
-      $http.get('/api/users/list/')
-        .success(function(users){
-          cb(users);
-        })
-        .error(function(err){
-          Logger.error('Errori durante l\'enumerazione degli utenti', JSON.stringify(err));
-          cb();
-        });
+    /**
+     * Restituisce l'elenco degli utente registrati
+     * @param {Function} cb
+     * @param {Boolean} [refresh]
+     */
+    var getUsers = function(cb, refresh) {
+      if (refresh || _users.length<=0) {
+        $http.get('/api/users/list/')
+          .success(function (users) {
+            _users = users;
+            cb(_users);
+          })
+          .error(function (err) {
+            Logger.error('Errori durante l\'enumerazione degli utenti', JSON.stringify(err));
+            cb();
+          });
+      }
+      else cb(_users);
+    };
+
+    var getUserName = function(users, uid) {
+      var result = $.grep(users, function (u) { return (u._id==uid); });
+      return (result.length) ? result[0].name : '';
     };
 
     var _milking = false;
@@ -489,6 +511,7 @@ angular.module('amonalieApp')
       deleteTarget:deleteTarget,
       get: getAmonalies,
       getUsers:getUsers,
+      getUserName:getUserName,
       getNewTask:getNewTask,
       milk:milk,
       milking:function(){return _milking;},

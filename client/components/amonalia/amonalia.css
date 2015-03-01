@@ -167,3 +167,11 @@ amonalia band {
 .list-handler-container .nav-pills > li.active > a:focus {
   background-color: #ed9c28;
 }
+
+
+.app-dot {
+  position: absolute;
+  font-size: 20px;
+  left: 2px;
+  bottom: 2px;
+}

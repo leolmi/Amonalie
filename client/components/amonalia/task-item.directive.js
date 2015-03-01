@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('taskItem', ['Logger', function (Logger) {
+  .directive('taskItem', ['Amonalies', function (Amonalies) {
     return {
       restrict: 'E',
       scope: {task: '=ngModel', targets:'=', readonly:'='},
@@ -23,6 +23,16 @@ angular.module('amonalieApp')
         scope.end_opened = false;
         scope.collapsed = true;
         scope.done = scope.task && scope.task.start && scope.task.end;
+        Amonalies.getUsers(function(users) {
+          scope.users = users;
+        });
+
+        scope.getUserName = function(){
+          if (scope.users)
+            return Amonalies.getUserName(scope.users, scope.task.owner);
+          return '';
+        };
+
         scope.getDate = function(n) {
           var d = new Date(n);
           return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
@@ -39,6 +49,7 @@ angular.module('amonalieApp')
           e.stopPropagation();
           scope.start_opened = !scope.start_opened;
         };
+
         scope.open_end = function(e) {
           e.preventDefault();
           e.stopPropagation();

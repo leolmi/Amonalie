@@ -14,10 +14,6 @@ angular.module('amonalieApp')
           Amonalies.dragging = { a: a };
         };
         scope.filters = cache.context.o.filters;
-        scope.getAmonaliaStyle = function(a) {
-          var color = Amonalies.getAppColor(a.app);
-          return {'background': 'linear-gradient(to right, '+color+' 0%, '+color+' 20%, #ddd 21%, #ddd 100%)'};
-        };
       }
     }
   }]);

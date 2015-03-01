@@ -1,14 +1,17 @@
 <div class="task-item" ng-class="{'btn-success':done, 'btn-warning':!done}">
   <span ng-show="collapsed" class="item-state fa" ng-class="{'fa-check-circle-o':done, 'fa-circle-o':!done}"></span>
   <button ng-hide="readonly" type="button" class="close" data-ng-click="delete()">&times;</button>
-  <p ng-show="collapsed"><strong>{{task.owner}}</strong> - dal {{getDate(task.start)}} {{done ? 'al '+getDate(task.end) : 'in lavorazione...'}}</p>
+  <p ng-show="collapsed"><strong>{{getUserName()}}</strong> - dal {{getDate(task.start)}} {{done ? 'al '+getDate(task.end) : 'in lavorazione...'}}</p>
   <p ng-show="collapsed && task.work"><small>fatta su: <strong>{{task.work}}</strong></small></p>
   <form class="task-item-form" collapse="collapsed">
     <div class="row">
       <div class="col-md-6">
         <!-- CHI -->
         <label>Chi</label>
-        <input type="text" class="form-control input-sm" ng-model="task.owner"/>
+        <!--<input type="text" class="form-control input-sm" ng-model="task.owner"/>-->
+        <select class="form-control input-sm" ng-options="u._id as u.name for u in users" ng-model="task.owner">
+          <option style="display:none" value="">seleziona un utente...</option>
+        </select>
       </div>
       <div class="col-md-6">
         <!-- OBIETTIVO -->
