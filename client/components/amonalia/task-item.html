@@ -1,7 +1,7 @@
 <div class="task-item" ng-class="{'btn-success':done, 'btn-warning':!done}">
-  <span ng-show="collapsed" class="item-state fa" ng-class="{'fa-check-circle-o':done, 'fa-circle-o':!done}"></span>
+  <span ng-show="collapsed" class="item-state fa" ng-class="{'fa-check':done, 'fa-ellipsis-h':!done}"></span>
   <button ng-hide="readonly" type="button" class="close" data-ng-click="delete()">&times;</button>
-  <p ng-show="collapsed"><strong>{{getUserName()}}</strong> - dal {{getDate(task.start)}} {{done ? 'al '+getDate(task.end) : 'in lavorazione...'}}</p>
+  <p ng-show="collapsed"><strong>{{getUserName()}}</strong> - {{getTimeDesc()}}</p>
   <p ng-show="collapsed && task.work"><small>fatta su: <strong>{{task.work}}</strong></small></p>
   <form class="task-item-form" collapse="collapsed">
     <div class="row">
@@ -23,18 +23,20 @@
     </div>
     <div class="row">
       <div class="col-md-6">
+        <!-- INIZIO -->
         <label>Inizio</label>
         <p class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.start" is-open="start_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi" ng-required="true" />
+          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task.dates.start" is-open="start_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi" ng-required="true" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default input-sm" ng-click="open_start($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
       <div class="col-md-6">
+        <!-- FINE -->
         <label>Fine</label>
         <p class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task_dates.end" is-open="end_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi"/>
+          <input type="text" class="form-control input-sm" datepicker-popup="{{format}}" ng-model="task.dates.end" is-open="end_opened" placeholder="non definita" datepicker-options="options" close-text="Chiudi"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default input-sm" ng-click="open_end($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>

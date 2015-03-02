@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .factory('Amonalies', ['$http','$rootScope','$location','Logger','Auth','Modal', function($http,$rootScope,$location,Logger,Auth,Modal) {
+  .factory('Amonalies', ['$http','$rootScope','$location','Utilities','Logger','Auth','Modal', function($http,$rootScope,$location,Utilities,Logger,Auth,Modal) {
     var _states = ['dafare','fando','fatto'];
     var _amonalies = [];
     var _colors = [
@@ -16,6 +16,9 @@ angular.module('amonalieApp')
     var _apps = [];
     var _milking = false;
     var dragging = {};
+
+
+
 
     /**
      * Verifica le amonalie note all'utente
@@ -105,6 +108,14 @@ angular.module('amonalieApp')
         info.def.reject();
         return;
       }
+      if (info.a.tasks.length) {
+        info.a.tasks.forEach(function (t) {
+          if (t.dates) {
+            t.start = (t.dates.start) ? Utilities.getDateNum(t.dates.start) : null;
+            t.end = (t.dates.end) ? Utilities.getDateNum(t.dates.end) : null;
+          }
+        });
+      }
       if (info.obj.state)
         info.a.state = info.obj.state;
       if (info.def && info.def.resolve)
@@ -158,6 +169,59 @@ angular.module('amonalieApp')
       //TODO: Crea una nuova amonalia
       Logger.info('Crea una nuova amonalia','(da implementare)');
     };
+    /**
+     * Apre l'editor modale per modificare l'elenco delle amonalie selezionate
+     * @type {Function}
+     */
+    var modalEditSelection = Modal.confirm.editlist(function(args){
+      var userid = Auth.getCurrentUser()._id;
+      switch(args.action) {
+        //Assegna lo stato alle anomalie selezionate
+        case 0:
+          ona(args.list, function(a) {
+            var tofando = args.o.state=='fando';
+            a.state = args.o.state;
+            onActiveTasks(a, tofando, function(t){
+              if (args.o.task) {
+                if (args.o.owner && !t.owner) t.owner = args.o.owner;
+                if (args.o.target && !t.target) t.target = args.o.target;
+                if (args.o.start && !t.start) t.start = args.o.start;
+              }
+              if (!t.owner)
+                t.owner = userid;
+            });
+            updateAmonalia(a);
+          });
+          break;
+        //Imposta l'obiettivo scelto alle amonalie selezionate
+        case 1:
+          if (!args.o.target)
+            Logger.warning('Nessun obiettivo selezionato!');
+          else {
+            ona(args.list, function(a) {
+              a.tasks.forEach(function(t){
+                if (!t.end)
+                  t.target = args.o.target;
+              });
+              updateAmonalia(a);
+            });
+          }
+          break;
+        //Archivia le amonalie selezionate chiudendo tutte le attività in corso
+        case 2:
+          ona(args.list, function(a) {
+            a.archived = true;
+            a.tasks.forEach(function(t){
+              if (!t.start)
+                t.start = (new Date()).getTime();
+              if (!t.end)
+                t.end = (new Date()).getTime();
+            });
+            updateAmonalia(a);
+          });
+          break;
+      }
+    });
 
     /**
      * Modifica l'elenco delle amonalie selezionate
@@ -236,54 +300,6 @@ angular.module('amonalieApp')
         h(t);
       }
     }
-    /**
-     * Apre l'editor modale per modificare l'elenco delle amonalie selezionate
-     * @type {Function}
-     */
-    var modalEditSelection = Modal.confirm.editlist(function(args){
-      switch(args.action) {
-        case 0:
-          //Passa di stato le anomalie selezionate
-          ona(args.list, function(a) {
-            a.state = args.o.state;
-            onActiveTasks(a, true, function(t){
-              if (args.o.owner && !t.owner) t.owner = args.o.owner;
-              if (args.o.target && !t.target) t.target = args.o.target;
-              if (args.o.start && !t.start) t.start = args.o.start;
-            });
-            updateAmonalia(a);
-          });
-          break;
-        case 1:
-          if (!args.o.target)
-            Logger.warning('Nessun obiettivo selezionato!');
-          else {
-            //Imposta l'obiettivo scelto alle amonalie selezionate
-            ona(args.list, function(a) {
-              a.tasks.forEach(function(t){
-                if (!t.end)
-                  t.target = args.o.target;
-              });
-              updateAmonalia(a);
-            });
-          }
-          break;
-        case 2:
-          //Archivia le amonalie selezionate chiudendo tutte le attività in corso
-          ona(args.list, function(a) {
-            a.archived = true;
-            a.tasks.forEach(function(t){
-              if (!t.start)
-                t.start = (new Date()).getTime();
-              if (!t.end)
-                t.end = (new Date()).getTime();
-            });
-            updateAmonalia(a);
-          });
-          break;
-      }
-    });
-
 
 
     var modalEditTarget = Modal.confirm.edittarget(function(info){
@@ -295,7 +311,7 @@ angular.module('amonalieApp')
       info.target.name = info.obj.title;
       info.target.info = info.obj.desc;
       info.target.active = info.obj.active;
-      info.target.date = getDateNum(info.obj.date);
+      info.target.date = Utilities.getDateNum(info.obj.date);
       if (info.history) {
         info.target.archived = info.target.archived ? false : true;
       }
@@ -440,9 +456,9 @@ angular.module('amonalieApp')
       if (!user.assistant.length || !user.assistant[0].username || !user.assistant[0].password) {
         $location.path('/settings').search('message=assistant');
         return;
-      };
+      }
       if (_milking) {
-        Logger.warning('Mungitura in corso!','attendere...')
+        Logger.warning('Mungitura in corso!','attendere...');
         return;
       }
       _milking = true;
@@ -476,22 +492,6 @@ angular.module('amonalieApp')
         return dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
     };
 
-    var getDateByString = function(dt) {
-      var d = new Date();
-      var v = dt.split('/');
-      if (v && v.length>2){
-        d = new Date(v[2],v[1],v[0]);
-      }
-      return d;
-    };
-
-    var getDateNum = function(dt) {
-      if (typeof dt=='string')
-        dt = getDateByString(dt);
-      if (!dt.getTime)
-        dt = new Date();
-      return dt.getTime();
-    };
 
     return {
       states:function() { return _states; },

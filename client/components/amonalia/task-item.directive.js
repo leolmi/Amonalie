@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('taskItem', ['cache','Amonalies', function (cache,Amonalies) {
+  .directive('taskItem', ['cache','Utilities','Amonalies', function (cache,Utilities,Amonalies) {
     return {
       restrict: 'E',
       scope: {task: '=ngModel', readonly:'='},
@@ -15,7 +15,8 @@ angular.module('amonalieApp')
           startingDay: 1
         };
         scope.format = 'dd/MM/yyyy';
-        scope.task_dates = {
+
+        scope.task.dates = {
           start: scope.task.start,
           end: scope.task.end ? scope.task.end : undefined
         };
@@ -23,21 +24,37 @@ angular.module('amonalieApp')
         scope.start_opened = false;
         scope.end_opened = false;
         scope.collapsed = true;
-        scope.done = scope.task && scope.task.start && scope.task.end;
+        var now = (new Date()).getTime();
+        scope.done = scope.task && scope.task.start && scope.task.end && scope.task.end<now;
         Amonalies.getUsers(function(users) {
           scope.users = users;
         });
 
+
+        function getDate(n) {
+          var d = new Date(n);
+          return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
+        }
+
+
         scope.getUserName = function(){
           if (scope.users)
             return Amonalies.getUserName(scope.users, scope.task.owner);
-          return '';
+          return 'non definito';
+        };
+        scope.getTimeDesc = function() {
+          var times = 'tempi non definiti';
+          if (scope.task.start) {
+            times = 'dal '+getDate(scope.task.start);
+            if (scope.task.end)
+              times += ' al '+getDate(scope.task.end);
+          }
+          else if (scope.task.end) {
+            times = 'entro il '+getDate(scope.task.end);
+          }
+          return times;
         };
 
-        scope.getDate = function(n) {
-          var d = new Date(n);
-          return d.getDate()+'/'+(d.getMonth()+1)+'/'+ d.getFullYear();
-        };
         scope.toggle = function() {
           scope.collapsed=!scope.collapsed;
         };
@@ -50,7 +67,6 @@ angular.module('amonalieApp')
           e.stopPropagation();
           scope.start_opened = !scope.start_opened;
         };
-
         scope.open_end = function(e) {
           e.preventDefault();
           e.stopPropagation();

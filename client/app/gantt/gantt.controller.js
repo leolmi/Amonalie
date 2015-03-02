@@ -4,9 +4,10 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .controller('GanttCtrl', ['$scope','$rootScope','$http','$timeout','drawing','Gantt','cache',function ($scope,$rootScope,$http,$timeout,drawing,Gantt,cache) {
+  .controller('GanttCtrl', ['$scope','$rootScope','$http','$timeout','Utilities','drawing','Gantt','cache','Amonalies',function ($scope,$rootScope,$http,$timeout,Utilities,drawing,Gantt,cache,Amonalies) {
     $scope.context = cache.context;
-
+    var now = new Date();
+    var nowN = now.getTime();
     var elm = document.getElementById('gcontainer');
     var cnv = document.getElementById('gantt-canvas');
     var ctx2d = cnv.getContext('2d');
@@ -35,7 +36,7 @@ angular.module('amonalieApp')
         d:d,
         dw:dw,
         style:style,
-        user: t.owner,
+        user_id: t.owner,
         user_idx: 0
       }
     };
@@ -44,40 +45,59 @@ angular.module('amonalieApp')
       return ~~((d2-d1)/(1000*60*60*24));
     }
 
-    var calcTasks = function(ctx) {
+    var calcTasks = function(ctx, cb) {
+      cb = cb || angular.noop;
       var ts = [];
-      var us = [];
+      var us = [{_id:0, name:'da assegnare'}];
       var m = cache.context.o.gantt.date.getMonth();
       var start_d = new Date(cache.context.o.gantt.date.getFullYear(),m,1);
       var start = start_d.getTime();
+
       start_d.setMonth(m+1);
       var end = start_d.getTime();
-
-      $scope.context.amonalies.forEach(function(a) {
-        if (a.tasks.length) {
-          a.tasks.forEach(function(t) {
-            // 1. la data di inizio è compresa tra 'start' ed 'end';
-            // 2. la data di fine è compresa tra 'start' ed 'end';
-            // 3 la data d'inizio è anteriore a 'start' e la fine è posteriore a 'end';
-            if ((t.start >= start && t.start < end) || (t.end <= end && t.end > start) ||
-              (t.start <= start && t.end >= end)) {
-              var d = (t.start >= start && t.start < end) ? t.start : start;
-              var dw = (t.end && t.end>d) ? dayDiff(d, t.end) : 1;
-              var newt = getTask(t, a, (new Date(d)).getDate(), dw);
-              ts.push(newt);
-            }
-            if (t.owner && us.indexOf(t.owner)<0)
-              us.push(t.owner);
-          });
-          us.sort();
-          if (ts.length) {
-            ts.forEach(function(t) {
-              t.user_idx = us.indexOf(t.user);
+      var endnow = nowN>end ? end : nowN;
+      Amonalies.getUsers(function(users) {
+        $scope.context.amonalies.forEach(function(a) {
+          if (a.tasks.length) {
+            a.tasks.forEach(function(t) {
+              var newt = {};
+              // 1. la data di inizio è compresa tra 'start' ed 'end';
+              // 2. la data di fine è compresa tra 'start' ed 'end';
+              // 3 la data d'inizio è anteriore a 'start' e la fine è posteriore a 'end';
+              if ((t.start >= start && t.start < end) || (t.end <= end && t.end > start) ||
+                (t.start <= start && (t.end >= end || !t.end))) {
+                // data mostrata di inizio dell'intervento (relativa alla visualizzazione)
+                var d = (t.start >= start && t.start < end) ? t.start : start;
+                // durata intervento mostrato (relativa alla visualizzazione)
+                var dw = 1;
+                if (t.end && t.end>d)
+                  dw = dayDiff(d, t.end);
+                else if (!t.end && d<nowN) {
+                  dw = dayDiff(d, endnow);
+                  if (nowN<=end) dw++;
+                }
+                newt = getTask(t, a, (new Date(d)).getDate(), dw);
+                ts.push(newt);
+              }
+              if (t.owner) {
+                var exu = $.grep(users, function(u) { return (u._id== t.owner); });
+                if (!exu.length)
+                  newt.user_id = 0;
+                else if (exu.length && Utilities.indexOfByValue(us,'_id', t.owner)<0)
+                  us.push(exu[0]);
+              }
             });
+            us.sort(function(u1, u2){return u1.name.localeCompare(u2.name)});
+            if (ts.length) {
+              ts.forEach(function(t) {
+                t.user_idx = Utilities.indexOfByValue(us,'_id', t.user_id);
+              });
+            }
           }
-        }
+        });
         ctx.users = us;
         ctx.tasks = ts;
+        cb();
       });
     };
 
@@ -94,22 +114,19 @@ angular.module('amonalieApp')
 
     var refresh = function() {
       var ctx = {};
-      calcTasks(ctx);
-      calcHeight(ctx);
-      $scope.moving = undefined;
-      $scope.ctx = ctx;
-      resizeRedraw();
-      $scope.loading = false;
+      calcTasks(ctx, function() {
+        calcHeight(ctx);
+        $scope.moving = undefined;
+        $scope.ctx = ctx;
+        resizeRedraw();
+        $scope.loading = false;
+      });
     };
 
     var resizeRedraw = function() {
       if (!$scope.ctx) return;
       var date_month = cache.context.o.gantt.date.getMonth();
       var date_year = cache.context.o.gantt.date.getYear();
-      var now = new Date();
-
-
-
       var eff_H = $scope.ctx.height;
       var days = drawing.getDaysInMonth(date_month+1, date_year);
       var min_W = Gantt.constants.item_min_width * days;
@@ -135,7 +152,6 @@ angular.module('amonalieApp')
         };
       }
       else $scope.today = undefined;
-
 
       $timeout(function() {
         $('.gantt-scrollable-container').height(eff_H);
