@@ -18,10 +18,10 @@ angular.module('amonalieApp')
       $scope.users = users;
     });
     $scope.items = [{
-      title:'Passaggio di stato',
-      desc: 'Passa di stato le amonalie selezionate.'
+      title:'Assegna Stato',
+      desc: 'Assegna lo stato alle amonalie selezionate.'
     },{
-      title:'Imposta obiettivo',
+      title:'Imposta Obiettivo',
       desc:'Imposta l\'obiettivo selezionato su tutte le attività in corso nelle amonalie selezionate.'
     },{
       title:'Archivia',

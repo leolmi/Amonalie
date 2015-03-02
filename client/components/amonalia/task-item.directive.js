@@ -4,10 +4,10 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('taskItem', ['Amonalies', function (Amonalies) {
+  .directive('taskItem', ['cache','Amonalies', function (cache,Amonalies) {
     return {
       restrict: 'E',
-      scope: {task: '=ngModel', targets:'=', readonly:'='},
+      scope: {task: '=ngModel', readonly:'='},
       templateUrl: 'components/amonalia/task-item.html',
       link: function (scope, elm, atr) {
         scope.options = {
@@ -19,6 +19,7 @@ angular.module('amonalieApp')
           start: scope.task.start,
           end: scope.task.end ? scope.task.end : undefined
         };
+        scope.targets = cache.context.targets;
         scope.start_opened = false;
         scope.end_opened = false;
         scope.collapsed = true;

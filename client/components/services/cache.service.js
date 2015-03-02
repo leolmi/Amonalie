@@ -44,6 +44,20 @@ angular.module('amonalieApp')
       _context.o.filters.actions = '';
     }
 
+    /**
+     * Seleziona l'elemento, se notoggle è falso e l'oggetto è già selezionato lo deseleziona
+     * @param a
+     * @param {Boolean} [notoggle]
+     */
+    var select = function(a, notoggle) {
+      if (!a) return;
+      var idx = _context.o.selection.indexOf(a);
+      if (idx<0)
+        _context.o.selection.push(a);
+      else if (!notoggle)
+        _context.o.selection.splice(idx,1);
+    };
+
     function init(cb) {
       Auth.isLoggedInAsync(function(islogged) {
         if (islogged) {
@@ -86,6 +100,7 @@ angular.module('amonalieApp')
     }
 
     return {
+      select:select,
       init:init,
       check:check,
       refresh:refresh,

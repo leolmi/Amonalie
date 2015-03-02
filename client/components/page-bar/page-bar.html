@@ -1,5 +1,7 @@
 <div class="container">
   <div class="page-bar">
-    <span class="fa" ng-class="getClass(b)" ng-repeat="b in buttons" ng-click="click(b)"  popover="{{b.desc}}" popover-trigger="mouseenter" popover-placement="bottom"></span>
+    <span class="fa" ng-class="getClass(b)" ng-repeat="b in buttons" ng-click="click(b)"
+          popover="{{b.desc}}" popover-trigger="mouseenter" popover-placement="bottom"
+          ng-hide="b.hiddenon()"></span>
   </div>
 </div>

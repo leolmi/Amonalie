@@ -23,12 +23,27 @@ angular.module('amonalieApp')
       Amonalies.handleSelection(cache.context.o.selection);
     }
 
+    function clearSelection() {
+      cache.context.o.selection = [];
+    }
+
+    function isNotSelection() {
+      return cache.context.o.selection.length<=0;
+    }
+
     $scope.buttons = [{
+      desc:'Cancella selezione',
+      class:'fa-trash',
+      click: clearSelection,
+      hiddenon: isNotSelection
+    },{
       desc:'Gestisci selezione multipla',
       class:'fa-play-circle',
-      click: handleSelection
+      click: handleSelection,
+      hiddenon: isNotSelection
     },{
-      divider: true
+      divider: true,
+      hiddenon: isNotSelection
     },{
       desc:'Imposta i filtri globali',
       class:'fa-filter',

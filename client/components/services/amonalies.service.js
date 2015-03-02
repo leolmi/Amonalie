@@ -14,7 +14,8 @@ angular.module('amonalieApp')
     ];
     var _users = [];
     var _apps = [];
-
+    var _milking = false;
+    var dragging = {};
 
     /**
      * Verifica le amonalie note all'utente
@@ -433,7 +434,6 @@ angular.module('amonalieApp')
       return (result.length) ? result[0].name : '';
     };
 
-    var _milking = false;
 
     var milk = function(options) {
       var user = Auth.getCurrentUser();
@@ -465,8 +465,6 @@ angular.module('amonalieApp')
         });
     };
 
-    var dragging = {};
-
     var getDateStr = function(dt){
       if (typeof dt=='string')
         return dt;
@@ -497,10 +495,11 @@ angular.module('amonalieApp')
 
     return {
       states:function() { return _states; },
+      apps:function(){return _apps;},
+      milking:function(){return _milking;},
       createAmonalia:createAmonalia,
       editAmonalia:editAmonalia,
       handleSelection:handleSelection,
-      apps:function(){return _apps;},
       getAppColor:getAppColor,
       createNewTarget:createNewTarget,
       editTarget:editTarget,
@@ -513,7 +512,6 @@ angular.module('amonalieApp')
       getUserName:getUserName,
       getNewTask:getNewTask,
       milk:milk,
-      milking:function(){return _milking;},
       checkKnown:checkKnown,
       dragging:dragging
     }

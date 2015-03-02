@@ -40,11 +40,7 @@ angular.module('amonalieApp')
         scope.isSelected = function() { return (cache.context.o.selection.indexOf(scope.amonalia)>=0); };
 
         scope.select = function() {
-          var idx = cache.context.o.selection.indexOf(scope.amonalia);
-          if (idx<0)
-            cache.context.o.selection.push(scope.amonalia);
-          else
-            cache.context.o.selection.splice(idx,1);
+          cache.select(scope.amonalia);
         };
       }
     }

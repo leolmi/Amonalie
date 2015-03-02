@@ -43,6 +43,13 @@ angular.module('amonalieApp')
             return Math.min(scope.counter, scope.filtered.length);
           return scope.counter;
         };
+
+        scope.selectAll = function() {
+          if (!scope.filtered) return;
+          for(var i=0;i<scope.counter;i++) {
+            cache.select(scope.filtered[i], true);
+          }
+        };
       }
     }
   }]);

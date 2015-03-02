@@ -1,5 +1,6 @@
 <div class="amonalie-title" ng-class="{'notab':showtitle, 'btn-danger':group.style=='danger', 'btn-warning':group.style=='warning', 'btn-primary':group.style=='primary', 'btn-success':group.style=='success'}">
   {{showtitle ? group.title : ''}}
+  <i class="fa fa-check-circle-o header-selector aslink" ng-click="selectAll()"></i>
   <div class="input-group input-group-sm">
     <input type="text" class="form-control" placeholder="cerca..." aria-describedby="..." ng-model="filters[group.filtername]">
     <span class="input-group-addon">{{getCounter()}}{{(getCounter() != filtered.length) ? ' / '+filtered.length : ''}}</span>
