@@ -20,11 +20,6 @@ angular.module('amonalieApp')
     }
 
     function handleSelection() {
-      //var selection = [];
-      //cache.context.amonalies.forEach(function(a){
-      //  if (a.selected)
-      //    selection.push(a);
-      //});
       Amonalies.handleSelection(cache.context.o.selection);
     }
 

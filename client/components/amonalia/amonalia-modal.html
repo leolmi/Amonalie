@@ -5,6 +5,7 @@
     <div class="col-sm-12">
       <form class="form" novalidate>
         <div class="form-group">
+          <!-- STATO -->
           <label>Stato</label>
           <select ng-show="modal.info.obj.state" class="form-control" ng-model="modal.info.obj.state">
             <option ng-repeat="s in states">{{s}}</option>
@@ -12,6 +13,7 @@
           <input ng-hide="modal.info.obj.state" type="text" class="form-control" disabled ng-model="modal.info.a.state">
         </div>
       </form>
+      <!-- INTERVENTI -->
       <label>Interventi</label>
       <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly"></task-item>
       <p ng-hide="modal.info.readonly" class="new-task aslink" ng-click="addItem()"><i class="fa fa-plus-circle"></i> Aggiungi un nuovo intervento</p>

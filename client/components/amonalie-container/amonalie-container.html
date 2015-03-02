@@ -2,9 +2,10 @@
   {{showtitle ? group.title : ''}}
   <div class="input-group input-group-sm">
     <input type="text" class="form-control" placeholder="cerca..." aria-describedby="..." ng-model="filters[group.filtername]">
-    <span class="input-group-addon">{{filtered.length}}</span>
+    <span class="input-group-addon">{{getCounter()}}{{(getCounter() != filtered.length) ? ' / '+filtered.length : ''}}</span>
   </div>
 </div>
-<amonalia ng-repeat="a in filtered = (amonalies | filter: { state:group.filter } | filter:filters[group.filtername])"
+<amonalia ng-repeat="a in filtered = (amonalies | filter: { state:group.filter } | filter:filters[group.filtername]) | limitTo:counter"
       data-drag="{{showtitle}}" jqyoui-draggable="{animate:true, onStart:'startDrag(a)'}" data-jqyoui-options="{revert: 'invalid'}"
       ng-model="a"></amonalia>
+<i id="stepper" ng-show="filtered.length>counter" class="fa fa-ellipsis-h next-elements aslink" ng-click="next()"></i>

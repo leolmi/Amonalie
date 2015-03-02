@@ -38,7 +38,6 @@ angular.module('amonalieApp')
      * @returns {string}
      */
     var getAppColor = function(app){
-
       var lng = _colors.length;
       var pos = _apps.indexOf(app);
       var idx = pos % lng;
