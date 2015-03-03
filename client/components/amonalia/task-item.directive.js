@@ -7,7 +7,7 @@ angular.module('amonalieApp')
   .directive('taskItem', ['cache','Utilities','Amonalies', function (cache,Utilities,Amonalies) {
     return {
       restrict: 'E',
-      scope: {task: '=ngModel', readonly:'='},
+      scope: {task: '=ngModel', readonly:'=', collapsed:'='},
       templateUrl: 'components/amonalia/task-item.html',
       link: function (scope, elm, atr) {
         scope.options = {
@@ -23,7 +23,6 @@ angular.module('amonalieApp')
         scope.targets = cache.context.targets;
         scope.start_opened = false;
         scope.end_opened = false;
-        scope.collapsed = true;
         var now = (new Date()).getTime();
         scope.done = scope.task && scope.task.start && scope.task.end && scope.task.end<now;
         Amonalies.getUsers(function(users) {

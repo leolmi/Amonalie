@@ -4,8 +4,8 @@
   <pre>{{target.info}}</pre>
   <span><small>autore: </small><strong>{{target.author_name}}</strong></span>
   <span><small>scadenza: </small><strong>{{getDate()}}</strong></span>
-  <circular-gauge ng-show="target.active" ng-model="info"></circular-gauge>
-  <div ng-show="target.active" class="target-duedays">{{getDueDays()}}</div>
+  <div ng-show="target.active && hastasks" class="target-duedays">{{getDueDays()}}</div>
+  <circular-gauge ng-show="target.active && hastasks" ng-model="info"></circular-gauge>
   <span ng-hide="target.active" class="target-disabled fa fa-pause"></span>
   <div class="target-detail" collapse="isCollapsed">
     <div class="target-detail-row" ng-repeat="r in detailrows | filter:{tasks:'!'}">
@@ -13,5 +13,5 @@
       <div class="task-element" ng-repeat="t in r.tasks" ng-class="'btn-'+t.style" title="{{t.a.app}}" ng-click="openTask(t)">{{t.a.code}}</div>
     </div>
   </div>
-  <div class="element-footer-band" ng-click="toggle()">dettagli</div>
+  <div ng-show="hastasks" class="element-footer-band" ng-click="toggle()">dettagli</div>
 </div>

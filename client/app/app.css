@@ -115,6 +115,7 @@ body {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   margin: 0;
+  font-size: 12px;
 }
 .element-footer-band:hover{
   cursor: pointer;

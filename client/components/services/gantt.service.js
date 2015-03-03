@@ -14,14 +14,6 @@ angular.module('amonalieApp')
       row_height: 24
     };
 
-    var showTaskDetail = function(t) {
-      var opt = {
-        task:t,
-        readonly: true
-      };
-      Amonalies.editAmonalia(t.a, opt);
-    };
-
     function drawHeader(ctx, info) {
       drawing.fillRect(ctx, {x:0,y:0}, {w:info.w, h:constants.header_height}, constants.header_color);
       drawing.drawLine(ctx, {x:0,y:constants.header_height}, {x:info.w,y:constants.header_height}, constants.header_line_color, 1);
@@ -68,10 +60,8 @@ angular.module('amonalieApp')
     };
 
 
-
     return {
       constants:constants,
-      showTaskDetail:showTaskDetail,
       redraw:redraw
     }
   }]);

@@ -15,7 +15,7 @@
       </form>
       <!-- INTERVENTI -->
       <label>Interventi</label>
-      <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly"></task-item>
+      <task-item ng-repeat="t in modal.info.a.tasks" ng-model="t" readonly="modal.info.readonly" collapsed="isCollapsed(t)"></task-item>
       <p ng-hide="modal.info.readonly" class="new-task aslink" ng-click="addItem()"><i class="fa fa-plus-circle"></i> Aggiungi un nuovo intervento</p>
     </div>
   </div>

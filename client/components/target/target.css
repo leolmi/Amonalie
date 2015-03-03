@@ -1,7 +1,5 @@
 target {
   color: #fff;
-  /*background-color: #3276b1;*/
-  /*border-color: #285e8e;*/
   border-radius: 12px;
   border-width: 1px;
   border-style: solid;
@@ -75,7 +73,6 @@ target:hover {
   width: 44px;
   display: inline-block;
 }
-
 
 .target-detail-row-user {
   min-width: 100px;

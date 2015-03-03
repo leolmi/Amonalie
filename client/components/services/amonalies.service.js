@@ -501,6 +501,7 @@ angular.module('amonalieApp')
       }
       return {
         a:a,
+        t:t,
         style:style,
         user_id: t.owner
       }

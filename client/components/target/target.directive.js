@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('target', ['$http','$timeout','drawing','Modal','Amonalies','Gantt', function ($http,$timeout,drawing,Modal,Amonalies,Gantt) {
+  .directive('target', ['$http','$timeout','drawing','Modal','Amonalies', function ($http,$timeout,drawing,Modal,Amonalies) {
     return {
       restrict: 'E',
       scope: { target: '=ngModel', amonalies:'='},
@@ -14,8 +14,8 @@ angular.module('amonalieApp')
         scope.isCollapsed = true;
 
         var rows = [];
-
         Amonalies.getUsers(function(users){
+          scope.hastasks = false;
           // ordina gli utenti per nome
           users.sort(function(u1, u2){return u1.name.localeCompare(u2.name)});
           // aggiunge (come primo) l'utente "non assegnato"
@@ -36,18 +36,17 @@ angular.module('amonalieApp')
                   if (!rres[0].tasks)
                     rres[0].tasks = [];
                   // aggiunge il task
+                  scope.hastasks = true;
                   var tw = Amonalies.getTaskWrapper(t, a);
                   rres[0].tasks.push(tw);
                 }
               }
             });
-
-            scope.detailrows = rows;
           });
+
+          scope.detailrows = rows;
+          refresh();
         });
-
-
-
 
 
         scope.getDate = function() {
@@ -81,15 +80,16 @@ angular.module('amonalieApp')
         };
 
 
+        function refresh() {
+          $timeout(function () {
+            scope.$broadcast("TARGET_REFRESH", scope.info);
+            var bg_color = (scope.target.active && scope.hastasks) ? scope.info.i_color.background : '#aaa';
+            var br_color = (scope.target.active && scope.hastasks) ? scope.info.i_color.line : '#666';
 
-        $timeout(function() {
-          scope.$broadcast("TARGET_REFRESH", scope.info);
-          var bg_color = (scope.target.active) ? scope.info.i_color.background : '#aaa';
-          var br_color = (scope.target.active) ? scope.info.i_color.line : '#666';
-
-          elm.css('background-color', bg_color);
-          elm.css('border-color', br_color);
-        });
+            elm.css('background-color', bg_color);
+            elm.css('border-color', br_color);
+          });
+        }
 
         var modalDelete = Modal.confirm.delete(function(target) {
           Amonalies.deleteTarget(target);
@@ -120,7 +120,9 @@ angular.module('amonalieApp')
           Amonalies.editTarget(scope.target);
         };
 
-        scope.openTask = function(t) { Gantt.showTaskDetail(t); };
+        scope.openTask = function(tw) {
+          Amonalies.editAmonalia(tw.a, { task: tw.t });
+        };
       }
     }
   }]);

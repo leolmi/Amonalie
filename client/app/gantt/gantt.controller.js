@@ -158,7 +158,9 @@ angular.module('amonalieApp')
       });
     };
 
-    $scope.openTask = function(t) { Gantt.showTaskDetail(t); };
+    $scope.openTask = function(tw) {
+      Amonalies.editAmonalia(tw.a, { task:tw.t });
+    };
 
     $scope.getTodayStyle = function() {
       if ($scope.today)
