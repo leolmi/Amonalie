@@ -24,21 +24,12 @@ angular.module('amonalieApp')
     }];
 
     var getTask = function(t, a, d, dw){
-      var style = 'primary';
-      switch (a.state){
-        case('dafare'): style='danger'; break;
-        case('fando'): style='warning'; break;
-        case('fatto'): style='success'; break;
-      }
+      var tw = Amonalies.getTaskWrapper(t, a);
       if (dw<1) dw=1;
-      return {
-        a:a,
-        d:d,
-        dw:dw,
-        style:style,
-        user_id: t.owner,
-        user_idx: 0
-      }
+      tw.d = d;
+      tw.dw = dw;
+      tw.user_idx = 0;
+      return tw;
     };
 
     function dayDiff(d1, d2) {

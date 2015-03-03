@@ -492,6 +492,19 @@ angular.module('amonalieApp')
         return dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
     };
 
+    var getTaskWrapper = function(t,a) {
+      var style = 'primary';
+      switch (a.state){
+        case('dafare'): style='danger'; break;
+        case('fando'): style='warning'; break;
+        case('fatto'): style='success'; break;
+      }
+      return {
+        a:a,
+        style:style,
+        user_id: t.owner
+      }
+    };
 
     return {
       states:function() { return _states; },
@@ -511,6 +524,7 @@ angular.module('amonalieApp')
       getUsers:getUsers,
       getUserName:getUserName,
       getNewTask:getNewTask,
+      getTaskWrapper:getTaskWrapper,
       milk:milk,
       checkKnown:checkKnown,
       dragging:dragging

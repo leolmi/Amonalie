@@ -8,7 +8,10 @@
   <div ng-show="target.active" class="target-duedays">{{getDueDays()}}</div>
   <span ng-hide="target.active" class="target-disabled fa fa-pause"></span>
   <div class="target-detail" collapse="isCollapsed">
-    <p>Dettagli del target: anomalie da fare, fando e fatte</p>
+    <div class="target-detail-row" ng-repeat="r in detailrows | filter:{tasks:'!'}">
+      <span class="target-detail-row-user">{{r.user.name}}</span>
+      <div class="task-element" ng-repeat="t in r.tasks" ng-class="'btn-'+t.style" title="{{t.a.app}}" ng-click="openTask(t)">{{t.a.code}}</div>
+    </div>
   </div>
   <div class="element-footer-band" ng-click="toggle()">dettagli</div>
 </div>

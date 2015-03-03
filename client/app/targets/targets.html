@@ -14,7 +14,7 @@
 <div ng-show="context.targets.length && !context.idle">
   <page-bar ng-model="buttons"></page-bar>
   <div class="container targets-container">
-    <target ng-repeat="target in context.targets" ng-model="target" amonalies="amonalies"></target>
+    <target ng-repeat="t in context.targets" ng-model="t" amonalies="context.amonalies"></target>
   </div>
 </div>
 <waiting ng-show="context.idle"></waiting>

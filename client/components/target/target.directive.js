@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('amonalieApp')
-  .directive('target', ['$http','$timeout','drawing','Modal','Amonalies', function ($http,$timeout,drawing,Modal,Amonalies) {
+  .directive('target', ['$http','$timeout','drawing','Modal','Amonalies','Gantt', function ($http,$timeout,drawing,Modal,Amonalies,Gantt) {
     return {
       restrict: 'E',
       scope: { target: '=ngModel', amonalies:'='},
@@ -12,6 +12,44 @@ angular.module('amonalieApp')
       link: function (scope, elm, atr) {
 
         scope.isCollapsed = true;
+
+        var rows = [];
+
+        Amonalies.getUsers(function(users){
+          // ordina gli utenti per nome
+          users.sort(function(u1, u2){return u1.name.localeCompare(u2.name)});
+          // aggiunge (come primo) l'utente "non assegnato"
+          users.unshift({_id:0, name:'non assegnate'});
+          // costruisce le righe
+          users.forEach(function(u){
+            rows.push({user:u});
+          });
+          //alert('rows: '+rows.length+'   amonalies:'+scope.amonalies.length);
+          // cerca i task nelle anomalie
+          scope.amonalies.forEach(function(a){
+            a.tasks.forEach(function(t){
+              // se il task è assegnato a questo obiettivo...
+              if (t.target==scope.target._id){
+                var uid = t.owner ? t.owner : 0;
+                var rres = $.grep(rows, function(r) { return r.user._id==uid; });
+                if (rres.length) {
+                  if (!rres[0].tasks)
+                    rres[0].tasks = [];
+                  // aggiunge il task
+                  var tw = Amonalies.getTaskWrapper(t, a);
+                  rres[0].tasks.push(tw);
+                }
+              }
+            });
+
+            scope.detailrows = rows;
+          });
+        });
+
+
+
+
+
         scope.getDate = function() {
           return (new Date(scope.target.date)).toLocaleString();
         };
@@ -41,6 +79,8 @@ angular.module('amonalieApp')
           i_color:drawing.colors(type),
           i_size:'15'
         };
+
+
 
         $timeout(function() {
           scope.$broadcast("TARGET_REFRESH", scope.info);
@@ -79,6 +119,8 @@ angular.module('amonalieApp')
         scope.edit = function() {
           Amonalies.editTarget(scope.target);
         };
+
+        scope.openTask = function(t) { Gantt.showTaskDetail(t); };
       }
     }
   }]);
