@@ -13,12 +13,8 @@ angular.module('amonalieApp')
       o:{
         selection: [],
         table:{
-          filter: {
-            code:'',
-            app:'',
-            obj:'',
-            desc:''
-          },
+          filter: {code:'', app:'', obj:'', desc:''},
+          mine: false,
           rev: false,
           exp: '',
           col: undefined
@@ -46,13 +42,22 @@ angular.module('amonalieApp')
       }
 
       _context.o.selection = [];
+
       _context.o.gantt.date = new Date();
+
       _context.o.targets.mine = false;
+
       _context.o.filters.amonalies = '';
       _context.o.filters.dafare = '';
       _context.o.filters.fando = '';
       _context.o.filters.fatto = '';
       _context.o.filters.actions = '';
+
+      _context.o.table.filter = {code:'', app:'', obj:'', desc:''};
+      _context.o.table.mine = false;
+      _context.o.table.rev = false;
+      _context.o.table.exp = '';
+      _context.o.table.col = undefined;
     }
 
     /**
@@ -69,24 +74,25 @@ angular.module('amonalieApp')
         _context.o.selection.splice(idx,1);
     };
 
-    function init(cb) {
+    function check(cb) {
+      cb = cb || angular.noop;
       Auth.isLoggedInAsync(function(islogged) {
         if (islogged) {
           var uid = Auth.getCurrentUser()._id;
           if (_uid!=uid) {
             _uid = uid;
             reset();
-            refresh(cb);
+            if (!_context.amonalies || !_context.amonalies.length)
+              refresh(cb);
+            else cb();
           }
+          else cb();
         }
-        else reset(true);
+        else {
+          reset(true);
+          cb();
+        }
       });
-    }
-
-    function check(cb) {
-      if (!_context.amonalies || !_context.amonalies.length)
-        init(cb);
-      else if (cb) cb();
     }
 
     function refresh(cb){
@@ -112,7 +118,6 @@ angular.module('amonalieApp')
 
     return {
       select:select,
-      init:init,
       check:check,
       refresh:refresh,
       flush:flush,

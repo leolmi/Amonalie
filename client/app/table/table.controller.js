@@ -8,26 +8,33 @@ angular.module('amonalieApp')
     $scope.context = cache.context;
     cache.check();
 
-    function filter() {
-      Logger.info('Gestisce i filtri','(da implementare)');
+    function filter(){
+      //TODO: Gestisce i filtri avanzati
+      Logger.info('Gestisce i filtri avanzati','(da implementare)');
+    }
+
+    function toggleMine(){
+      cache.context.o.table.mine = !cache.context.o.table.mine;
+      //TODO: Visualizza solo le segnalazioni assegnate a me
+      Logger.info('Visualizza solo le segnalazioni assegnate a me','(da implementare)');
+      $scope.buttons[4].checked = cache.context.o.table.mine;
     }
 
     function newAmonalia(){
       Amonalies.createAmonalia();
     }
 
-    function handleSelection() {
+    function handleSelection(){
       Amonalies.handleSelection(cache.context.o.selection);
     }
 
-    function clearSelection() {
+    function clearSelection(){
       cache.context.o.selection = [];
     }
 
-    function isNotSelection() {
+    function isNotSelection(){
       return cache.context.o.selection.length<=0;
     }
-
 
     $scope.buttons = [{
       desc:'Cancella selezione',
@@ -43,9 +50,14 @@ angular.module('amonalieApp')
       divider: true,
       hiddenon: isNotSelection
     },{
-      desc:'Filtra i dati',
+      desc:'Filtri avanzati',
       class:'fa-filter',
       click: filter
+    },{
+      desc:'Mostra solo le amonalie assegnate a me',
+      class:'fa-user',
+      checked: cache.context.o.table.mine,
+      click: toggleMine
     },{
       desc:'Crea una nuova amonalia',
       class:'fa-plus-circle',
@@ -75,7 +87,6 @@ angular.module('amonalieApp')
     }];
 
     $scope.columnClick = function(c){
-      //Logger.info('columnc:'+ c.name+'  context:'+$scope.context.o.table.col);
       if ($scope.context.o.table.col && c.name==$scope.context.o.table.col.name)
         $scope.context.o.table.rev = $scope.context.o.table.rev ? false : true;
       else {
@@ -87,6 +98,24 @@ angular.module('amonalieApp')
 
     $scope.isSelected = function(a) { return (cache.context.o.selection.indexOf(a)>=0); };
 
+    $scope.getStyle = function(a){
+      var s = {};
+      if (cache.context.o.selection.indexOf(a)>=0){
+        s['row-selected']=true;
+      }
+      else if (a.archived) {
+        s['row-archived']=true;
+      }
+      else {
+        switch (a.state) {
+          case 'fatto': s['row-success']=true; break;
+          case 'fando': s['row-warning']=true; break;
+          case 'dafare': s['row-danger']=true; break;
+        }
+      }
+      return s;
+    };
+
     $scope.select = function(a) {
       cache.select(a);
     };
@@ -95,7 +124,7 @@ angular.module('amonalieApp')
       var codes = '';
       cache.context.o.selection.forEach(function(a){
         codes+= a.code+',';
-      })
+      });
       return codes;
     };
 

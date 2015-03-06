@@ -12,6 +12,15 @@
   color:#333;
 }
 
+.table-infos {
+  position: relative;
+}
+.table-legend {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .amonalie-table tr {
   position: relative;
 }
@@ -69,4 +78,27 @@
 }
 .amonalie-table > tbody > tr:hover .row-button:hover {
   opacity: 1;
+}
+.amonalie-table > thead > tr > th {
+  border: 0;
+}
+
+.row-success {
+  background-color: rgba(71, 164, 71, 0.50);
+}
+.row-warning {
+  background-color: rgba(237, 156, 40, 0.50);
+}
+.row-danger {
+  background-color: rgba(210, 50, 45, 0.50);
+}
+
+.font-success {
+  color: rgba(71, 164, 71, 0.50);
+}
+.font-warning {
+  color: rgba(237, 156, 40, 0.50);
+}
+.font-danger {
+  color: rgba(210, 50, 45, 0.50);
 }

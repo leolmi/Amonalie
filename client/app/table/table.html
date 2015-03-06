@@ -3,11 +3,20 @@
 <div class="container" ng-show="context.amonalies.length && !context.idle">
   <page-bar ng-model="buttons"></page-bar>
   <div class="table-container">
-    <p>
-      <small>Amonalie visibili: </small><strong>{{fitered.length}}/{{context.amonalies.length}}</strong>
-      <small ng-show="context.o.selection.length"> - Selezionate: </small><strong ng-show="context.o.selection.length" class="selected-font-style">{{context.o.selection.length}}</strong>
-    </p>
-    <pre>{{context.o.selection.length ? getSelectionCodes() : 'selezionare le amonalie...'}}</pre>
+    <div class="table-infos">
+      <p>
+        <small>Amonalie visibili: </small><strong>{{fitered.length}} / {{context.amonalies.length}}</strong>
+        <small ng-show="context.o.selection.length"> - Selezionate: </small><strong ng-show="context.o.selection.length" class="selected-font-style">{{context.o.selection.length}}</strong>
+      </p>
+      <p class="table-legend">
+        <small>
+          <i class="fa fa-square fa-fw font-danger"></i> Da Fare;
+          <i class="fa fa-square fa-fw font-warning"></i> Fando;
+          <i class="fa fa-square fa-fw font-success"></i> Fatte;
+        </small>
+      </p>
+    </div>
+    <pre>{{context.o.selection.length ? getSelectionCodes() : 'nessuna amonalia selezionata...'}}</pre>
     <table class="table amonalie-table">
       <thead>
         <tr>
@@ -23,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-click="select(a)" ng-class="{'row-selected':isSelected(a)}"
+        <tr ng-click="select(a)" ng-class="getStyle(a)"
           ng-repeat="a in fitered = (context.amonalies | orderBy : context.o.table.exp : context.o.table.rev | filter:context.o.table.filter)" >
           <td ng-repeat="c in columns">{{a[c.name]}}</td>
           <td class="row-button fa fa-search aslink" ng-click="edit($event,a)"></td>
