@@ -1,0 +1,35 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container" ng-show="context.amonalies.length && !context.idle">
+  <page-bar ng-model="buttons"></page-bar>
+  <div class="table-container">
+    <p>
+      <small>Amonalie visibili: </small><strong>{{fitered.length}}/{{context.amonalies.length}}</strong>
+      <small ng-show="context.o.selection.length"> - Selezionate: </small><strong ng-show="context.o.selection.length" class="selected-font-style">{{context.o.selection.length}}</strong>
+    </p>
+    <pre>{{context.o.selection.length ? getSelectionCodes() : 'selezionare le amonalie...'}}</pre>
+    <table class="table amonalie-table">
+      <thead>
+        <tr>
+          <th class="aslink" ng-repeat="c in columns" ng-click="columnClick(c)">{{c.title}}
+            <i class="fa" ng-class="{'fa-caret-up':context.o.table.rev, 'fa-caret-down':!context.o.table.rev}"
+               ng-show="context.o.table.col && c.name==context.o.table.col.name"></i>
+          </th>
+        </tr>
+        <tr>
+          <th ng-repeat="c in columns" class="larger">
+            <input class="form-control input-sm" type="text" ng-model="context.o.table.filter[c.name]">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-click="select(a)" ng-class="{'row-selected':isSelected(a)}"
+          ng-repeat="a in fitered = (context.amonalies | orderBy : context.o.table.exp : context.o.table.rev | filter:context.o.table.filter)" >
+          <td ng-repeat="c in columns">{{a[c.name]}}</td>
+          <td class="row-button fa fa-search aslink" ng-click="edit($event,a)"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<waiting ng-show="context.idle"></waiting>

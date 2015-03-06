@@ -1,0 +1,72 @@
+.amonalie-table {
+  font-size: smaller;
+  border: 0;
+}
+.amonalie-table > tbody > tr:hover {
+  background-color: #222;
+  color: #ddd;
+  cursor: pointer;
+}
+.amonalie-table > tbody > tr.row-selected:hover {
+  background-color: gold;
+  color:#333;
+}
+
+.amonalie-table tr {
+  position: relative;
+}
+
+.amonalie-table tr > th {
+  position: relative;
+}
+.amonalie-table tr > th:hover {
+  background-color: orangered;
+}
+
+.selected-font-style {
+  color: darkorange;
+}
+
+.amonalie-table tr > th > i {
+  color: #333;
+  font-size: 16px;
+  position: absolute;
+  top: -4px;
+  left: 20px;
+}
+.row-selected {
+  background-color: darkorange;
+  color:#333;
+}
+
+.amonalie-table tr > .larger {
+  padding: 2px;
+}
+.amonalie-table tr > th > input {
+  padding: 1px;
+  font-size: 10px;
+}
+
+
+
+.row-button {
+  /*position: absolute;*/
+  width: 32px;
+  opacity: 0;
+  font-size: 16px;
+  margin-left: -32px;
+  background-color: orangered;
+  border-radius: 6px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.amonalie-table > tbody > tr > td.row-button {
+  border: 0;
+  padding: 1px 8px;
+}
+.amonalie-table > tbody > tr:hover .row-button {
+  opacity: .4;
+}
+.amonalie-table > tbody > tr:hover .row-button:hover {
+  opacity: 1;
+}

@@ -7,7 +7,7 @@ angular.module('amonalieApp')
   .directive('taskItem', ['cache','Utilities','Amonalies', function (cache,Utilities,Amonalies) {
     return {
       restrict: 'E',
-      scope: {task: '=ngModel', readonly:'=', collapsed:'='},
+      scope: {task: '=ngModel', readonly:'='},
       templateUrl: 'components/amonalia/task-item.html',
       link: function (scope, elm, atr) {
         scope.options = {
@@ -15,11 +15,17 @@ angular.module('amonalieApp')
           startingDay: 1
         };
         scope.format = 'dd/MM/yyyy';
-
         scope.task.dates = {
           start: scope.task.start,
           end: scope.task.end ? scope.task.end : undefined
         };
+
+        function getInitialCollapsedState(){
+          return (atr.taskCollapsed!=undefined) ? atr.taskCollapsed : true;
+        }
+
+        scope.tcollapsed = getInitialCollapsedState();
+
         scope.targets = cache.context.targets;
         scope.start_opened = false;
         scope.end_opened = false;
@@ -55,7 +61,7 @@ angular.module('amonalieApp')
         };
 
         scope.toggle = function() {
-          scope.collapsed=!scope.collapsed;
+          scope.tcollapsed=!scope.tcollapsed;
         };
         scope.delete = function() {
           var idx = scope.$parent.modal.info.a.tasks.indexOf(scope.task);
@@ -78,6 +84,8 @@ angular.module('amonalieApp')
           if (!scope.task_dates.end)
             scope.task_dates.end = now;
         };
+
+        //alert('atr.collapsed='+atr.taskCollapsed+'   collapsed='+scope.tcollapsed);
       }
     }
   }]);

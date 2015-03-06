@@ -12,6 +12,17 @@ angular.module('amonalieApp')
       idle: false,
       o:{
         selection: [],
+        table:{
+          filter: {
+            code:'',
+            app:'',
+            obj:'',
+            desc:''
+          },
+          rev: false,
+          exp: '',
+          col: undefined
+        },
         gantt: {
           date: new Date()
         },

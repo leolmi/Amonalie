@@ -1,9 +1,9 @@
 <div class="task-item" ng-class="{'btn-success':done, 'btn-warning':!done}">
-  <span ng-show="collapsed" class="item-state fa" ng-class="{'fa-check':done, 'fa-ellipsis-h':!done}"></span>
+  <span ng-show="tcollapsed" class="item-state fa" ng-class="{'fa-check':done, 'fa-ellipsis-h':!done}"></span>
   <button ng-hide="readonly" type="button" class="close" data-ng-click="delete()">&times;</button>
-  <p ng-show="collapsed"><strong>{{getUserName()}}</strong> - {{getTimeDesc()}}</p>
-  <p ng-show="collapsed && task.work"><small>fatta su: <strong>{{task.work}}</strong></small></p>
-  <form class="task-item-form" collapse="collapsed">
+  <p ng-show="tcollapsed"><strong>{{getUserName()}}</strong> - {{getTimeDesc()}}</p>
+  <p ng-show="tcollapsed && task.work"><small>fatta su: <strong>{{task.work}}</strong></small></p>
+  <form class="task-item-form" collapse="tcollapsed">
     <div class="row">
       <div class="col-md-6">
         <!-- CHI -->

@@ -3,7 +3,7 @@
 angular.module('amonalieApp')
   .controller('MainCtrl', ['$scope','$q','$http','$window','socket','Logger','Amonalies','cache', function ($scope, $q, $http, $window, socket, Logger, Amonalies, cache) {
     $scope.context = cache.context;
-    cache.init();
+    cache.check();
     $scope.groups = [
       { title:'Anomalie', filter:undefined, style:'primary', filtername:'amonalies' },
       { title:'Da fare', filter:'dafare', style:'danger', filtername:'dafare' },
